@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace Dal;
@@ -23,8 +24,7 @@ internal class DalSource
 private static void s_InitializOrder()
 {
     Array Order = Enum.GeOrder(typeof(Status));
-    DalOrders = new DalOrder();
-
+    //DalOrders = new DalOrder();
 }
 
 private static void s_InitializOrderItem()
