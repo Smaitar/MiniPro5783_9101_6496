@@ -2,6 +2,6 @@
 
 namespace DO
 {
-     public enum Status { NotActive, Active };
+     public enum Category {ring,bracelet, necklace,earring};
 }
 
