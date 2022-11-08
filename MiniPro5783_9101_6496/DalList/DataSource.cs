@@ -22,11 +22,21 @@ internal class DalSource
     }
 private static void s_InitializOrder()
 {
-    Array order = Enum.GetValues(typeof(Status));
+    Array Order = Enum.GeOrder(typeof(Status));
+    DalOrders = new DalOrder();
+
 }
 
-private static void s_InitializOrderItem();
+private static void s_InitializOrderItem()
+{
+    Array OrderItem = Enum.GetOrderItems(typeof(Status));
+    DalOrderItem s = new DalOrderItem();
+}
 
-private static void s_InitializProduct();
+private static void s_InitializProduct()
+{
+    Array Product = Enum.GetProduct(typeof(Status));
+    DalProducts = new DalProduct();
+}
 
 }
