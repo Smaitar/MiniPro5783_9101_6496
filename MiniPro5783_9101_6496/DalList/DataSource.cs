@@ -10,9 +10,9 @@ internal class DataSource
     public const int NumProduct=150;
     public const int NumOrder=100;
     public const int NumOrderItem=200;
-    internal public List<Order>=new List<Order>();
-   internal public List<OrderItem>=new List<OrderItem>();
-   internal public List<Product>=new List<Product>();
+    internal public List<Order> order =new List<Order>();
+   internal public List<OrderItem>orderitem=new List<OrderItem>();
+   internal public List<Product>product=new List<Product>();
    //public override string ToString() =>
     static DataSource()
     {
