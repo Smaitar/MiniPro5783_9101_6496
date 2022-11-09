@@ -14,8 +14,8 @@ namespace DO
             return $@"
            Product Details:
            Product ID: {ID}, 
-           Product Name: {ProductID},
-    	   Product Category: {OrderID},
+           Product Name: {Name},
+    	   Product Category: {Category},
     	   InStock: {InStock},
            Price: {Price}.";
         }
