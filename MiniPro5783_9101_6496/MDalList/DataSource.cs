@@ -65,7 +65,12 @@ private static void s_InitializProduct()
     Array Category = Enum.GetValues(typeof(Category));
     for (int i = 0; i < NumProduct; i++)
     {
-
+        Product stu = new Product()
+        {
+            Name = "Student" + i,
+            Id = rnd.Next(100000000, 999999999),
+            ProductStatus = (Status)values.GetValue(rnd.Next(values.Length))
+        };
     }
 }
 
