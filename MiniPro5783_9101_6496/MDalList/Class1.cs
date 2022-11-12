@@ -1,4 +1,4 @@
-﻿namespace MyDalList
+﻿namespace MDalList
 {
     public class Class1
     {

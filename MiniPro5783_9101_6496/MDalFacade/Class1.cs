@@ -1,7 +1,7 @@
-﻿namespace MyDalFacade
+﻿namespace MDalFacade
 {
     public class Class1
     {
-       
+
     }
 }
