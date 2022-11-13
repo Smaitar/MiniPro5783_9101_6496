@@ -1,7 +1,6 @@
 ﻿
 
-namespace DO
-{
-     public enum Category {ring,bracelet, necklace,earring};
-}
+namespace DO;
+
+ public enum Category {ring,bracelet, necklace,earring,sets};
 

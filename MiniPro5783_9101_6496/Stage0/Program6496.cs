@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stage0
-    {
-        partial class Program
-        {
-            static partial void Welcome6496()
-            {
-                Console.WriteLine(" I am also here!");
-            }
-        }
-    }
+//namespace Stage0
+//    {
+//        partial class Program
+//        {
+//            static partial void Welcome6496()
+//            {
+//                Console.WriteLine(" I am also here!");
+//            }
+//        }
+//    }
