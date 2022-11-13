@@ -1,14 +1,16 @@
-﻿using Dal;
+﻿
+using Dal;
 using DO;
-using Microsoft.VisualBasic;
-using System;
-namespace DalTest;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 
-class Program
+
+internal class Program
 {
-    private static DalOrder order1 = new DalOrder();
-    private static DalOrderItem order2 = new DalOrderItem();
-    private static DalProduct order3 = new DalProduct();
+     DalOrder order1 = new DalOrder();
+     DalOrderItem order2 = new DalOrderItem();
+     DalProduct order3 = new DalProduct();
     
     static void Main(string[]args)
     {
@@ -17,7 +19,7 @@ class Program
         Console.WriteLine("To Product press 3");
         Console.WriteLine("To Exit press 0");
         int choice1 = int.Parse( Console.ReadLine());
-        switch(choice1)
+        switch (choice1)
         {
         case 1:
             OrderOption();
@@ -56,21 +58,15 @@ class Program
                 Console.WriteLine("enter Customer Adress:");
                 or.CustomerAdress = Console.ReadLine();
                 Console.WriteLine("enter Order Date:");
-                or.OrderDate = DateTime.Parse( Console.ReadLine());
-                Console.WriteLine("enter Ship Date:");
-                or.ShipDate = DateTime.Parse(Console.ReadLine());
-                Console.WriteLine("enter Delivery Date:");
-                or.DeliveryDate = DateTime.Parse(Console.ReadLine());
-                order1.AddOrder(or);
-
-
-
-
-
+                or.OrderDate = DateTime.Now;
+                or.ShipDate = null;
+                or.DeliveryDate = null;
+                order1.Add(or);
                 break;
             case 'b':
+                
                 DeleteOrder();
-            break;
+                break;
             case 'c':
                 UpdateOrder();
             break;
