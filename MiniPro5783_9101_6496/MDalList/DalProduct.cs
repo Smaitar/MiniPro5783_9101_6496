@@ -1,21 +1,25 @@
 ﻿
 
 using DO;
+using System.Security.Cryptography;
 namespace Dal;
 
-internal class DalProduct
+public class DalProduct
 {
 
     int AddOrder(Product ord)
     {
-        DataSource.ProductsList.
+        if (DataSource.ProductsList.Exists(i => i.ID == ord.ID))
+            throw new Exception("cannot create a Products In ProductsList, is already exists");
         DataSource.ProductsList.Add(ord);
         return (ord.ID);
     }
 
     int DeleteOrder(int IdDelete)
     {
-        for (int i = 0; i < DataSource.OrdersList.Count; i++)
+        if (!DataSource.ProductsList.Exists(i => i.ID == IdDelete))
+            throw new Exception("cannot create a Products In ProductsList, is already exists");
+        for (int i = 0; i < DataSource.ProductsList.Count; i++)
         {
             if (DataSource.OrdersList[i].ID == IdDelete)
             {
@@ -28,13 +32,19 @@ internal class DalProduct
 
     void UpdateOrder(Product ordUpdate)
     {
-        for (int i = 0; i < DataSource.OrdersList.Count; i++)
+        if (!DataSource.ProductsList.Exists(i => i.ID == ordUpdate.ID))
+            throw new Exception("cannot update a Products In ProductsList, is not exists");
+        for (int i = 0; i < DataSource.ProductsList.Count; i++)
         {
-            if (DataSource.OrdersList[i].ID == ordUpdate.ID)
+            if (DataSource.ProductsList[i].ID == ordUpdate.ID)
             {
-                DataSource.OrdersList.Remove(DataSource.OrdersList[i]);
-                DataSource.OrdersList.Add(ordUpdate);
+                DataSource.ProductsList.Remove(DataSource.ProductsList[i]);
+                DataSource.ProductsList.Add(ordUpdate);
             }
         }
     }
+    public List<Product> RequestAll()
+    {
+        return DataSource.ProductsList;
+    }  
 }

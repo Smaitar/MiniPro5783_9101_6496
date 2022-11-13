@@ -15,11 +15,14 @@ internal class DataSource
 
         internal static int orderitemID = 0;
         internal static int productID = 0;
+        internal static int orderID = 0;
 
         public static int ProductID => productID++;
         public static int OrderitemID => orderitemID++;
+        public static int OrderID => orderID++;
     }
-
+    private static string[] arrNames = new string[5] { "moshe", "shira", "neta", "haim", "michal" };
+    private static string[] arrFamilys = new string[5] { "bnei brak", "tel aviv", "ramat gan", "givhat shmuel", "beit shemesh" };
     internal static readonly Random random = new();
 
     internal const int NumProduct = 10;
@@ -43,10 +46,10 @@ internal class DataSource
         {
             Order order = new Order();
             {
-                order.ID = i;
-                order.CustomerName = Nullable;
-                order.CustomerEmail = Nullable;
-                order.CustomerAdress = Nullable;
+                order.ID = Config.OrderID;
+                order.CustomerName = arrNames[random.Next(5)];
+                order.CustomerEmail = arrNames[random.Next(5)]+"@gmail.com";
+                order.CustomerAdress = arrFamilys[random.Next(5)];
                 order.OrderDate = DateTime.Now;
                 order.ShipDate = DateTime.Now;
                 order.DeliveryDate = DateTime.Now;
