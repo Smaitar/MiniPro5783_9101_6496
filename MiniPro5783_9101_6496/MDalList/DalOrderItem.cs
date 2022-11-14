@@ -8,7 +8,7 @@ namespace Dal;
 
 public class DalOrderItem
 {
-    public int AddOrder(OrderItem ordItem)
+    public int AddOrderItem(OrderItem ordItem)
     {
         if (DataSource.orderitemsList.Exists(i => i.ID == ordItem.ID))
             throw new Exception("cannot create a OrderItem In OrderItemList, is already exists");
@@ -48,7 +48,7 @@ public class DalOrderItem
             }
         }
     }
-    public List<OrderItem> RequestAll()
+    public List<OrderItem> GetAll()
     {
         return DataSource.orderitemsList;
     }
