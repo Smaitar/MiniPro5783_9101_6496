@@ -1,4 +1,5 @@
-﻿using Dal;
+﻿
+using Dal;
 using DO;
 using Microsoft.VisualBasic;
 using System;
@@ -21,7 +22,7 @@ public class Program
         Console.WriteLine("To Product press 3");
         Console.WriteLine("To Exit press 0");
         int choice1 = int.Parse( Console.ReadLine());
-        switch(choice1)
+        switch (choice1)
         {
         case 1:
             //OrderOption();
