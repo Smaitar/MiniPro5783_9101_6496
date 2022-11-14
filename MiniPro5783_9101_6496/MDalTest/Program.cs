@@ -68,13 +68,8 @@ public class Program
                 order1.AddOrder(or);
                 break;
             case "b":
-             
-
-
-                //DeleteOrder();
                 break;
             case "c":
-                //UpdateOrder();
             break;
             case "d":
                 Order orb = new Order();
@@ -99,21 +94,6 @@ public class Program
                 int ore;
                 Console.WriteLine("enter ID:");
                 ore=int.Parse(Console.ReadLine());
-                //Order ore = new Order();
-                //Console.WriteLine("enter ID:");
-                //ore.ID = int.Parse(Console.ReadLine());
-                //Console.WriteLine("enter Customer Name:");
-                //ore.CustomerName = Console.ReadLine();
-                //Console.WriteLine("enter Customer Email:");
-                //ore.CustomerEmail = Console.ReadLine();
-                //Console.WriteLine("enter Customer Adress:");
-                //ore.CustomerAdress = Console.ReadLine();
-                //Console.WriteLine("enter Order Date:");
-                //ore.OrderDate = DateTime.Parse(Console.ReadLine());
-                //Console.WriteLine("enter Ship Date:");
-                //ore.ShipDate = DateTime.Parse(Console.ReadLine());
-                //Console.WriteLine("enter Delivery Date:");
-                //ore.DeliveryDate = DateTime.Parse(Console.ReadLine());
                 order1.DeleteOrder(ore);
                 break;
         }
