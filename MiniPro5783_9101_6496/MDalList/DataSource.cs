@@ -50,6 +50,7 @@ internal class DataSource
                 order.CustomerName = arrNames[random.Next(5)];
                 order.CustomerEmail = arrNames[random.Next(5)]+"@gmail.com";
                 order.CustomerAdress = arrFamilys[random.Next(5)];
+
                 order.OrderDate = DateTime.Now;
                 order.ShipDate = DateTime.Now;
                 order.DeliveryDate = DateTime.Now;
