@@ -35,6 +35,8 @@ public class DalOrderItem
 
     public void UpdateOrder(OrderItem ordUpdate)
     {
+        if (!DataSource.orderitemsList.Exists(i => i.ID == ordUpdate.ID))
+            throw new Exception("cannot update a OrderItem In OrderList, is not exists");
         //ordUpdate.OrderID = Config.OrderitemID;
         //ordUpdate.ProductID = Config.ProductID;
         for (int i = 0; i < DataSource.orderitemsList.Count; i++)
