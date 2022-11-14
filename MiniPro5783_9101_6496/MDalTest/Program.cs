@@ -3,14 +3,18 @@ using DO;
 using Microsoft.VisualBasic;
 using System;
 namespace DalTest;
+using System.Linq.Expressions;
+using System.Net.NetworkInformation;
+using System.Security.Cryptography.X509Certificates;
+using System.Collections.Generic;
 
-class Program
+public class Program
 {
-    private static DalOrder order1 = new DalOrder();
-    private static DalOrderItem order2 = new DalOrderItem();
-    private static DalProduct order3 = new DalProduct();
+     DalOrder order1 = new DalOrder();
+     DalOrderItem order2 = new DalOrderItem();
+     DalProduct order3 = new DalProduct();
     
-    static void Main(string[]args)
+    public static void Main(string[]args)
     {
         Console.WriteLine("To Order press 1");
         Console.WriteLine("To OrderItem press 2");
@@ -20,13 +24,13 @@ class Program
         switch(choice1)
         {
         case 1:
-            OrderOption();
+            //OrderOption();
         break;
         case 2:
-            OrderOItemption();
+            //OrderOItemption();
         break;
         case 3:
-            ProdectOption();
+            //ProdectOption();
         break;
         case 4:
         break;
@@ -62,24 +66,56 @@ class Program
                 Console.WriteLine("enter Delivery Date:");
                 or.DeliveryDate = DateTime.Parse(Console.ReadLine());
                 order1.AddOrder(or);
-
-
-
-
-
                 break;
-            case 'b':
-                DeleteOrder();
-            break;
-            case 'c':
-                UpdateOrder();
-            break;
-            case 'd':
-                Console.WriteLine();
-            break;
-            case 'e':
+            case "b":
+             
 
+
+                //DeleteOrder();
+                break;
+            case "c":
+                //UpdateOrder();
             break;
+            case "d":
+                Order orb = new Order();
+                Console.WriteLine();
+                Console.WriteLine("enter ID:");
+                orb.ID = int.Parse(Console.ReadLine());
+                Console.WriteLine("enter Customer Name:");
+                orb.CustomerName = Console.ReadLine();
+                Console.WriteLine("enter Customer Email:");
+                orb.CustomerEmail = Console.ReadLine();
+                Console.WriteLine("enter Customer Adress:");
+                orb.CustomerAdress = Console.ReadLine();
+                Console.WriteLine("enter Order Date:");
+                orb.OrderDate = DateTime.Parse(Console.ReadLine());
+                Console.WriteLine("enter Ship Date:");
+                orb.ShipDate = DateTime.Parse(Console.ReadLine());
+                Console.WriteLine("enter Delivery Date:");
+                orb.DeliveryDate = DateTime.Parse(Console.ReadLine());
+                order1.UpdateOrder(orb);
+                break;
+            case "e":
+                int ore;
+                Console.WriteLine("enter ID:");
+                ore=int.Parse(Console.ReadLine());
+                //Order ore = new Order();
+                //Console.WriteLine("enter ID:");
+                //ore.ID = int.Parse(Console.ReadLine());
+                //Console.WriteLine("enter Customer Name:");
+                //ore.CustomerName = Console.ReadLine();
+                //Console.WriteLine("enter Customer Email:");
+                //ore.CustomerEmail = Console.ReadLine();
+                //Console.WriteLine("enter Customer Adress:");
+                //ore.CustomerAdress = Console.ReadLine();
+                //Console.WriteLine("enter Order Date:");
+                //ore.OrderDate = DateTime.Parse(Console.ReadLine());
+                //Console.WriteLine("enter Ship Date:");
+                //ore.ShipDate = DateTime.Parse(Console.ReadLine());
+                //Console.WriteLine("enter Delivery Date:");
+                //ore.DeliveryDate = DateTime.Parse(Console.ReadLine());
+                order1.DeleteOrder(ore);
+                break;
         }
     }
 

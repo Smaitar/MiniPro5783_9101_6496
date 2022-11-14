@@ -30,7 +30,7 @@ internal class DataSource
     private const int NumOrderItem = 40;
     internal static List<OrderItem> orderitemsList = new List<OrderItem>();
     internal static List<Product> ProductsList = new List<Product>();
-    internal static List<Order> OrdersList = new List<Order>();
+    public static List<Order> OrdersList = new List<Order>();
 
     private static void s_Initialize()
     {
@@ -84,8 +84,8 @@ internal class DataSource
             {
                 stu.ID = random.Next(100000000, 999999999);
                 stu.Name ="product"+i;
-                stu.Category = (Category)values.GetValue(random.Next(4));
-                stu.InStock = (InStock)Category.GetValue(random.Next(0, 50);
+                stu.Category = (Category)values.GetValue(random.Next(values.Length));
+                stu.InStock = random.Next(1,4);
                 stu.Price = 100;
             }
             ProductsList.Add(stu);

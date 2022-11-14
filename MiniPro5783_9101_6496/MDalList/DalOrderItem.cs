@@ -8,7 +8,7 @@ namespace Dal;
 
 public class DalOrderItem
 {
-    int AddOrder(OrderItem ordItem)
+    public int AddOrder(OrderItem ordItem)
     {
         if (DataSource.orderitemsList.Exists(i => i.ID == ordItem.ID))
             throw new Exception("cannot create a OrderItem In OrderItemList, is already exists");
@@ -18,7 +18,7 @@ public class DalOrderItem
         return ordItem.OrderID;
     }
 
-    int DeleteOrderitem(int IdDelete)
+    public int DeleteOrderitem(int IdDelete)
     {
         if (!DataSource.orderitemsList.Exists(i => i.ID == IdDelete))
             throw new Exception("cannot delete a OrderItem In OrderItemList, is not exists");
@@ -33,7 +33,7 @@ public class DalOrderItem
         return 0;
     }
 
-    void UpdateOrder(OrderItem ordUpdate)
+    public void UpdateOrder(OrderItem ordUpdate)
     {
         //ordUpdate.OrderID = Config.OrderitemID;
         //ordUpdate.ProductID = Config.ProductID;

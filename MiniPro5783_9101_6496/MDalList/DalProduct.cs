@@ -7,7 +7,7 @@ namespace Dal;
 public class DalProduct
 {
 
-    int AddOrder(Product ord)
+    public int AddOrder(Product ord)
     {
         if (DataSource.ProductsList.Exists(i => i.ID == ord.ID))
             throw new Exception("cannot create a Products In ProductsList, is already exists");
@@ -15,7 +15,7 @@ public class DalProduct
         return (ord.ID);
     }
 
-    int DeleteOrder(int IdDelete)
+    public int DeleteOrder(int IdDelete)
     {
         if (!DataSource.ProductsList.Exists(i => i.ID == IdDelete))
             throw new Exception("cannot create a Products In ProductsList, is already exists");
@@ -30,7 +30,7 @@ public class DalProduct
         return 0;
     }
 
-    void UpdateOrder(Product ordUpdate)
+    public void UpdateOrder(Product ordUpdate)
     {
         if (!DataSource.ProductsList.Exists(i => i.ID == ordUpdate.ID))
             throw new Exception("cannot update a Products In ProductsList, is not exists");

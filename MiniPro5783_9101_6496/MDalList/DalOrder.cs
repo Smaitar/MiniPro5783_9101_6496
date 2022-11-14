@@ -8,7 +8,7 @@ namespace Dal;
 public class DalOrder
 {
 
-    int AddOrder(Order ord)
+    public int AddOrder(Order ord)
     {
         if (DataSource.OrdersList.Exists(i => i.ID == ord.ID))
             throw new Exception("cannot create a Order In OrderList, is already exists");
@@ -17,7 +17,7 @@ public class DalOrder
         return(ord.ID); 
     }
 
-    int DeleteOrder(int IdDelete)
+    public int DeleteOrder(int IdDelete)
     {
         if (!DataSource.OrdersList.Exists(i => i.ID == IdDelete))
             throw new Exception("cannot delete a Order In OrderList, is not exists");
@@ -32,7 +32,7 @@ public class DalOrder
         return 0;
     }
 
-    void UpdateOrder(Order ordUpdate)
+    public void UpdateOrder(Order ordUpdate)
     {
         if (!DataSource.OrdersList.Exists(i => i.ID == ordUpdate.ID))
             throw new Exception("cannot update a Order In OrderList, is not exists");
