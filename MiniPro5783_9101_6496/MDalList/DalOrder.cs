@@ -46,7 +46,7 @@ public class DalOrder
             }
         }
     }
-    public List<Order> RequestAll()
+    public List<Order> GetAll()
     {
         return DataSource.OrdersList;
     }

@@ -7,7 +7,7 @@ namespace Dal;
 public class DalProduct
 {
 
-    public int AddOrder(Product ord)
+    public int AddProduct(Product ord)
     {
         if (DataSource.ProductsList.Exists(i => i.ID == ord.ID))
             throw new Exception("cannot create a Products In ProductsList, is already exists");
@@ -43,7 +43,7 @@ public class DalProduct
             }
         }
     }
-    public List<Product> RequestAll()
+    public List<Product> GetAll()
     {
         return DataSource.ProductsList;
     }  
