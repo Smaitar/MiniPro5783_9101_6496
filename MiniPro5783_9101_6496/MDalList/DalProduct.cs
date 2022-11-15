@@ -9,6 +9,7 @@ public class DalProduct
 
     public int AddProduct(Product ord)
     {
+        //Add an object to the list
         if (DataSource.ProductsList.Exists(i => i?.ID == ord.ID))
             throw new Exception("cannot create a Products In ProductsList, is already exists");
         DataSource.ProductsList.Add(ord);
@@ -17,6 +18,7 @@ public class DalProduct
 
     public int DeleteOrder(int IdDelete)
     {
+        //delete a object acoording to its ID
         if (!DataSource.ProductsList.Exists(i => i?.ID == IdDelete))
             throw new Exception("cannot create a Products In ProductsList, is already exists");
         for (int i = 0; i < DataSource.ProductsList.Count; i++)
@@ -32,6 +34,7 @@ public class DalProduct
 
     public void UpdateOrder(Product ordUpdate)
     {
+        //update an object according to its ID
         if (!DataSource.ProductsList.Exists(i => i?.ID == ordUpdate.ID))
             throw new Exception("cannot update a Products In ProductsList, is not exists");
         for (int i = 0; i < DataSource.ProductsList.Count; i++)
