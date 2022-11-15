@@ -46,6 +46,15 @@ public class DalOrder
             }
         }
     }
+    public List<Order> GetById(int OrId)
+    {   
+        //List<Order> list = new List<Order>();   
+        for (int i = 0; i < DataSource.OrdersList.Count; i++)
+        {
+            if (DataSource.OrdersList[i].ID == OrId)
+                return DataSource.OrdersList[i];
+        }
+    }
     public List<Order> GetAll()
     {
         return DataSource.OrdersList;

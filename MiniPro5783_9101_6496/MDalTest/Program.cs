@@ -28,10 +28,10 @@ internal class Program
                 OrderOption();
                 break;
             case 2:
-                OrderItemOption();
+                //OrderItemOption();
                 break;
             case 3:
-                ProdectOption();
+                //ProdectOption();
                 break;
             case 4:
                 break;
@@ -40,7 +40,7 @@ internal class Program
                 break;
         }
     }
-    void OrderOption()
+    public void OrderOption()
     {
         Console.WriteLine("To Add press a");
         Console.WriteLine("To Print press b");
