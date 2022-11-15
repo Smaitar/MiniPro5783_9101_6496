@@ -9,7 +9,7 @@ public class DalProduct
 
     public int AddProduct(Product ord)
     {
-        if (DataSource.ProductsList.Exists(i => i.ID == ord.ID))
+        if (DataSource.ProductsList.Exists(i => i?.ID == ord.ID))
             throw new Exception("cannot create a Products In ProductsList, is already exists");
         DataSource.ProductsList.Add(ord);
         return (ord.ID);
@@ -17,11 +17,11 @@ public class DalProduct
 
     public int DeleteOrder(int IdDelete)
     {
-        if (!DataSource.ProductsList.Exists(i => i.ID == IdDelete))
+        if (!DataSource.ProductsList.Exists(i => i?.ID == IdDelete))
             throw new Exception("cannot create a Products In ProductsList, is already exists");
         for (int i = 0; i < DataSource.ProductsList.Count; i++)
         {
-            if (DataSource.OrdersList[i].ID == IdDelete)
+            if (DataSource.OrdersList[i]?.ID == IdDelete)
             {
                 DataSource.OrdersList.Remove(DataSource.OrdersList[i]);
                 break;
@@ -32,19 +32,26 @@ public class DalProduct
 
     public void UpdateOrder(Product ordUpdate)
     {
-        if (!DataSource.ProductsList.Exists(i => i.ID == ordUpdate.ID))
+        if (!DataSource.ProductsList.Exists(i => i?.ID == ordUpdate.ID))
             throw new Exception("cannot update a Products In ProductsList, is not exists");
         for (int i = 0; i < DataSource.ProductsList.Count; i++)
         {
-            if (DataSource.ProductsList[i].ID == ordUpdate.ID)
+            if (DataSource.ProductsList[i]?.ID == ordUpdate.ID)
             {
                 DataSource.ProductsList.Remove(DataSource.ProductsList[i]);
                 DataSource.ProductsList.Add(ordUpdate);
             }
         }
     }
-    public List<Product> GetAll()
+    public List<Product?> GetAll()
     {
-        return DataSource.ProductsList;
+        List<Product?> list = new List<Product?>();   
+        DataSource.ProductsList.ForEach(i=> list.Add(i));   
+        return list;    
     }  
+    public Product? GetById(int idcheck)
+    {
+        Product? p = DataSource.ProductsList.Find(i => i?.ID == idcheck) ?? throw new Exception("not found");   
+        return p;
+    }
 }
