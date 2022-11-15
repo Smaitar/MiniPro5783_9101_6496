@@ -28,9 +28,9 @@ internal class DataSource
     internal const int NumProduct = 10;
     private const int NumOrder = 100;
     private const int NumOrderItem = 40;
-    internal static List<OrderItem> orderitemsList = new List<OrderItem>();
-    internal static List<Product> ProductsList = new List<Product>();
-    public static List<Order> OrdersList = new List<Order>();
+    internal static List<OrderItem?> orderitemsList = new List<OrderItem?>();
+    internal static List<Product?> ProductsList = new List<Product?>();
+    public static List<Order?> OrdersList = new List<Order?>();
 
     private static void s_Initialize()
     {

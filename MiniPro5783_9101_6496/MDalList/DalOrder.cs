@@ -10,7 +10,7 @@ public class DalOrder
 
     public int AddOrder(Order ord)
     {
-        if (DataSource.OrdersList.Exists(i => i.ID == ord.ID))
+        if (DataSource.OrdersList.Exists(i => i?.ID == ord.ID))
             throw new Exception("cannot create a Order In OrderList, is already exists");
         ord.ID = Config.OrderID;
         DataSource.OrdersList.Add(ord);
@@ -19,11 +19,11 @@ public class DalOrder
 
     public int DeleteOrder(int IdDelete)
     {
-        if (!DataSource.OrdersList.Exists(i => i.ID == IdDelete))
+        if (!DataSource.OrdersList.Exists(i => i?.ID == IdDelete))
             throw new Exception("cannot delete a Order In OrderList, is not exists");
         for (int i = 0; i < DataSource.OrdersList.Count; i++)
         {
-            if (DataSource.OrdersList[i].ID == IdDelete)
+            if (DataSource.OrdersList[i]?.ID == IdDelete)
             {
                 DataSource.OrdersList.Remove(DataSource.OrdersList[i]);
                 break;
@@ -34,30 +34,28 @@ public class DalOrder
 
     public void UpdateOrder(Order ordUpdate)
     {
-        if (!DataSource.OrdersList.Exists(i => i.ID == ordUpdate.ID))
+        if (!DataSource.OrdersList.Exists(i => i?.ID == ordUpdate.ID))
             throw new Exception("cannot update a Order In OrderList, is not exists");
         //ordUpdate.ID = Config.OrderID;
         for (int i = 0; i < DataSource.OrdersList.Count; i++)
         {
-            if (DataSource.OrdersList[i].ID == ordUpdate.ID)
+            if (DataSource.OrdersList[i]?.ID == ordUpdate.ID)
             {
                 DataSource.OrdersList.Remove(DataSource.OrdersList[i]);
                 DataSource.OrdersList.Add(ordUpdate);
             }
         }
     }
-    public List<Order> GetById(int OrId)
-    {   
-        //List<Order> list = new List<Order>();   
-        for (int i = 0; i < DataSource.OrdersList.Count; i++)
-        {
-            if (DataSource.OrdersList[i].ID == OrId)
-                return DataSource.OrdersList[i];
-        }
-    }
-    public List<Order> GetAll()
+    public List<Order?> GetAll()
     {
-        return DataSource.OrdersList;
+        List<Order?> list = new List<Order?>();
+        DataSource.OrdersList.ForEach(i => list?.Add(i));
+        return list;
+    }
+    public Order? GetById(int idcheck)
+    {
+        Order? p = DataSource.OrdersList.Find(i => i?.ID == idcheck) ?? throw new Exception("not found");
+        return p;
     }
 }
 
