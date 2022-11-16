@@ -46,13 +46,13 @@ public class DalProduct
             }
         }
     }
-    public List<Product?> GetAll()
+    public List<Product?> GetAll()//get all the object in the list
     {
         List<Product?> list = new List<Product?>();   
         DataSource.ProductsList.ForEach(i=> list.Add(i));   
         return list;    
     }  
-    public Product? GetById(int idcheck)
+    public Product? GetById(int idcheck)//get an Id ant return its object
     {
         Product? p = DataSource.ProductsList.Find(i => i?.ID == idcheck) ?? throw new Exception("not found");   
         return p;

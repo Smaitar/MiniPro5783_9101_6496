@@ -49,13 +49,13 @@ public class DalOrder
             }
         }
     }
-    public List<Order?> GetAll()
+    public List<Order?> GetAll()//get all the object in the list
     {
         List<Order?> list = new List<Order?>();
         DataSource.OrdersList.ForEach(i => list?.Add(i));
         return list;
     }
-    public Order? GetById(int idcheck)
+    public Order? GetById(int idcheck)//get an Id ant return its object
     {
         //search an object with a specific ID
         Order? p = DataSource.OrdersList.Find(i => i?.ID == idcheck) ?? throw new Exception("not found");

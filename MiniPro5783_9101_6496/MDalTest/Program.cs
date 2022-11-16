@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 internal class Program
 {
+    //define three kind of objects
     static DalOrder order1 = new DalOrder();
     static DalOrderItem order2 = new DalOrderItem();
     static DalProduct order3 = new DalProduct();
@@ -41,8 +42,9 @@ internal class Program
                 break;
         }
     }
-    public static void OrderOption()
+    public static void OrderOption()//if the user chose to order
     {
+        //the options the user can make
         Console.WriteLine("To Add press a");
         Console.WriteLine("To Print press b");
         Console.WriteLine("To PrintAll press c");
@@ -123,8 +125,9 @@ internal class Program
             choice2 = Console.ReadLine();
         }
     }
-    public static void  OrderItemOption()
+    public static void  OrderItemOption()//if the user chose orderItem
     {
+        //the options the user can make
         Console.WriteLine("To Add press a");
         Console.WriteLine("To Print press b");
         Console.WriteLine("To PrintAll press c");
@@ -197,8 +200,9 @@ internal class Program
             choice2 = Console.ReadLine();
         }
     }
-   public static void ProdectOption()
+   public static void ProdectOption()//if the user chose Product
     {
+        //the options the user can make
         Console.WriteLine("To Add press a");
         Console.WriteLine("To Print press b");
         Console.WriteLine("To PrintAll press c");
