@@ -24,22 +24,37 @@ internal class Program
         Console.WriteLine("To Product press 3");
         Console.WriteLine("To Exit press 0");
         int choice1 = int.Parse(Console.ReadLine());
-        switch (choice1)
+        while(choice1 != 0)
         {
-            case 1:
-                OrderOption();
-                break;
-            case 2:
-                OrderItemOption();
-                break;
-            case 3:
-                ProdectOption();
-                break;
-            case 4:
-                break;
-            default:
-                Console.WriteLine("ERROR");
-                break;
+            switch (choice1)
+            {
+                case 1:
+                    OrderOption();
+                    Console.WriteLine("To Order press 1");
+                    Console.WriteLine("To OrderItem press 2");
+                    Console.WriteLine("To Product press 3");
+                    Console.WriteLine("To Exit press 0");
+                    choice1 = int.Parse(Console.ReadLine());
+                    break;
+                case 2:
+                    OrderItemOption();
+                    Console.WriteLine("To Order press 1");
+                    Console.WriteLine("To OrderItem press 2");
+                    Console.WriteLine("To Product press 3");
+                    Console.WriteLine("To Exit press 0");
+                    choice1 = int.Parse(Console.ReadLine());
+                    break;
+                case 3:
+                    ProdectOption();
+                    Console.WriteLine("To Order press 1");
+                    Console.WriteLine("To OrderItem press 2");
+                    Console.WriteLine("To Product press 3");
+                    Console.WriteLine("To Exit press 0");
+                    choice1 = int.Parse(Console.ReadLine());
+                    break;
+                default:
+                    break;
+            }
         }
     }
     public static void OrderOption()//if the user chose to order
@@ -201,7 +216,7 @@ internal class Program
         }
     }
    public static void ProdectOption()//if the user chose Product
-    {
+   {
         //the options the user can make
         Console.WriteLine("To Add press a");
         Console.WriteLine("To Print press b");
@@ -277,6 +292,6 @@ internal class Program
             choice2 = Console.ReadLine();
         }
 
-    }
+   }
 
 }
