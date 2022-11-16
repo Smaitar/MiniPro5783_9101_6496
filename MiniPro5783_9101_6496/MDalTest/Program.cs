@@ -11,12 +11,14 @@ using System.Collections.Generic;
 
 internal class Program
 {
-    DalOrder order1 = new DalOrder();
-    DalOrderItem order2 = new DalOrderItem();
-    DalProduct order3 = new DalProduct();
+    //define three kind of objects
+    static DalOrder order1 = new DalOrder();
+    static DalOrderItem order2 = new DalOrderItem();
+    static DalProduct order3 = new DalProduct();
 
     public static void Main(string[] args)
     {
+
         Console.WriteLine("To Order press 1");
         Console.WriteLine("To OrderItem press 2");
         Console.WriteLine("To Product press 3");
@@ -40,8 +42,9 @@ internal class Program
                 break;
         }
     }
-    void OrderOption()
+    public static void OrderOption()//if the user chose to order
     {
+        //the options the user can make
         Console.WriteLine("To Add press a");
         Console.WriteLine("To Print press b");
         Console.WriteLine("To PrintAll press c");
@@ -122,8 +125,9 @@ internal class Program
             choice2 = Console.ReadLine();
         }
     }
-    void OrderItemOption()
+    public static void  OrderItemOption()//if the user chose orderItem
     {
+        //the options the user can make
         Console.WriteLine("To Add press a");
         Console.WriteLine("To Print press b");
         Console.WriteLine("To PrintAll press c");
@@ -164,7 +168,6 @@ internal class Program
                     case "d":
                         OrderItem orb = new OrderItem();
                         Console.WriteLine("enter ID:");
-                        Console.WriteLine("enter ID:");
                         orb.ID = int.Parse(Console.ReadLine());
                         Console.WriteLine("enter Product ID:");
                         orb.ProductID = int.Parse(Console.ReadLine());
@@ -197,8 +200,9 @@ internal class Program
             choice2 = Console.ReadLine();
         }
     }
-    void ProdectOption()
+   public static void ProdectOption()//if the user chose Product
     {
+        //the options the user can make
         Console.WriteLine("To Add press a");
         Console.WriteLine("To Print press b");
         Console.WriteLine("To PrintAll press c");
@@ -208,8 +212,8 @@ internal class Program
         string choice2 = Console.ReadLine();
         while (choice2 != "f")
         {
-            try
-            {
+            //try
+            //{
                 switch (choice2)
                 {
                     case "a":
@@ -259,11 +263,11 @@ internal class Program
                         order3.DeleteOrder(ore);
                         break;
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+        //}
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine(e.Message);
+        //    }
             Console.WriteLine("To Add press a");
             Console.WriteLine("To Print press b");
             Console.WriteLine("To PrintAll press c");

@@ -9,6 +9,7 @@ public class DalProduct
 
     public int AddProduct(Product ord)
     {
+        //Add an object to the list
         if (DataSource.ProductsList.Exists(i => i?.ID == ord.ID))
             throw new Exception("cannot create a Products In ProductsList, is already exists");
         DataSource.ProductsList.Add(ord);
@@ -17,13 +18,14 @@ public class DalProduct
 
     public int DeleteOrder(int IdDelete)
     {
+        //delete a object acoording to its ID
         if (!DataSource.ProductsList.Exists(i => i?.ID == IdDelete))
             throw new Exception("cannot create a Products In ProductsList, is already exists");
-        for (int i = 0; i < DataSource.ProductsList.Count; i++)
+        for (int i = 0; i <= DataSource.ProductsList.Count; i++)
         {
-            if (DataSource.OrdersList[i]?.ID == IdDelete)
+            if (DataSource.ProductsList[i]?.ID == IdDelete)
             {
-                DataSource.OrdersList.Remove(DataSource.OrdersList[i]);
+                DataSource.ProductsList.Remove(DataSource.ProductsList[i]);
                 break;
             }
         }
@@ -32,6 +34,7 @@ public class DalProduct
 
     public void UpdateOrder(Product ordUpdate)
     {
+        //update an object according to its ID
         if (!DataSource.ProductsList.Exists(i => i?.ID == ordUpdate.ID))
             throw new Exception("cannot update a Products In ProductsList, is not exists");
         for (int i = 0; i < DataSource.ProductsList.Count; i++)
@@ -43,13 +46,13 @@ public class DalProduct
             }
         }
     }
-    public List<Product?> GetAll()
+    public List<Product?> GetAll()//get all the object in the list
     {
         List<Product?> list = new List<Product?>();   
         DataSource.ProductsList.ForEach(i=> list.Add(i));   
         return list;    
     }  
-    public Product? GetById(int idcheck)
+    public Product? GetById(int idcheck)//get an Id ant return its object
     {
         Product? p = DataSource.ProductsList.Find(i => i?.ID == idcheck) ?? throw new Exception("not found");   
         return p;

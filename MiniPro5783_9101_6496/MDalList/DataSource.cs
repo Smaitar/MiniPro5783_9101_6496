@@ -12,7 +12,7 @@ internal class DataSource
 
     internal static class Config
     {
-
+        //a run number 
         internal static int orderitemID = 1000000;
         internal static int productID = 1000000;
         internal static int orderID = 1000000;
@@ -50,6 +50,7 @@ internal class DataSource
                 order.CustomerName = arrNames[random.Next(5)];
                 order.CustomerEmail = arrNames[random.Next(5)]+"@gmail.com";
                 order.CustomerAdress = arrFamilys[random.Next(5)];
+
                 order.OrderDate = DateTime.Now;
                 order.ShipDate = DateTime.Now;
                 order.DeliveryDate = DateTime.Now;
