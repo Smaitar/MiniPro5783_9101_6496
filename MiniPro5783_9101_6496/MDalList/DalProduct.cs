@@ -21,11 +21,11 @@ public class DalProduct
         //delete a object acoording to its ID
         if (!DataSource.ProductsList.Exists(i => i?.ID == IdDelete))
             throw new Exception("cannot create a Products In ProductsList, is already exists");
-        for (int i = 0; i < DataSource.ProductsList.Count; i++)
+        for (int i = 0; i <= DataSource.ProductsList.Count; i++)
         {
-            if (DataSource.OrdersList[i]?.ID == IdDelete)
+            if (DataSource.ProductsList[i]?.ID == IdDelete)
             {
-                DataSource.OrdersList.Remove(DataSource.OrdersList[i]);
+                DataSource.ProductsList.Remove(DataSource.ProductsList[i]);
                 break;
             }
         }
