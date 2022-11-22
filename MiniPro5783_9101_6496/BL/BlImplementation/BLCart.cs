@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BlImplementation
 {
-    internal class BLCart:IBLCart
+    internal class BLCart:IBOCart
     {
         public static Cart AddProduct(Cart cart, int id)
         {

@@ -8,5 +8,6 @@ namespace BlImplementation
 {
     internal interface Bl:IBL
     {
+
     }
 }
