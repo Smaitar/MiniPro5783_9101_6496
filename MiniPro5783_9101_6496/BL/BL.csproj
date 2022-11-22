@@ -12,4 +12,9 @@
     <RootNamespace />
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MDalFacade\MDalFacade.csproj" />
+    <ProjectReference Include="..\MDalList\MDalList.csproj" />
+  </ItemGroup>
+
 </Project>

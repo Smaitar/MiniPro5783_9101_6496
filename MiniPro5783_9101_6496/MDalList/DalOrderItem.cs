@@ -4,12 +4,13 @@ using DO;
 using System.Security.Cryptography;
 using static Dal.DataSource;
 
+using DalApi;
 namespace Dal;
 
 
-public class DalOrderItem
+internal class DalOrderItem : IOrderItem
 {
-    public int AddOrderItem(OrderItem ordItem)
+    public int Add(OrderItem ordItem)
     {
         //Add an object to the list
         if (DataSource.orderitemsList.Exists(i => i?.ID == ordItem.ID))
@@ -20,7 +21,7 @@ public class DalOrderItem
         return ordItem.OrderID;
     }
 
-    public int DeleteOrderitem(int IdDelete)
+    public int Delete(int IdDelete)
     {
         //delete a object acoording to its ID
         if (!DataSource.orderitemsList.Exists(i => i?.ID == IdDelete))
@@ -36,7 +37,7 @@ public class DalOrderItem
         return 0;
     }
 
-    public void UpdateOrder(OrderItem ordUpdate)
+    public void Update(OrderItem ordUpdate)
     {
         //update an object according to its ID
         if (!DataSource.orderitemsList.Exists(i => i?.ID == ordUpdate.ID))
@@ -52,15 +53,15 @@ public class DalOrderItem
             }
         }
     }
-    public List<OrderItem?> GetAll()//get all the object in the list
+    public IEnumerable<OrderItem> GetAll()//get all the object in the list
     {
         List<OrderItem?> list = new List<OrderItem?>();
         DataSource.orderitemsList.ForEach(i => list?.Add(i));
-        return list;
+        return (IEnumerable<OrderItem>)list;
     }
-    public OrderItem? GetById(int idcheck)//get an Id ant return its object
+    public OrderItem GetByID(int idcheck)//get an Id ant return its object
     {
-        OrderItem? p = DataSource.orderitemsList.Find(i => i?.ID == idcheck) ?? throw new Exception("not found");
+        OrderItem p = DataSource.orderitemsList.Find(i => i?.ID == idcheck) ?? throw new Exception("not found");
         return p;
     }
 }

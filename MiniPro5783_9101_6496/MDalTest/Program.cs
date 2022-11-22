@@ -8,17 +8,15 @@ using System.Linq.Expressions;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections.Generic;
+using DalApi;
 
 internal class Program
 {
     //define three kind of objects
-    static DalOrder order1 = new DalOrder();
-    static DalOrderItem order2 = new DalOrderItem();
-    static DalProduct order3 = new DalProduct();
+    static private IDal dal = new DalList();
 
     public static void Main(string[] args)
     {
-
         Console.WriteLine("To Order press 1");
         Console.WriteLine("To OrderItem press 2");
         Console.WriteLine("To Product press 3");
@@ -57,6 +55,7 @@ internal class Program
             }
         }
     }
+
     public static void OrderOption()//if the user chose to order
     {
         //the options the user can make
@@ -89,16 +88,16 @@ internal class Program
                         or.ShipDate = DateTime.Parse(Console.ReadLine());
                         Console.WriteLine("enter Delivery Date:");
                         or.DeliveryDate = DateTime.Parse(Console.ReadLine());
-                        order1.AddOrder(or);
+                        dal.Order.Add(or);
                         break;
                     case "b":
                         int word;
                         Console.WriteLine("enter ID:");
                         word = int.Parse(Console.ReadLine());
-                        Console.WriteLine(order1.GetById(word));
+                        Console.WriteLine(dal.Order.GetByID(word));
                         break;
                     case "c":
-                        foreach (var ob in order1.GetAll())
+                        foreach (Order ob in dal.Order.GetAll())
                             Console.WriteLine(ob);
                         break;
                     case "d":
@@ -117,13 +116,13 @@ internal class Program
                         orb.ShipDate = DateTime.Parse(Console.ReadLine());
                         Console.WriteLine("enter Delivery Date:");
                         orb.DeliveryDate = DateTime.Parse(Console.ReadLine());
-                        order1.UpdateOrder(orb);
+                        dal.Order.Update(orb);
                         break;
                     case "e":
                         int ore;
                         Console.WriteLine("enter ID:");
                         ore = int.Parse(Console.ReadLine());
-                        order1.DeleteOrder(ore);
+                        dal.Order.Delete(ore);
                         break;
                 }
             }
@@ -168,16 +167,16 @@ internal class Program
                         or.Price = double.Parse(Console.ReadLine());
                         Console.WriteLine("enter Amount:");
                         or.Amount = int.Parse(Console.ReadLine());
-                        order2.AddOrderItem(or);
+                        dal.OrderItem.Add(or);
                         break;
                     case "b":
                         int word;
                         Console.WriteLine("enter ID:");
                         word = int.Parse(Console.ReadLine());
-                        Console.WriteLine(order2.GetById(word));
+                        Console.WriteLine(dal.OrderItem.GetByID(word));
                         break;
                     case "c":
-                        foreach (var ob in order2.GetAll())
+                        foreach (var ob in dal.OrderItem.GetAll())
                             Console.WriteLine(ob);
                         break;
                     case "d":
@@ -192,13 +191,13 @@ internal class Program
                         orb.Price = double.Parse(Console.ReadLine());
                         Console.WriteLine("enter Amount:");
                         orb.Amount = int.Parse(Console.ReadLine());
-                        order2.UpdateOrder(orb);
+                        dal.OrderItem.Update(orb);
                         break;
                     case "e":
                         int ore;
                         Console.WriteLine("enter ID:");
                         ore = int.Parse(Console.ReadLine());
-                        order2.DeleteOrderitem(ore);
+                        dal.OrderItem.Delete(ore);
                         break;
                 }
             }
@@ -244,16 +243,16 @@ internal class Program
                         pro.InStock = int.Parse(Console.ReadLine());
                         Console.WriteLine("enter Price:");
                         pro.Price = double.Parse(Console.ReadLine());
-                        order3.AddProduct(pro);
+                    dal.Product.Add(pro);
                         break;
                     case "b":
                         int word;
                         Console.WriteLine("enter ID:");
                         word = int.Parse(Console.ReadLine());
-                        Console.WriteLine(order3.GetById(word));
+                        Console.WriteLine(dal.Product.GetByID(word));
                         break;
                     case "c":
-                        foreach (var ob in order3.GetAll())
+                        foreach (var ob in dal.Product.GetAll())
                             Console.WriteLine(ob);
                         break;
                     case "d":
@@ -269,13 +268,13 @@ internal class Program
                         orb.InStock = int.Parse(Console.ReadLine());
                         Console.WriteLine("enter Price:");
                         orb.Price = double.Parse(Console.ReadLine());
-                        order3.UpdateOrder(orb);
+                    dal.Product.Update(orb);
                         break;
                     case "e":
                         int ore;
                         Console.WriteLine("enter ID:");
                         ore = int.Parse(Console.ReadLine());
-                        order3.DeleteOrder(ore);
+                    dal.Product.Delete(ore);
                         break;
                 }
         //}

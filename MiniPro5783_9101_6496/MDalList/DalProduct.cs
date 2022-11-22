@@ -2,12 +2,15 @@
 
 using DO;
 using System.Security.Cryptography;
+
+using DalApi;
 namespace Dal;
 
-public class DalProduct
+
+internal class DalProduct : IProduct
 {
 
-    public int AddProduct(Product ord)
+    public int Add(Product ord)
     {
         //Add an object to the list
         if (DataSource.ProductsList.Exists(i => i?.ID == ord.ID))
@@ -16,7 +19,7 @@ public class DalProduct
         return (ord.ID);
     }
 
-    public int DeleteOrder(int IdDelete)
+    public int Delete(int IdDelete)
     {
         //delete a object acoording to its ID
         if (!DataSource.ProductsList.Exists(i => i?.ID == IdDelete))
@@ -32,7 +35,7 @@ public class DalProduct
         return 0;
     }
 
-    public void UpdateOrder(Product ordUpdate)
+    public void Update(Product ordUpdate)
     {
         //update an object according to its ID
         if (!DataSource.ProductsList.Exists(i => i?.ID == ordUpdate.ID))
@@ -46,15 +49,15 @@ public class DalProduct
             }
         }
     }
-    public List<Product?> GetAll()//get all the object in the list
+    public IEnumerable<Product> GetAll()//get all the object in the list
     {
         List<Product?> list = new List<Product?>();   
         DataSource.ProductsList.ForEach(i=> list.Add(i));   
-        return list;    
+        return (IEnumerable<Product>)list;    
     }  
-    public Product? GetById(int idcheck)//get an Id ant return its object
+    public Product GetByID (int idcheck)//get an Id ant return its object
     {
-        Product? p = DataSource.ProductsList.Find(i => i?.ID == idcheck) ?? throw new Exception("not found");   
+        Product p = DataSource.ProductsList.Find(i => i?.ID == idcheck) ?? throw new Exception("not found");   
         return p;
     }
 }
