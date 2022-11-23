@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace BO
 {
-    internal class OrderForList
+    public class OrderForList
     {
         public int ID { get; set; }//OrderID
         public string CustomerName { get; set; }//CustomerName

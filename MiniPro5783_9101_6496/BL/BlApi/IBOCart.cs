@@ -11,6 +11,6 @@ namespace BlApi
     {
         public Cart AddProduct(Cart cart,int id );    
         public Cart UpdateCart(Cart cart, int id,int amount);
-        public bool AprrovedCart(Cart cart, string name, string mail, string adress);
+        public bool AprrovedCart(Cart cart);
     }
 }

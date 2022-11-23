@@ -17,7 +17,7 @@ namespace BO
         public DateTime DeliveryDate { get; set; }//DeliveryDate
         public BO.Enums.OrderStatus status { get; set; }
         public DateTime PaymentDate { get; set; }
-        public IEnumerable<OrderItem> Items { get; set; }
+        public List<OrderItem> Items { get; set; }
         public double TotalPrice { get; set; }
 
         public override string ToString()

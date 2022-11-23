@@ -11,5 +11,6 @@ namespace BlApi
         public IBOProduct Iproduct { get; }
         public IBOCart ICart { get; }
         public IBOOrder IOrder { get; }
+        bool GetEmail(string email);
     }
 }
