@@ -10,7 +10,7 @@ namespace BO
     public class OrderTracking
     {
         public int ID { get; set; }//OrderID
-        public BO.Enums.OrderStatus status { get; set; }
+        public OrderStatus status { get; set; }
         List<Tuple<DateTime, OrderStatus>> orders { get; set; }  
         public override string ToString()
         {

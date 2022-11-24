@@ -7,9 +7,9 @@ namespace BlApi
         public IEnumerable<BO.ProductForList> GetList();
         public Product GetProductManeger();
         public Product GetProductClient();
-        public int Add(Product product);
+        public void Add(Product product);
         public void Update(Product product);    
-        public int Delete(int id);    
+        public void Delete(int id);    
 
     }
 }
