@@ -17,7 +17,7 @@ namespace BO
 
         public override string ToString()
         {
-            return $@"
+            return $@"/
            Product Details:
            Product ID: {ID}, 
            Product Name: {Name},
