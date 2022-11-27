@@ -22,7 +22,7 @@ namespace BlImplementation
             product = dal.Product.GetByID(id);//אם מוצר לא קיים תיזרק חריגה
 
             if (product.InStock < 1)
-                throw new System.Exception();
+                throw new  NagtiveNumberException("not exist in stock");
 
             DO.OrderItem dalOrderItem = new DO.OrderItem();
             List<DO.OrderItem> OIDal = dal.OrderItem.GetAll().ToList();
@@ -93,15 +93,24 @@ namespace BlImplementation
 
         public bool AprrovedCart(BO.Cart cart)
         {
-            foreach (BO.OrderItem item in cart.Items)
-                if (item.Amount < 1 || dal.Product.GetByID(item.ProductID).InStock < item.Amount)
-                    throw new System.Exception();
+            foreach (BO.OrderItem item in cart.Items) 
+            {
+                if (item.Amount < 1)
+                    throw new NagtiveNumberException("negative amount in order item");
+                if (dal.Product.GetByID(item.ProductID).InStock < item.Amount)
+                    throw new NagtiveNumberException("their is not enough amount in stock");
+                if (cart.CustomerName == "")
+                     throw new EmptyString("Empty Customer Name");
+                if (cart.CustomerAdress == "")
+                    throw new EmptyString("Empty Customer Adress");
+                if (GetEmail(cart.CustomerEmail))
+                    throw new EmptyString("Empty Customer Email");
 
-            if(cart.CustomerName=="" || cart.CustomerAdress==""|| GetEmail(cart.CustomerEmail))
-                throw new System.Exception();
+            }
+                
 
-            // אם הכל היה תקין אנחנו נאשר את הסל
-            DO.Order order = new DO.Order() {
+                    // אם הכל היה תקין אנחנו נאשר את הסל
+                    DO.Order order = new DO.Order() {
                 CustomerName = cart.CustomerName,
                 CustomerAdress = cart.CustomerAdress,
                 CustomerEmail = cart.CustomerEmail,

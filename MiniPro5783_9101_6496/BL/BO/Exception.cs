@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,23 +9,37 @@ using System.Threading.Tasks;
 namespace BO
 {
     [Serializable]
-    internal class NagtiveNumberException : System.Exception
+    internal class NagtiveNumberException : Exception
     {
-
-        public NagtiveNumberException()
-        {
+        public NagtiveNumberException(string message) : base(message)
+        { 
+            Console.WriteLine(message);
         }
-
-        public NagtiveNumberException(string? message) : base(message)
+         
+    }
+    [Serializable]
+    internal class EmptyString : Exception
+    {
+        public EmptyString(string? message) : base(message)
         {
-        }
-
-        public NagtiveNumberException(string? message, System.Exception? innerException) : base(message, innerException)
-        {
-        }
-
-        protected NagtiveNumberException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
+            Console.WriteLine(message);
         }
     }
+    [Serializable]
+    internal class NotExist : Exception
+    {
+        public NotExist(string? message) : base(message)
+        {
+            Console.WriteLine(message);
+        }
+    }
+    [Serializable]
+    internal class AlredyExist : Exception
+    {
+        public AlredyExist(string? message) : base(message)
+        {
+            Console.WriteLine(message);
+        }
+    }
+
 }
