@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 
 namespace BlImplementation
 {
-    internal class BLProduct :IBOProduct
+    internal class Product : BlApi.IProduct
     {
         IDal dal = new DalList();
 
@@ -27,7 +27,7 @@ namespace BlImplementation
                    };
         }
 
-        public Product GetProductManeger(int id)
+        public BO.Product GetProductManeger(int id)
         {
             if (id < 0)
                 throw new System.Exception();
@@ -44,7 +44,7 @@ namespace BlImplementation
             };
 
         }
-        public ProductItem GetProductClient(int id,Cart cart)
+        public ProductItem GetProductClient(int id, BO.Cart cart)
         {
             if (id < 0)
                 throw new System.Exception();
@@ -61,7 +61,7 @@ namespace BlImplementation
             };
             return item;
         }
-        public void Add(Product product)
+        public void Add(BO.Product product)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace BlImplementation
                 throw;
             }
         }
-        public void Update(Product product)
+        public void Update(BO.Product product)
         {
             if (product.ID < 0 || product.Name == "" || product.InStock < 1 || product.Price < 0)
                 throw new System.Exception();

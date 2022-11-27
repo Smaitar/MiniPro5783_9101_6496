@@ -2,7 +2,7 @@
 
 namespace BlApi
 {
-    public interface IBOProduct
+    public interface IProduct
     {
         public IEnumerable<BO.ProductForList> GetList();
         public Product GetProductManeger();

@@ -10,6 +10,7 @@ namespace BO
     [Serializable]
     internal class NagtiveNumberException : System.Exception
     {
+
         public NagtiveNumberException()
         {
         }

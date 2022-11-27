@@ -2,7 +2,7 @@
 
 namespace BlApi
 {
-    public interface IBOOrder
+    public interface IOrder
     {
         IEnumerable<OrderForList> GetOrderForListsManager();
         OrderTracking OrderTracking(int orderId);

@@ -9,11 +9,11 @@ using System.Transactions;
 
 namespace BlImplementation
 {
-    internal class BLCart:IBOCart
+    internal class Cart:ICart
     {
         
         IDal dal = new DalList();
-        public Cart AddProduct(Cart cart, int id)
+        public BO.Cart AddProduct(BO.Cart cart, int id)
         {
             int index = cart.Items.FindIndex(x => x.ProductID == id);
 
@@ -52,7 +52,7 @@ namespace BlImplementation
             return cart;
         }
 
-        public Cart UpdateCart(Cart cart, int id, int amount)
+        public BO.Cart UpdateCart(BO.Cart cart, int id, int amount)
         {
             int index = cart.Items.FindIndex(x => x.ProductID == id);
             if (cart.Items[index].Amount == amount)
@@ -91,7 +91,7 @@ namespace BlImplementation
         }
 
 
-        public bool AprrovedCart(Cart cart)
+        public bool AprrovedCart(BO.Cart cart)
         {
             foreach (BO.OrderItem item in cart.Items)
                 if (item.Amount < 1 || dal.Product.GetByID(item.ProductID).InStock < item.Amount)

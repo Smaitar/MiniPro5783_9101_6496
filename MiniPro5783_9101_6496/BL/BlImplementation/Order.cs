@@ -11,7 +11,7 @@ using System.Data;
 
 namespace BlImplementation
 {
-    internal class BLOrder:IBOOrder
+    internal class Order: BlApi.IOrder
     {
         IDal dal = new DalList();
         public IEnumerable<BO.OrderForList> GetOrderForListsManager()
@@ -38,7 +38,7 @@ namespace BlImplementation
                 }
             };
         }
-        public Order OrderDetails(int id)
+        public BO.Order OrderDetails(int id)
         {
             if (id < 0)
                 throw new System.Exception();
@@ -57,7 +57,7 @@ namespace BlImplementation
             };
     
         }
-        public Order GetOrder()
+        public BO.Order GetOrder()
         {
             return null;
         }
