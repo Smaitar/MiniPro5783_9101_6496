@@ -4,11 +4,10 @@ namespace BlApi
 {
     public interface IBOOrder
     {
-        public IEnumerable<BO.OrderForList> GetOrderForListsManager();
-        public IEnumerable<BO.OrderTracking> orderTrackings();
-        public Order OrderDetails(int ID);
-        public Order GetOrder();
-        public void Updatae(int OrderID);
-        
+        IEnumerable<OrderForList> GetOrderForListsManager();
+        OrderTracking OrderTracking(int orderId);
+        Order OrderDetails(int ID);
+        Order GetOrder();
+        void Updatae(int OrderID);
     }
 }

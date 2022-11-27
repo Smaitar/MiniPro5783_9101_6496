@@ -3,6 +3,7 @@ using BlApi;
 using BO;
 using Dal;
 using DalApi;
+using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Transactions;
 
@@ -24,7 +25,7 @@ namespace BlImplementation
                 throw new System.Exception();
 
             DO.OrderItem dalOrderItem = new DO.OrderItem();
-            List<DO.OrderItem> OIDal = (List<DO.OrderItem>)dal.OrderItem.GetAll();
+            List<DO.OrderItem> OIDal = dal.OrderItem.GetAll().ToList();
 
             if (index!= -1) // כרגע לא קיים מוצר כזה בסל
             {
@@ -88,6 +89,8 @@ namespace BlImplementation
 
             return cart;
         }
+
+
         public bool AprrovedCart(Cart cart)
         {
             foreach (BO.OrderItem item in cart.Items)
@@ -126,18 +129,21 @@ namespace BlImplementation
 
             return true;
         }
+
         bool GetEmail(string email)
-        { 
-            for(int i = 1; i < email.Length; i++)
-            {
-                if (email[i] == '@')
-                {
-                    email = email.Substring(i, email.Length);
-                    if (email == "gmail.com" ||email == "acad.jct.ac.il")
-                        return true;
-                }
-            }
-            return false;
+        {
+            return new EmailAddressAttribute().IsValid(email);
+
+            //for(int i = 1; i < email.Length; i++)
+            //{
+            //    if (email[i] == '@')
+            //    {
+            //        email = email.Substring(i, email.Length);
+            //        if (email == "gmail.com" ||email == "acad.jct.ac.il")
+            //            return true;
+            //    }
+            //}
+            //return false;
         }
     }
 }

@@ -15,14 +15,13 @@ namespace BO
         public DateTime OrderDate { get; set; }//OrderDate
         public DateTime ShipDate { get; set; }//ShipDate
         public DateTime DeliveryDate { get; set; }//DeliveryDate
-        public BO.Enums.OrderStatus status { get; set; }
+        public OrderStatus Status { get; set; }
         public DateTime PaymentDate { get; set; }
         public List<OrderItem> Items { get; set; }
         public double TotalPrice { get; set; }
 
-        public override string ToString()
-        {
-            return $@"
+        public override string ToString() =>
+             $@"
            Order Details:
            Order ID: {ID}, 
            Customer Name {CustomerName},
@@ -31,16 +30,9 @@ namespace BO
            Order Date: {OrderDate},
            ShipDate: {ShipDate},
            Delivery Date: {DeliveryDate}
-           Order Status:  {status},
-           Payment Date: {PaymentDate},
-           Total Price: {TotalPrice},
-           Items:";
-            string s = null;
-            foreach (var item in Items)
-            {
-                s += item;
-            }
-            return s;
-        }
+           Order Status:  {Status},
+           Payment Date: {PaymentDate}, 
+           Items: {string.Join(", \n", Items)},
+            Total Price: {TotalPrice}";
    }
 }

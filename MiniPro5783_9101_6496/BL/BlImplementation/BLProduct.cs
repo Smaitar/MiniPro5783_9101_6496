@@ -3,6 +3,7 @@ using BO;
 using Dal;
 using DalApi;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Security.Cryptography;
 //using MDalFacade.DalApi;
 
@@ -11,9 +12,11 @@ namespace BlImplementation
     internal class BLProduct :IBOProduct
     {
         IDal dal = new DalList();
+
         public IEnumerable<BO.ProductForList> GetList()
         {
-            List <DO.Product> DOProduct = (List<DO.Product>)dal.Product.GetAll();
+            IEnumerable<DO.Product> DOProduct = dal.Product.GetAll();
+
             return from DO.Product item in DOProduct
                    select new BO.ProductForList()
                    {
@@ -60,18 +63,27 @@ namespace BlImplementation
         }
         public void Add(Product product)
         {
-            if (product.ID < 0|| product.Name==""|| product.InStock<1|| product.Price<0)
-                   throw new System. Exception();
-            DO.Product product1 = new DO.Product()
+            try
             {
-                ID = product.ID,
-                Name = product.Name,
-                InStock = product.InStock,
-                Price = product.Price,
-                Category = (DO.Category)product.Category,
-                
-            };
-             dal.Product.Add(product1);
+                if (product.ID < 0 || product.Name == "" || product.InStock < 1 || product.Price < 0)
+                    throw new NagtiveNumberException();
+
+                DO.Product product1 = new DO.Product()
+                {
+                    ID = product.ID,
+                    Name = product.Name,
+                    InStock = product.InStock,
+                    Price = product.Price,
+                    Category = (DO.Category)product.Category,
+
+                };
+                dal.Product.Add(product1);
+            }
+            catch ()
+            {
+
+                throw;
+            }
         }
         public void Update(Product product)
         {
@@ -100,4 +112,6 @@ namespace BlImplementation
 
 
     }
+
+  
 }
