@@ -22,7 +22,6 @@ namespace BO
     {
         public EmptyString(string? message) : base(message)
         {
-            Console.WriteLine(message);
         }
     }
     [Serializable]

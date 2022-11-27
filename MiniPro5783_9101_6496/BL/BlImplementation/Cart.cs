@@ -97,17 +97,20 @@ namespace BlImplementation
             {
                 if (item.Amount < 1)
                     throw new NagtiveNumberException("negative amount in order item");
+
                 if (dal.Product.GetByID(item.ProductID).InStock < item.Amount)
                     throw new NagtiveNumberException("their is not enough amount in stock");
+
                 if (cart.CustomerName == "")
                      throw new EmptyString("Empty Customer Name");
+
                 if (cart.CustomerAdress == "")
                     throw new EmptyString("Empty Customer Adress");
+
                 if (GetEmail(cart.CustomerEmail))
                     throw new EmptyString("Empty Customer Email");
 
             }
-                
 
                     // אם הכל היה תקין אנחנו נאשר את הסל
                     DO.Order order = new DO.Order() {
