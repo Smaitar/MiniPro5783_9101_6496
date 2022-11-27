@@ -8,9 +8,8 @@ namespace BlApi
 {
     public interface IBL
     {
-        public IProduct Iproduct { get; }
-        public ICart ICart { get; }
-        public IOrder IOrder { get; }
-        bool GetEmail(string email);
+        public IProduct Product { get; }
+        public ICart Cart { get; }
+        public IOrder Order { get; }
     }
 }

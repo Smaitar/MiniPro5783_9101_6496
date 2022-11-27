@@ -33,15 +33,15 @@ namespace BlImplementation
                 OrderTrackings = new List<(DateTime?, OrderStatus)>
                 {
                     (order.OrderDate, OrderStatus.Confirmation),
-                    (order.OrderDate, OrderStatus.Confirmation),
-                    (order.OrderDate, OrderStatus.Confirmation),
+                    (order.ShipDate, OrderStatus.Sent),
+                    (order.DeliveryDate, OrderStatus.Supplied),
                 }
             };
         }
         public BO.Order OrderDetails(int id)
         {
             if (id < 0)
-                throw new System.Exception();
+                throw new NagtiveNumberException("michal\n",ExecutionContext());
 
             DO.Order order = new DO.Order();
             order = dal.Order.GetByID(id);

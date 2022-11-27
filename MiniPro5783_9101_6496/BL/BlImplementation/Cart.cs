@@ -30,7 +30,6 @@ namespace BlImplementation
             if (index!= -1) // כרגע לא קיים מוצר כזה בסל
             {
                 BO.OrderItem boOrderItem = new BO.OrderItem();
-
                 boOrderItem.ProductID = id;
                 boOrderItem.OrderID = cart.Items[0].OrderID;
                 boOrderItem.Price = product.Price;
@@ -55,6 +54,7 @@ namespace BlImplementation
         public BO.Cart UpdateCart(BO.Cart cart, int id, int amount)
         {
             int index = cart.Items.FindIndex(x => x.ProductID == id);
+                throw new Exception
             if (cart.Items[index].Amount == amount)
                 return cart;
 
@@ -97,8 +97,16 @@ namespace BlImplementation
                 if (item.Amount < 1 || dal.Product.GetByID(item.ProductID).InStock < item.Amount)
                     throw new System.Exception();
 
-            if(cart.CustomerName=="" || cart.CustomerAdress==""|| GetEmail(cart.CustomerEmail))
-                throw new System.Exception();
+            try
+            {
+                if (cart.CustomerName == "" || cart.CustomerAdress == "" || GetEmail(cart.CustomerEmail))
+                    throw new System.Exception();
+              
+            }
+            catch(Exception ex)
+            {
+
+            }
 
             // אם הכל היה תקין אנחנו נאשר את הסל
             DO.Order order = new DO.Order() {
@@ -133,17 +141,6 @@ namespace BlImplementation
         bool GetEmail(string email)
         {
             return new EmailAddressAttribute().IsValid(email);
-
-            //for(int i = 1; i < email.Length; i++)
-            //{
-            //    if (email[i] == '@')
-            //    {
-            //        email = email.Substring(i, email.Length);
-            //        if (email == "gmail.com" ||email == "acad.jct.ac.il")
-            //            return true;
-            //    }
-            //}
-            //return false;
         }
     }
 }
