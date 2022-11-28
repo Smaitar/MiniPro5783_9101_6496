@@ -8,7 +8,7 @@ namespace BlApi
         OrderTracking OrderTracking(int orderId);
         Order OrderDetails(int ID);
         Order GetOrder();
-        void Updatae(int OrderID);
+        void Update(int OrderID);
         bool GetByID(int word);
         IEnumerable<Order> GetAll();
         void Update(Order orb);

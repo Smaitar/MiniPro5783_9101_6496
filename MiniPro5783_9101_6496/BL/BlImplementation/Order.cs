@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Dal;
 using BO;
 using System.Data;
+using DO;
 
 namespace BlImplementation
 {
@@ -41,7 +42,7 @@ namespace BlImplementation
         public BO.Order OrderDetails(int id)
         {
             if (id < 0)
-                throw new NagtiveNumberException("michal\n");
+                throw new NagtiveNumberException("negative id\n");
 
             DO.Order order = new DO.Order();
             order = dal.Order.GetByID(id);
@@ -62,6 +63,12 @@ namespace BlImplementation
             return null;
         }
         public void Updatae(int OrderID)
+        {
+            DO.Order order = dal.Order.GetByID(OrderID);
+            
+
+        }
+        public void Delete(int OrderID)
         {
 
         }
