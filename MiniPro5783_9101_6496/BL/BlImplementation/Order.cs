@@ -41,7 +41,7 @@ namespace BlImplementation
         public BO.Order OrderDetails(int id)
         {
             if (id < 0)
-                throw new NagtiveNumberException("michal\n",ExecutionContext());
+                throw new NagtiveNumberException("michal\n");
 
             DO.Order order = new DO.Order();
             order = dal.Order.GetByID(id);

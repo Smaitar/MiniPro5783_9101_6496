@@ -30,6 +30,7 @@ namespace BlTest
                     {
                         case 1:
                             OrderOption();
+
                             break;
 
                         case 2:
@@ -45,10 +46,15 @@ namespace BlTest
                             break;
                     }
                 }
-                catch (Exception)
-                {
 
-                    throw;
+                catch (BO.NagtiveNumberException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                catch(BO.EmptyString ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
             }
         }

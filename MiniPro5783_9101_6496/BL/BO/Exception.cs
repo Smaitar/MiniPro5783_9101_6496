@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace BO
 {
     [Serializable]
-    internal class NagtiveNumberException : Exception
+    public class NagtiveNumberException : Exception
     {
         public NagtiveNumberException(string message) : base(message)
         { 
@@ -18,27 +18,28 @@ namespace BO
          
     }
     [Serializable]
-    internal class EmptyString : Exception
+    public class EmptyString : Exception
     {
         public EmptyString(string? message) : base(message)
-        {
-            Console.WriteLine(message);
+        { 
         }
     }
+
     [Serializable]
-    internal class NotExist : Exception
+    public class NotExist : Exception
     {
         public NotExist(string? message) : base(message)
         {
-            Console.WriteLine(message);
+           
         }
     }
+
     [Serializable]
-    internal class AlredyExist : Exception
+    public class AlredyExist : Exception
     {
         public AlredyExist(string? message) : base(message)
         {
-            Console.WriteLine(message);
+           
         }
     }
 

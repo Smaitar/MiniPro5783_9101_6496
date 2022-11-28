@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    internal class Exceptions
+    [Serializable]
+    public class NotExist : Exception
     {
+        public NotExist(string? message) : base(message)
+        {
+
+        }
+    }
+
+    [Serializable]
+    public class AlredyExist : Exception
+    {
+        public AlredyExist(string? message) : base(message)
+        {
+
+        }
     }
 }
