@@ -7,7 +7,6 @@ namespace BlTest
 {
     internal class Program
     {
-        kkkkkkkk
         private static IBL _bl = new Bl();
 
         private static Cart _cart = new Cart();
@@ -111,7 +110,7 @@ namespace BlTest
 
                             int word;
                             Console.WriteLine("enter ID:");
-                            word = int.Parse(Console.ReadLine());
+                            word = int.Parse(Console.ReadLine()!);
                             Console.WriteLine(_bl.Order.GetByID(word));
                             break;
                         case "c":
@@ -121,25 +120,25 @@ namespace BlTest
                         case "d":
                             BO.Order orb = new BO.Order();
                             Console.WriteLine("enter ID:");
-                            orb.ID = int.Parse(Console.ReadLine());
+                            orb.ID = int.Parse(Console.ReadLine()!);
                             Console.WriteLine("enter Customer Name:");
-                            orb.CustomerName = Console.ReadLine();
+                            orb.CustomerName = Console.ReadLine()!;
                             Console.WriteLine("enter Customer Email:");
-                            orb.CustomerEmail = Console.ReadLine();
+                            orb.CustomerEmail = Console.ReadLine()!;
                             Console.WriteLine("enter Customer Adress:");
-                            orb.CustomerAdress = Console.ReadLine();
+                            orb.CustomerAdress = Console.ReadLine()!;
                             Console.WriteLine("enter Order Date:");
-                            orb.OrderDate = DateTime.Parse(Console.ReadLine());
+                            orb.OrderDate = DateTime.Parse(Console.ReadLine()!);
                             Console.WriteLine("enter Ship Date:");
-                            orb.ShipDate = DateTime.Parse(Console.ReadLine());
+                            orb.ShipDate = DateTime.Parse(Console.ReadLine()!);
                             Console.WriteLine("enter Delivery Date:");
-                            orb.DeliveryDate = DateTime.Parse(Console.ReadLine());
+                            orb.DeliveryDate = DateTime.Parse(Console.ReadLine()!);
                             _bl.Order.Update(orb);
                             break;
                         case "e":
                             int ore;
                             Console.WriteLine("enter ID:");
-                            ore = int.Parse(Console.ReadLine());
+                            ore = int.Parse(Console.ReadLine()!);
                             _bl.Order.Delete(ore);
                             break;
                     }
@@ -154,7 +153,7 @@ namespace BlTest
                 Console.WriteLine("To update press d");
                 Console.WriteLine("To delete press e");
                 Console.WriteLine("To exit press f");
-                choice = Console.ReadLine();
+                choice = Console.ReadLine()!;
             }
         }
         public static void OrderItemOption()//if the user chose orderItem
@@ -166,7 +165,7 @@ namespace BlTest
             Console.WriteLine("To update press d");
             Console.WriteLine("To delete press e");
             Console.WriteLine("To exit press f");
-            string choice2 = Console.ReadLine();
+            string choice2 = Console.ReadLine()!;
             while (choice2 != "f")
             {
                 try
