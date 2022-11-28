@@ -61,7 +61,11 @@ internal class DalOrderItem : IOrderItem
     }
     public OrderItem GetByID(int idcheck)//get an Id ant return its object
     {
-        OrderItem p = DataSource.orderitemsList.Find(i => i?.ID == idcheck) ?? throw new Exception("not found");
-        return p;
+        object p = DataSource.orderitemsList.Find(i => i.ID == idcheck);
+        if (p == null)
+        {
+            throw new Exception("not found");
+        }
+        return (O);
     }
 }

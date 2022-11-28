@@ -9,5 +9,9 @@ namespace BlApi
         Order OrderDetails(int ID);
         Order GetOrder();
         void Updatae(int OrderID);
+        bool GetByID(int word);
+        IEnumerable<Order> GetAll();
+        void Update(Order orb);
+        void Delete(int ore);
     }
 }
