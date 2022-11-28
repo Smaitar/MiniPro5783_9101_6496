@@ -11,7 +11,7 @@ namespace BlImplementation
 {
     internal class Cart:ICart
     {
-        
+        צצצ
         IDal dal = new DalList();
 
         public BO.Cart AddProduct(BO.Cart cart, int id)
@@ -105,12 +105,16 @@ namespace BlImplementation
             {
                 if (item.Amount < 1)
                     throw new NagtiveNumberException("negative amount in order item");
+
                 if (dal.Product.GetByID(item.ProductID).InStock < item.Amount)
                     throw new NagtiveNumberException("their is not enough amount in stock");
+
                 if (cart.CustomerName == "")
                      throw new EmptyString("Empty Customer Name");
+
                 if (cart.CustomerAdress == "")
                     throw new EmptyString("Empty Customer Adress");
+
                 if (GetEmail(cart.CustomerEmail))
                     throw new EmptyString("Empty Customer Email");
             try
