@@ -11,7 +11,7 @@ namespace BlImplementation
 {
     internal class Cart:ICart
     {
-        צצצ
+       
         IDal dal = new DalList();
         public BO.Cart AddProduct(BO.Cart cart, int id)
         {
