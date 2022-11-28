@@ -7,6 +7,7 @@ namespace BlTest
 {
     internal class Program
     {
+        kkkkkkkk
         private static IBL _bl = new Bl();
 
         private static Cart _cart = new Cart();
