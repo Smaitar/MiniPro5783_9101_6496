@@ -13,16 +13,24 @@ namespace BlImplementation
     {
         
         IDal dal = new DalList();
+
         public BO.Cart AddProduct(BO.Cart cart, int id)
         {
             int index = cart.Items.FindIndex(x => x.ProductID == id);
 
             DO.Product product = new DO.Product();
 
-            product = dal.Product.GetByID(id);//אם מוצר לא קיים תיזרק חריגה
+            try
+            {
+                product = dal.Product.GetByID(id);//אם מוצר לא קיים תיזרק חריגה
+            }
+            catch (DalApi.ex)
+            {
+                throw ;
+            }
 
             if (product.InStock < 1)
-                throw new System.Exception();
+                throw new  NagtiveNumberException("not exist in stock");
 
             DO.OrderItem dalOrderItem = new DO.OrderItem();
             List<DO.OrderItem> OIDal = dal.OrderItem.GetAll().ToList();
@@ -93,10 +101,18 @@ namespace BlImplementation
 
         public bool AprrovedCart(BO.Cart cart)
         {
-            foreach (BO.OrderItem item in cart.Items)
-                if (item.Amount < 1 || dal.Product.GetByID(item.ProductID).InStock < item.Amount)
-                    throw new System.Exception();
-
+            foreach (BO.OrderItem item in cart.Items) 
+            {
+                if (item.Amount < 1)
+                    throw new NagtiveNumberException("negative amount in order item");
+                if (dal.Product.GetByID(item.ProductID).InStock < item.Amount)
+                    throw new NagtiveNumberException("their is not enough amount in stock");
+                if (cart.CustomerName == "")
+                     throw new EmptyString("Empty Customer Name");
+                if (cart.CustomerAdress == "")
+                    throw new EmptyString("Empty Customer Adress");
+                if (GetEmail(cart.CustomerEmail))
+                    throw new EmptyString("Empty Customer Email");
             try
             {
                 if (cart.CustomerName == "" || cart.CustomerAdress == "" || GetEmail(cart.CustomerEmail))
@@ -107,9 +123,10 @@ namespace BlImplementation
             {
 
             }
+            }
 
-            // אם הכל היה תקין אנחנו נאשר את הסל
-            DO.Order order = new DO.Order() {
+                    // אם הכל היה תקין אנחנו נאשר את הסל
+                    DO.Order order = new DO.Order() {
                 CustomerName = cart.CustomerName,
                 CustomerAdress = cart.CustomerAdress,
                 CustomerEmail = cart.CustomerEmail,

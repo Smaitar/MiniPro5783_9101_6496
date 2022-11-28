@@ -1,69 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BO
 {
     [Serializable]
-    internal class NagtiveNumberException : System.Exception
+    internal class NagtiveNumberException : Exception
     {
-
-        public NagtiveNumberException()
-        {
-          
+        public NagtiveNumberException(string message) : base(message)
+        { 
+            Console.WriteLine(message);
         }
-
-        public NagtiveNumberException(string? message) : base(message)
-        {
-
-        }
-
-        public NagtiveNumberException(string? message, System.Exception? innerException) : base(message, innerException)
-        {
-        }
-
-        public NagtiveNumberException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
-
-        public override string ToString()
-        {
-            return { "{0}", "bla bla bla bla ma sheba lach" };
-
-        }
+         
     }
-
     [Serializable]
-    internal class emptyString : System.Exception
+    internal class EmptyString : Exception
     {
-
-        public emptyString()
+        public EmptyString(string? message) : base(message)
         {
-
-        }
-
-        public emptyString(string? message) : base(message)
-        {
-
-        }
-
-        public emptyString(string? message, System.Exception? innerException) : base(message, innerException)
-        {
-        }
-
-        public emptyString(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
-
-        public override string ToString()
-        {
-            return "bla bla bla bla ma sheba lach" ;
-
+            Console.WriteLine(message);
         }
     }
+    [Serializable]
+    internal class NotExist : Exception
+    {
+        public NotExist(string? message) : base(message)
+        {
+            Console.WriteLine(message);
+        }
+    }
+    [Serializable]
+    internal class AlredyExist : Exception
+    {
+        public AlredyExist(string? message) : base(message)
+        {
+            Console.WriteLine(message);
+        }
+    }
+
 }
