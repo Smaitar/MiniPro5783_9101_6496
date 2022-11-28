@@ -56,6 +56,17 @@ namespace BlTest
                 {
                     Console.WriteLine(ex.Message);
                 }
+
+                catch (BO.AlredyExist ex) when (ex.InnerException is not null) 
+                {
+                    Console.WriteLine(ex.Message + " " + ex.InnerException!.Message);
+                }
+
+                catch (BO.NotExist ex) when (ex.InnerException is not null)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
             }
         }
 
@@ -108,13 +119,13 @@ namespace BlTest
 
                         case "b":
 
-                            int word;
+                            int id;
                             Console.WriteLine("enter ID:");
-                            word = int.Parse(Console.ReadLine()!);
-                            Console.WriteLine(_bl.Order.GetByID(word));
+                            id = tryParseInt(); 
+                            Console.WriteLine(_bl.Order.OrderDetails(id));
                             break;
                         case "c":
-                            foreach (Order ob in _bl.Order.GetAll())
+                            foreach(OrderForList ob in _bl.Order.GetOrderForListsManager())
                                 Console.WriteLine(ob);
                             break;
                         case "d":
@@ -133,13 +144,13 @@ namespace BlTest
                             orb.ShipDate = DateTime.Parse(Console.ReadLine()!);
                             Console.WriteLine("enter Delivery Date:");
                             orb.DeliveryDate = DateTime.Parse(Console.ReadLine()!);
-                            _bl.Order.Update(orb);
+                          //  _bl.Order.Update(orb);
                             break;
                         case "e":
                             int ore;
                             Console.WriteLine("enter ID:");
                             ore = int.Parse(Console.ReadLine()!);
-                            _bl.Order.Delete(ore);
+                            //_bl.Order.Delete(ore);
                             break;
                     }
                 }
@@ -184,17 +195,17 @@ namespace BlTest
                             or.Price = double.Parse(Console.ReadLine());
                             Console.WriteLine("enter Amount:");
                             or.Amount = int.Parse(Console.ReadLine());
-                            _bl.OrderItem.Add(or);
+                            //_bl.OrderItem.Add(or);
                             break;
                         case "b":
                             int word;
                             Console.WriteLine("enter ID:");
                             word = int.Parse(Console.ReadLine());
-                            Console.WriteLine(_bl.OrderItem.GetByID(word));
+                           // Console.WriteLine(_bl.OrderItem.GetByID(word));
                             break;
                         case "c":
-                            foreach (var ob in _bl.OrderItem.GetAll())
-                                Console.WriteLine(ob);
+                            //foreach (var ob in _bl.OrderItem.GetAll())
+                            //    Console.WriteLine(ob);
                             break;
                         case "d":
                             OrderItem orb = new OrderItem();
@@ -208,13 +219,13 @@ namespace BlTest
                             orb.Price = double.Parse(Console.ReadLine());
                             Console.WriteLine("enter Amount:");
                             orb.Amount = int.Parse(Console.ReadLine());
-                            _bl.OrderItem.Update(orb);
+                           // _bl.OrderItem.Update(orb);
                             break;
                         case "e":
                             int ore;
                             Console.WriteLine("enter ID:");
                             ore = int.Parse(Console.ReadLine());
-                            _bl.OrderItem.Delete(ore);
+                           // _bl.OrderItem.Delete(ore);
                             break;
                     }
                 }
@@ -266,10 +277,10 @@ namespace BlTest
                         int word;
                         Console.WriteLine("enter ID:");
                         word = int.Parse(Console.ReadLine());
-                        Console.WriteLine(_bl.Product.GetByID(word));
+                        Console.WriteLine(_bl.Product.GetProductClient(word, _cart));
                         break;
                     case "c":
-                        foreach (var ob in _bl.Product.GetAll())
+                        foreach (var ob in _bl.Product.GetList())
                             Console.WriteLine(ob);
                         break;
                     case "d":

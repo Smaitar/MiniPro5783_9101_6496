@@ -24,7 +24,17 @@ namespace BlImplementation
 
         public OrderTracking OrderTracking(int orderId)
         {
-            DO.Order order = dal.Order.GetByID(orderId);
+            DO.Order order;
+            
+
+            try
+            {
+                order= dal.Order.GetByID(orderId);
+            }
+            catch (DO.NotExist ex)
+            {
+                throw new BO.NotExist(ex);
+            }
 
             return new OrderTracking
             {
@@ -41,11 +51,17 @@ namespace BlImplementation
         public BO.Order OrderDetails(int id)
         {
             if (id < 0)
-                throw new NagtiveNumberException("michal\n");
+                throw new NagtiveNumberException("negative number of id");
 
-            DO.Order order = new DO.Order();
-            order = dal.Order.GetByID(id);
-         
+            DO.Order order;
+            try
+            {
+                order = dal.Order.GetByID(id);
+            }
+            catch(DO.NotExist ex)
+            {
+                throw new BO.NotExist(ex);
+            }
 
             return new BO.Order()
             {
@@ -57,14 +73,7 @@ namespace BlImplementation
             };
     
         }
-        public BO.Order GetOrder()
-        {
-            return null;
-        }
-        public void Updatae(int OrderID)
-        {
-
-        }
+       
         public BO.OrderForList OrderInList(DO.Order order)
         {
             BO.OrderForList orderForList = new BO.OrderForList();   
@@ -81,6 +90,41 @@ namespace BlImplementation
                 != DateTime.MinValue ? OrderStatus.Sent : OrderStatus.Confirmation;
         }
 
-    
+        public BO.Order UpdateSentOrder(int orderId)
+        {
+            try
+            {
+                DO.Order order = dal.Order.GetByID(orderId);
+
+                order.ShipDate = DateTime.Now;
+                dal.Order.Update(order);
+
+                return OrderDetails(orderId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public BO.Order UpdateSuppliedOrder(int orderId)
+        {
+            try
+            {
+                DO.Order order = dal.Order.GetByID(orderId);
+
+                order.DeliveryDate = DateTime.Now;
+                dal.Order.Update(order);
+
+                return OrderDetails(orderId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

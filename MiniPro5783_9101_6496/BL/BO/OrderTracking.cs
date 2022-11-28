@@ -20,13 +20,9 @@ namespace BO
             return $@"
            OrderTracking Details:
            Order ID: {ID}, 
-           Order Status:";
+           Order Status:{Status},
             string s = null;
-            foreach (var item in OrderTrackings)
-            {
-                s += item;   
-            }
-            return s;   
+            Items: { string.Join(", \n", OrderTrackings)},";   
         }
     }
 }

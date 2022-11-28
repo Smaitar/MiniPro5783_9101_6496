@@ -13,8 +13,8 @@ internal class DalProduct : IProduct
     public int Add(Product ord)
     {
         //Add an object to the list
-        if (DataSource.ProductsList.Exists(i => i?.ID == ord.ID))
-            throw new Exception("cannot create a Products In ProductsList, is already exists");
+        if (DataSource.ProductsList.Exists(i => i.ID == ord.ID))
+            throw new AlredyExist("cannot create a Products In ProductsList, is already exists");
         DataSource.ProductsList.Add(ord);
         return (ord.ID);
     }
@@ -22,11 +22,11 @@ internal class DalProduct : IProduct
     public int Delete(int IdDelete)
     {
         //delete a object acoording to its ID
-        if (!DataSource.ProductsList.Exists(i => i?.ID == IdDelete))
-            throw new Exception("cannot create a Products In ProductsList, is already exists");
+        if (!DataSource.ProductsList.Exists(i => i.ID == IdDelete))
+            throw new AlredyExist("cannot create a Products In ProductsList, is already exists");
         for (int i = 0; i <= DataSource.ProductsList.Count; i++)
         {
-            if (DataSource.ProductsList[i]?.ID == IdDelete)
+            if (DataSource.ProductsList[i].ID == IdDelete)
             {
                 DataSource.ProductsList.Remove(DataSource.ProductsList[i]);
                 break;
@@ -38,11 +38,11 @@ internal class DalProduct : IProduct
     public void Update(Product ordUpdate)
     {
         //update an object according to its ID
-        if (!DataSource.ProductsList.Exists(i => i?.ID == ordUpdate.ID))
-            throw new Exception("cannot update a Products In ProductsList, is not exists");
+        if (!DataSource.ProductsList.Exists(i => i.ID == ordUpdate.ID))
+            throw new NotExist("cannot update a Products In ProductsList, is not exists");
         for (int i = 0; i < DataSource.ProductsList.Count; i++)
         {
-            if (DataSource.ProductsList[i]?.ID == ordUpdate.ID)
+            if (DataSource.ProductsList[i].ID == ordUpdate.ID)
             {
                 DataSource.ProductsList.Remove(DataSource.ProductsList[i]);
                 DataSource.ProductsList.Add(ordUpdate);
@@ -57,7 +57,8 @@ internal class DalProduct : IProduct
     }  
     public Product GetByID (int idcheck)//get an Id ant return its object
     {
-        Product p = DataSource.ProductsList.Find(i => i?.ID == idcheck) ?? throw new Exception("not found");   
-        return p;
+        object p = DataSource.ProductsList.Find(i => i.ID == idcheck);
+           
+        return p != null ? (Product)p : throw new NotExist("not found");
     }
 }

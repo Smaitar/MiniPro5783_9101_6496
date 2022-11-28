@@ -7,11 +7,7 @@ namespace BlApi
         IEnumerable<OrderForList> GetOrderForListsManager();
         OrderTracking OrderTracking(int orderId);
         Order OrderDetails(int ID);
-        Order GetOrder();
-        void Updatae(int OrderID);
-        bool GetByID(int word);
-        IEnumerable<Order> GetAll();
-        void Update(Order orb);
-        void Delete(int ore);
+        Order UpdateSuppliedOrder(int orderId);
+        Order UpdateSentOrder(int orderId);
     }
 }

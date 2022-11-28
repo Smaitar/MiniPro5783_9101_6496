@@ -9,8 +9,8 @@ namespace BlImplementation
 {
     public class Bl :IBL
     {
-        ICart Cart => new Cart();
-        IOrder Order => new Order();
-        IProduct Product => new Product();
+        public ICart Cart => new Cart();
+        public IOrder Order => new Order();
+        public IProduct Product => new Product();
     }
 }

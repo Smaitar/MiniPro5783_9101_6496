@@ -10,7 +10,7 @@ namespace BO
     {
         public int ID { get; set; }//product ID
         public string? Name { get; set; }
-        public BO.Enums.Category Category { get; set; }
+        public BO.Category Category { get; set; }
         public double Price { get; set; }
 
         public override string ToString()
