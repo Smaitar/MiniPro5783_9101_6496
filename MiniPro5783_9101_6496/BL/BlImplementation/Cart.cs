@@ -3,6 +3,7 @@ using BlApi;
 using BO;
 using Dal;
 using DalApi;
+using DO;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Transactions;
@@ -11,26 +12,26 @@ namespace BlImplementation
 {
     internal class Cart:ICart
     {
-        צצצ
+       
         IDal dal = new DalList();
 
         public BO.Cart AddProduct(BO.Cart cart, int id)
         {
             int index = cart.Items.FindIndex(x => x.ProductID == id);
 
-            DO.Product product = new DO.Product();
+            DO.Product product;
 
             try
             {
                 product = dal.Product.GetByID(id);//אם מוצר לא קיים תיזרק חריגה
             }
-            catch (DalApi.ex)
+            catch (DO.NotExist ex)
             {
-                throw ;
+                throw new BO.NotExist(ex);
             }
 
             if (product.InStock < 1)
-                throw new  NagtiveNumberException("not exist in stock");
+                throw new NagtiveNumberException("not exist in stock");
 
             DO.OrderItem dalOrderItem = new DO.OrderItem();
             List<DO.OrderItem> OIDal = dal.OrderItem.GetAll().ToList();
@@ -61,8 +62,16 @@ namespace BlImplementation
 
         public BO.Cart UpdateCart(BO.Cart cart, int id, int amount)
         {
-            int index = cart.Items.FindIndex(x => x.ProductID == id);
-                throw new Exception
+            int index;
+            try
+            {
+                index = cart.Items.FindIndex(x => x.ProductID == id);
+            }
+            catch (DO.NotExist ex)
+            {
+                throw new BO.NotExist(ex);
+            }
+
             if (cart.Items[index].Amount == amount)
                 return cart;
 
@@ -101,59 +110,62 @@ namespace BlImplementation
 
         public bool AprrovedCart(BO.Cart cart)
         {
-            foreach (BO.OrderItem item in cart.Items) 
+            if (cart.Items.Any())
             {
-                if (item.Amount < 1)
-                    throw new NagtiveNumberException("negative amount in order item");
-
-                if (dal.Product.GetByID(item.ProductID).InStock < item.Amount)
-                    throw new NagtiveNumberException("their is not enough amount in stock");
-
-                if (cart.CustomerName == "")
-                     throw new EmptyString("Empty Customer Name");
-
-                if (cart.CustomerAdress == "")
-                    throw new EmptyString("Empty Customer Adress");
-
-                if (GetEmail(cart.CustomerEmail))
-                    throw new EmptyString("Empty Customer Email");
-            try
-            {
-                if (cart.CustomerName == "" || cart.CustomerAdress == "" || GetEmail(cart.CustomerEmail))
-                    throw new System.Exception();
-              
-            }
-            catch(Exception ex)
-            {
-
-            }
-            }
-
-                    // אם הכל היה תקין אנחנו נאשר את הסל
-                    DO.Order order = new DO.Order() {
-                CustomerName = cart.CustomerName,
-                CustomerAdress = cart.CustomerAdress,
-                CustomerEmail = cart.CustomerEmail,
-                OrderDate = DateTime.Now,
-                ShipDate = null,
-                DeliveryDate = null
-            };
-            
-            int orderId = dal.Order.Add(order);   
-
-            foreach (BO.OrderItem item in cart.Items)
-            {
-                dal.OrderItem.Add(new DO.OrderItem()
+                foreach (BO.OrderItem item in cart.Items)
                 {
-                    ProductID = item.ProductID,
-                    OrderID = orderId, 
-                    Price = item.Price,
-                    Amount = item.Amount
-                });
+                    if (item.Amount < 1)
+                        throw new NagtiveNumberException("negative amount in order item");
+                    DO.Product product1;
+                    try
+                    {
+                        product1 = dal.Product.GetByID(item.ProductID);//אם מוצר לא קיים תיזרק חריגה
+                    }
+                    catch (DO.NotExist ex)
+                    {
+                        throw new BO.NotExist(ex);
+                    }
+                    if (product1.InStock < item.Amount)
+                        throw new NagtiveNumberException("their is not enough amount in stock");
 
-                DO.Product product  = dal.Product.GetByID(item.ProductID);
-                product.InStock -= item.Amount;
-                dal.Product.Update(product);
+                    if (cart.CustomerName == "")
+                        throw new EmptyString("Empty Customer Name");
+
+                    if (cart.CustomerAdress == "")
+                        throw new EmptyString("Empty Customer Adress");
+
+                    if (GetEmail(cart.CustomerEmail))
+                        throw new EmptyString("Empty Customer Email");
+                   
+                }
+
+                // אם הכל היה תקין אנחנו נאשר את הסל
+                DO.Order order = new DO.Order()
+                {
+                    CustomerName = cart.CustomerName,
+                    CustomerAdress = cart.CustomerAdress,
+                    CustomerEmail = cart.CustomerEmail,
+                    OrderDate = DateTime.Now,
+                    ShipDate = null,
+                    DeliveryDate = null
+                };
+
+                int orderId = dal.Order.Add(order);
+
+                foreach (BO.OrderItem item in cart.Items)
+                {
+                    dal.OrderItem.Add(new DO.OrderItem()
+                    {
+                        ProductID = item.ProductID,
+                        OrderID = orderId,
+                        Price = item.Price,
+                        Amount = item.Amount
+                    });
+
+                    DO.Product product = dal.Product.GetByID(item.ProductID);
+                    product.InStock -= item.Amount;
+                    dal.Product.Update(product);
+                } 
             }
 
             return true;

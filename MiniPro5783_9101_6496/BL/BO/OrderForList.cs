@@ -6,7 +6,7 @@ namespace BO
         public int ID { get; set; }//OrderID
         public string CustomerName { get; set; }//CustomerName
         public int AmountOfItem { get; set; }
-        public BO.Enums.OrderStatus status { get; set; }
+        public BO.OrderStatus status { get; set; }
         public double  TotalPrice { get; set; }
 
         public override string ToString()

@@ -13,10 +13,10 @@ namespace BO
     {
         public NagtiveNumberException(string message) : base(message)
         { 
-            Console.WriteLine(message);
         }
          
     }
+
     [Serializable]
     public class EmptyString : Exception
     {
@@ -32,6 +32,11 @@ namespace BO
         {
            
         }
+
+        public NotExist(Exception innerException, string? message = "") : base(message, innerException)
+        {
+
+        }
     }
 
     [Serializable]
@@ -40,6 +45,11 @@ namespace BO
         public AlredyExist(string? message) : base(message)
         {
            
+        }
+
+        public AlredyExist(Exception innerException, string? message = "") : base(message, innerException)
+        {
+
         }
     }
 

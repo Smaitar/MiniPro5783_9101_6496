@@ -2,6 +2,7 @@
 using BO;
 using Dal;
 using DalApi;
+using DO;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
@@ -22,7 +23,7 @@ namespace BlImplementation
                    {
                        ID = item.ID,
                        Name = item.Name,
-                       Category = (Category)item.Category,
+                       Category = (BO.Category)item.Category,
                        Price = item.Price,
                    };
         }
@@ -32,8 +33,16 @@ namespace BlImplementation
             if (id < 0)
                 throw new System.Exception();
 
-            DO.Product product = new DO.Product();
-            product = dal.Product.GetByID(id);
+            DO.Product product;
+            try
+            {
+                product = dal.Product.GetByID(id);
+            }
+            catch(DO.NotExist ex)
+            {
+                throw new BO.NotExist(ex);
+            }
+            
 
             return  new BO.Product(){ 
             ID = product.ID,
@@ -48,8 +57,15 @@ namespace BlImplementation
         {
             if (id < 0)
                 throw new System.Exception();
-            DO.Product product = new DO.Product();
-            product = dal.Product.GetByID(id);
+            DO.Product product;
+            try
+            {
+                product = dal.Product.GetByID(id);
+            }
+            catch(BO.NotExist ex)   
+            {
+                throw new BO.NotExist(ex);
+            }
             BO.ProductItem item = new BO.ProductItem()
             {
                 ID = product.ID,
@@ -63,11 +79,15 @@ namespace BlImplementation
         }
         public void Add(BO.Product product)
         {
-            try
-            {
-                if (product.ID < 0 || product.Name == "" || product.InStock < 1 || product.Price < 0)
-                    throw new NagtiveNumberException();
-
+            
+                if (product.ID < 0) 
+                    throw new NagtiveNumberException("negative number of id");
+                if(product.Name == "")
+                    throw new EmptyString("empty name");
+                if (   product.InStock < 1)
+                    throw new NagtiveNumberException("negative number of amount in stock");
+                if (product.Price < 0)
+                    throw new NagtiveNumberException("negative number of price");
                 DO.Product product1 = new DO.Product()
                 {
                     ID = product.ID,
@@ -78,12 +98,8 @@ namespace BlImplementation
 
                 };
                 dal.Product.Add(product1);
-            }
-            catch ()
-            {
-
-                throw;
-            }
+            
+            
         }
         public void Update(BO.Product product)
         {
@@ -105,7 +121,7 @@ namespace BlImplementation
             List<DO.OrderItem> OIDal = (List<DO.OrderItem>)dal.OrderItem.GetAll();
             foreach (DO.OrderItem o in OIDal)
                 if (o.ProductID == id)
-                    throw new System. Exception();
+                    throw new BO.AlredyExist("cant delete the product is already exists");
             dal.Product.Delete(id);
 
         }
