@@ -51,9 +51,15 @@ internal class DalProduct : IProduct
     }
     public IEnumerable<Product> GetAll()//get all the object in the list
     {
-        List<Product?> list = new List<Product?>();   
-        DataSource.ProductsList.ForEach(i=> list.Add(i));   
-        return (IEnumerable<Product>)list;    
+        return from Product product in DataSource.ProductsList
+        select new Product()
+        {
+            ID = product.ID,
+            Name = product.Name,
+            Category = product.Category,
+            Price = product.Price,
+            InStock = product.InStock
+        };
     }  
     public Product GetByID (int idcheck)//get an Id ant return its object
     {
