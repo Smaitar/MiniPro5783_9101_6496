@@ -53,6 +53,7 @@ namespace BlImplementation
             };
 
         }
+
         public ProductItem GetProductClient(int id, BO.Cart cart)
         {
             if (id < 0)
@@ -77,6 +78,7 @@ namespace BlImplementation
             };
             return item;
         }
+
         public void Add(BO.Product product)
         {
             
@@ -101,6 +103,7 @@ namespace BlImplementation
             
             
         }
+
         public void Update(BO.Product product)
         {
             if (product.ID < 0 || product.Name == "" || product.InStock < 1 || product.Price < 0)
@@ -116,6 +119,7 @@ namespace BlImplementation
             };
             dal.Product.Update(product1);
         }
+
         public void Delete(int id)
         {
             List<DO.OrderItem> OIDal = (List<DO.OrderItem>)dal.OrderItem.GetAll();

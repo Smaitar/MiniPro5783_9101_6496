@@ -19,8 +19,15 @@ namespace BlImplementation
         {
             IEnumerable<DO.Order> orders = dal.Order.GetAll();
 
-            return from order in orders
-                   select OrderInList(order);   
+            return from DO.Product item in orders
+                   select new BO.OrderForList()
+                   {
+                       ID = item.ID,
+                       CustomerName=item.Name,
+                       AmountOfItem=item.InStock,
+                       status=item.
+            
+                   };
         }  
 
         public OrderTracking OrderTracking(int orderId)

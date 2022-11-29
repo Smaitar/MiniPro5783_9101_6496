@@ -30,11 +30,9 @@ namespace BlTest
                     {
                         case 1:
                             OrderOption();
-
                             break;
 
                         case 2:
-
                             OrderItemOption();
                             break;
 
@@ -167,6 +165,7 @@ namespace BlTest
                 choice = Console.ReadLine()!;
             }
         }
+
         public static void OrderItemOption()//if the user chose orderItem
         {
             //the options the user can make
@@ -242,6 +241,7 @@ namespace BlTest
                 choice2 = Console.ReadLine();
             }
         }
+
         public static void ProdectOption()//if the user chose Product
         {
             //the options the user can make
