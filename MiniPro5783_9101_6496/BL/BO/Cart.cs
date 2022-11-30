@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BO
+﻿namespace BO
 {
     public class Cart
     {
         public string CustomerName { get; set; }//CustomerName
         public string CustomerEmail { get; set; }//CustomerEmail
         public string CustomerAdress { get; set; }//CustomerAdress
-        public List< OrderItem> Items { get; set; }
+        public List<OrderItem> Items { get; set; }
         public double TotalPrice { get; set; }
 
         public override string ToString()
@@ -23,12 +17,12 @@ namespace BO
     	   Customer Adress: {CustomerAdress},
            Total Price: {TotalPrice}'
            Items: ";
-            string s =null;  
+            string s = null;
             foreach (var item in Items)
             {
                 s = s + item;
             }
-            return s;   
+            return s;
         }
     }
 }

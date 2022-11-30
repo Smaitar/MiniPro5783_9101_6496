@@ -1,9 +1,7 @@
 ﻿
 
-using DO;
-using System.Security.Cryptography;
-
 using DalApi;
+using DO;
 namespace Dal;
 
 
@@ -52,19 +50,19 @@ internal class DalProduct : IProduct
     public IEnumerable<Product> GetAll()//get all the object in the list
     {
         return from Product product in DataSource.ProductsList
-        select new Product()
-        {
-            ID = product.ID,
-            Name = product.Name,
-            Category = product.Category,
-            Price = product.Price,
-            InStock = product.InStock
-        };
-    }  
-    public Product GetByID (int idcheck)//get an Id ant return its object
+               select new Product()
+               {
+                   ID = product.ID,
+                   Name = product.Name,
+                   Category = product.Category,
+                   Price = product.Price,
+                   InStock = product.InStock
+               };
+    }
+    public Product GetByID(int idcheck)//get an Id ant return its object
     {
         object p = DataSource.ProductsList.Find(i => i.ID == idcheck);
-           
+
         return p != null ? (Product)p : throw new NotExist("not found");
     }
 }

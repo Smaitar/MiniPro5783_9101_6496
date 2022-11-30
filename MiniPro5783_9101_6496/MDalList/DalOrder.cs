@@ -1,7 +1,4 @@
-﻿using System.Security.Cryptography;
-using static Dal.DataSource;
-
-using DalApi;
+﻿using DalApi;
 using DO;
 
 namespace Dal;
@@ -15,7 +12,7 @@ internal class DalOrder : IOrder
             throw new DO.AlredyExist("cannot create a Order In OrderList, is already exists");
         //ord.ID = Config.OrderID;
         DataSource.OrdersList.Add(ord);
-        return(ord.ID); 
+        return (ord.ID);
     }
 
     public int Delete(int IdDelete)
@@ -42,7 +39,7 @@ internal class DalOrder : IOrder
         //ordUpdate.ID = Config.OrderID;
         for (int i = 0; i < DataSource.OrdersList.Count; i++)
         {
-            if (DataSource.OrdersList[i].ID== ordUpdate.ID)
+            if (DataSource.OrdersList[i].ID == ordUpdate.ID)
             {
                 DataSource.OrdersList.Remove(DataSource.OrdersList[i]);
                 DataSource.OrdersList.Add(ordUpdate);
@@ -61,11 +58,13 @@ internal class DalOrder : IOrder
     public Order GetByID(int idcheck)//get an Id ant return its object
     {
         //search an object with a specific ID
-        object obj = DataSource.OrdersList.FirstOrDefault(i => i.ID == idcheck);
-        if (obj == null)
+        int index = DataSource.OrdersList.FindIndex(i => i.ID == idcheck);
+
+        if (index == -1)
             throw new NotExist("not found");
-        return  (Order)obj;
-            
+
+        return DataSource.OrdersList[index];
+
     }
 }
 

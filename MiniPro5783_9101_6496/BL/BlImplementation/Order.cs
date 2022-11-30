@@ -1,43 +1,41 @@
-﻿using BlApi;
-using DalApi;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BO;
 using Dal;
-using BO;
+using DalApi;
 using System.Data;
-using DO;
 
 namespace BlImplementation
 {
-    internal class Order: BlApi.IOrder
+    internal class Order : BlApi.IOrder
     {
         IDal dal = new DalList();
         public IEnumerable<BO.OrderForList> GetOrderForListsManager()
         {
             IEnumerable<DO.Order> orders = dal.Order.GetAll();
 
-            return from DO.Product item in orders
+            return from DO.Order item in orders
                    select new BO.OrderForList()
                    {
                        ID = item.ID,
-                       CustomerName=item.Name,
-                       AmountOfItem=item.InStock,
-                       status=item.
-            
+                       CustomerName = item.CustomerName,
+                       AmountOfItem = dal.OrderItem.GetAll().Where(x => x.OrderID == item.ID).Count(),
+                       status = GetStatus(item),
+                       TotalPrice = dal.OrderItem.GetAll().Where(x => x.OrderID == item.ID).Sum(x => x.Amount * x.Price)
                    };
-        }  
+        }
+
+        private OrderStatus GetStatus(DO.Order order)
+        {
+            return order.DeliveryDate != null ? OrderStatus.Supplied : order.ShipDate != null ? OrderStatus.Sent : OrderStatus.Confirmation;
+        }
 
         public OrderTracking OrderTracking(int orderId)
         {
             DO.Order order;
-            
+
 
             try
             {
-                order= dal.Order.GetByID(orderId);
+                order = dal.Order.GetByID(orderId);
             }
             catch (DO.NotExist ex)
             {
@@ -65,30 +63,45 @@ namespace BlImplementation
             try
             {
                 order = dal.Order.GetByID(id);
+
             }
-            catch(DO.NotExist ex)
+            catch (DO.NotExist ex)
             {
                 throw new BO.NotExist(ex);
             }
+
+            IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetAll().Where(orderItem => orderItem.OrderID == id);
 
             return new BO.Order()
             {
                 ID = order.ID,
 
                 CustomerName = order.CustomerName,
-     
-               
+                DeliveryDate = order.DeliveryDate.Value,
+                OrderDate = order.OrderDate.Value,
+                CustomerAdress = order.CustomerAdress,
+                ShipDate = order.ShipDate.Value,
+                PaymentDate = order.OrderDate.Value,
+                CustomerEmail = order.CustomerEmail,
+                Status = getStatus(order),
+                Items = orderItems.Select(orderItem => new BO.OrderItem
+                {
+                    ProductName = dal.Product.GetByID(orderItem.ProductID).Name,
+                    Amount = orderItem.Amount,
+                    Price = orderItem.Price,
+                    ProductID = orderItem.ProductID,
+                    TotalPrice = orderItem.Price * orderItem.Amount,
+                }).ToList()
             };
-    
         }
-       
+
         public BO.OrderForList OrderInList(DO.Order order)
         {
-            BO.OrderForList orderForList = new BO.OrderForList();   
+            BO.OrderForList orderForList = new BO.OrderForList();
             orderForList.ID = order.ID;
-            orderForList.CustomerName=order.CustomerName;
+            orderForList.CustomerName = order.CustomerName;
             orderForList.status = getStatus(order);
-            return orderForList; 
+            return orderForList;
 
         }
 

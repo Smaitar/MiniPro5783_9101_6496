@@ -1,13 +1,7 @@
 ﻿
 using Dal;
 using DO;
-using Microsoft.VisualBasic;
-using System;
 namespace DalTest;
-using System.Linq.Expressions;
-using System.Net.NetworkInformation;
-using System.Security.Cryptography.X509Certificates;
-using System.Collections.Generic;
 using DalApi;
 
 internal class Program
@@ -22,7 +16,7 @@ internal class Program
         Console.WriteLine("To Product press 3");
         Console.WriteLine("To Exit press 0");
         int choice1 = int.Parse(Console.ReadLine());
-        while(choice1 != 0)
+        while (choice1 != 0)
         {
             switch (choice1)
             {
@@ -139,7 +133,7 @@ internal class Program
             choice2 = Console.ReadLine();
         }
     }
-    public static void  OrderItemOption()//if the user chose orderItem
+    public static void OrderItemOption()//if the user chose orderItem
     {
         //the options the user can make
         Console.WriteLine("To Add press a");
@@ -214,8 +208,8 @@ internal class Program
             choice2 = Console.ReadLine();
         }
     }
-   public static void ProdectOption()//if the user chose Product
-   {
+    public static void ProdectOption()//if the user chose Product
+    {
         //the options the user can make
         Console.WriteLine("To Add press a");
         Console.WriteLine("To Print press b");
@@ -228,60 +222,60 @@ internal class Program
         {
             //try
             //{
-                switch (choice2)
-                {
-                    case "a":
-                        Product pro = new Product();
-                        Console.WriteLine("enter ID:");
-                        pro.ID = int.Parse(Console.ReadLine());
-                        Console.WriteLine("enter Name:");
-                        pro.Name = Console.ReadLine();
-                        Console.WriteLine("enter Category:");
-                        int x = int.Parse(Console.ReadLine());
-                        pro.Category = (Category)(x);
-                        Console.WriteLine("enter InStock:");
-                        pro.InStock = int.Parse(Console.ReadLine());
-                        Console.WriteLine("enter Price:");
-                        pro.Price = double.Parse(Console.ReadLine());
+            switch (choice2)
+            {
+                case "a":
+                    Product pro = new Product();
+                    Console.WriteLine("enter ID:");
+                    pro.ID = int.Parse(Console.ReadLine());
+                    Console.WriteLine("enter Name:");
+                    pro.Name = Console.ReadLine();
+                    Console.WriteLine("enter Category:");
+                    int x = int.Parse(Console.ReadLine());
+                    pro.Category = (Category)(x);
+                    Console.WriteLine("enter InStock:");
+                    pro.InStock = int.Parse(Console.ReadLine());
+                    Console.WriteLine("enter Price:");
+                    pro.Price = double.Parse(Console.ReadLine());
                     dal.Product.Add(pro);
-                        break;
-                    case "b":
-                        int word;
-                        Console.WriteLine("enter ID:");
-                        word = int.Parse(Console.ReadLine());
-                        Console.WriteLine(dal.Product.GetByID(word));
-                        break;
-                    case "c":
-                        foreach (var ob in dal.Product.GetAll())
-                            Console.WriteLine(ob);
-                        break;
-                    case "d":
-                        Product orb = new Product();
-                        Console.WriteLine("enter ID:");
-                        orb.ID = int.Parse(Console.ReadLine());
-                        Console.WriteLine("enter Name:");
-                        orb.Name = Console.ReadLine();
-                        Console.WriteLine("enter Category:");
-                        int y = int.Parse(Console.ReadLine());
-                        orb.Category = (Category)(y);
-                        Console.WriteLine("enter InStock:");
-                        orb.InStock = int.Parse(Console.ReadLine());
-                        Console.WriteLine("enter Price:");
-                        orb.Price = double.Parse(Console.ReadLine());
+                    break;
+                case "b":
+                    int word;
+                    Console.WriteLine("enter ID:");
+                    word = int.Parse(Console.ReadLine());
+                    Console.WriteLine(dal.Product.GetByID(word));
+                    break;
+                case "c":
+                    foreach (var ob in dal.Product.GetAll())
+                        Console.WriteLine(ob);
+                    break;
+                case "d":
+                    Product orb = new Product();
+                    Console.WriteLine("enter ID:");
+                    orb.ID = int.Parse(Console.ReadLine());
+                    Console.WriteLine("enter Name:");
+                    orb.Name = Console.ReadLine();
+                    Console.WriteLine("enter Category:");
+                    int y = int.Parse(Console.ReadLine());
+                    orb.Category = (Category)(y);
+                    Console.WriteLine("enter InStock:");
+                    orb.InStock = int.Parse(Console.ReadLine());
+                    Console.WriteLine("enter Price:");
+                    orb.Price = double.Parse(Console.ReadLine());
                     dal.Product.Update(orb);
-                        break;
-                    case "e":
-                        int ore;
-                        Console.WriteLine("enter ID:");
-                        ore = int.Parse(Console.ReadLine());
+                    break;
+                case "e":
+                    int ore;
+                    Console.WriteLine("enter ID:");
+                    ore = int.Parse(Console.ReadLine());
                     dal.Product.Delete(ore);
-                        break;
-                }
-        //}
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e.Message);
-        //    }
+                    break;
+            }
+            //}
+            //    catch (Exception e)
+            //    {
+            //        Console.WriteLine(e.Message);
+            //    }
             Console.WriteLine("To Add press a");
             Console.WriteLine("To Print press b");
             Console.WriteLine("To PrintAll press c");
@@ -291,6 +285,6 @@ internal class Program
             choice2 = Console.ReadLine();
         }
 
-   }
+    }
 
 }

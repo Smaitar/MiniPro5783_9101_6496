@@ -1,10 +1,7 @@
 ﻿
 
-using DO;
-using System.Security.Cryptography;
-using static Dal.DataSource;
-
 using DalApi;
+using DO;
 namespace Dal;
 
 

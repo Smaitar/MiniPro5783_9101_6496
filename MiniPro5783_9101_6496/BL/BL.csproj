@@ -17,8 +17,4 @@
     <ProjectReference Include="..\MDalList\DalList.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DO\" />
-  </ItemGroup>
-
 </Project>

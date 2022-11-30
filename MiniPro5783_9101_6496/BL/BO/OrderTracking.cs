@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-namespace BO
+﻿namespace BO
 {
     public class OrderTracking
     {
@@ -13,7 +6,7 @@ namespace BO
 
         public OrderStatus Status { get; set; }
 
-        public List<(DateTime?, OrderStatus)> OrderTrackings { get; set; }  
+        public List<(DateTime?, OrderStatus)> OrderTrackings { get; set; }
 
         public override string ToString()
         {
@@ -22,7 +15,7 @@ namespace BO
            Order ID: {ID}, 
            Order Status:{Status},
             string s = null;
-            Items: { string.Join(", \n", OrderTrackings)},";   
+            Items: {string.Join(", \n", OrderTrackings)},";
         }
     }
 }

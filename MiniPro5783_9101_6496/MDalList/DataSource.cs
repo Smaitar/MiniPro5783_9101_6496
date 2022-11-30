@@ -25,18 +25,18 @@ internal class DataSource
     private static string[] arrFamilys = new string[5] { "bnei brak", "tel aviv", "ramat gan", "givhat shmuel", "beit shemesh" };
     internal static readonly Random random = new();
 
-    internal const int NumProduct = 10;
-    private const int NumOrder = 100;
-    private const int NumOrderItem = 40;
+    internal const int NumProduct = 15;
+    private const int NumOrder = 50;
+    private const int NumOrderItem = 100;
     internal static List<OrderItem> orderitemsList = new List<OrderItem>();
     internal static List<Product> ProductsList = new List<Product>();
     public static List<Order> OrdersList = new List<Order>();
 
     private static void s_Initialize()
     {
-            s_InitializOrder();
-            s_InitializOrderItem();
-            s_InitializProduct();
+        s_InitializOrder();
+        s_InitializProduct();
+        s_InitializOrderItem();
     }
     private static void s_InitializOrder()
     {
@@ -48,9 +48,8 @@ internal class DataSource
             {
                 order.ID = Config.OrderID;
                 order.CustomerName = arrNames[random.Next(5)];
-                order.CustomerEmail = arrNames[random.Next(5)]+"@gmail.com";
+                order.CustomerEmail = arrNames[random.Next(5)] + "@gmail.com";
                 order.CustomerAdress = arrFamilys[random.Next(5)];
-
                 order.OrderDate = DateTime.Now;
                 order.ShipDate = DateTime.Now;
                 order.DeliveryDate = DateTime.Now;
@@ -62,16 +61,21 @@ internal class DataSource
 
     private static void s_InitializOrderItem()
     {
-        for(int i = 0; i < NumOrder; i++)
+        Product product = new Product();
+
+        for (int i = 0; i < NumOrder; i++)
         {
             OrderItem orderitem = new OrderItem();
-            {
-                orderitem.ID= random.Next(100000000, 999999999);
-                orderitem.ProductID = Config.ProductID;
-                orderitem.OrderID= Config.OrderitemID;
-                orderitem.Price = 100;
-                orderitem.Amount = random.Next(200);
-            }
+            product = ProductsList[random.Next(ProductsList.Count)];
+
+            orderitem.ID = random.Next(100000000, 999999999);
+            orderitem.ProductID = product.ID;
+            if (i < 50)
+                orderitem.OrderID = OrdersList[i].ID;
+            else
+                orderitem.OrderID = OrdersList[random.Next(OrdersList.Count)].ID;
+            orderitem.Price = product.Price;
+            orderitem.Amount = random.Next(1, 10);
             orderitemsList.Add(orderitem);
         }
     }
@@ -83,10 +87,10 @@ internal class DataSource
         {
             Product stu = new Product();
             {
-                stu.ID = random.Next(100000000, 999999999);
-                stu.Name ="product"+i;
+                stu.ID = random.Next(100000, 1000000);
+                stu.Name = "product" + i;
                 stu.Category = (Category)values.GetValue(random.Next(values.Length));
-                stu.InStock = random.Next(1,4);
+                stu.InStock = random.Next(100, 200);
                 stu.Price = 100;
             }
             ProductsList.Add(stu);
