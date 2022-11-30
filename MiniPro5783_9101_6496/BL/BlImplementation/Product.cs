@@ -26,7 +26,7 @@ namespace BlImplementation
         public BO.Product GetProductManeger(int id)
         {
             if (id < 0)
-                throw new System.Exception();
+                throw new NagtiveNumberException("negative number of id");
 
             DO.Product product;
             try
@@ -53,7 +53,7 @@ namespace BlImplementation
         public ProductItem GetProductClient(int id, BO.Cart cart)
         {
             if (id < 0)
-                throw new System.Exception();
+                throw new NagtiveNumberException("negative number of id");
             DO.Product product;
             try
             {
@@ -102,8 +102,14 @@ namespace BlImplementation
 
         public void Update(BO.Product product)
         {
-            if (product.ID < 0 || product.Name == "" || product.InStock < 1 || product.Price < 0)
-                throw new System.Exception();
+            if (product.ID < 0 )
+                throw new NagtiveNumberException("Nagtive Number Of ID");
+            if (product.Name == "")
+                throw new EmptyString(" Empty Name");
+            if(product.InStock < 1)
+                throw new NagtiveNumberException("Nagtive Number Of Amount In Stock");
+            if (product.Price < 0)
+                throw new NagtiveNumberException("Nagtive Number Of Price");
             DO.Product product1 = new DO.Product()
             {
                 ID = product.ID,
@@ -113,7 +119,14 @@ namespace BlImplementation
                 Category = (DO.Category)product.Category,
 
             };
-            dal.Product.Update(product1);
+            try
+            {
+                dal.Product.Update(product1);
+            }
+            catch (DO.NotExist ex)
+            {
+                throw new BO.NotExist(ex);
+            }
         }
 
         public void Delete(int id)
@@ -122,7 +135,14 @@ namespace BlImplementation
             foreach (DO.OrderItem o in OIDal)
                 if (o.ProductID == id)
                     throw new BO.AlredyExist("cant delete the product is already exists");
-            dal.Product.Delete(id);
+            try
+            {
+                dal.Product.Delete(id);
+            }
+            catch (DO.AlredyExist ex)    
+            {
+                throw new BO.AlredyExist(ex);
+            }
         }
 
 

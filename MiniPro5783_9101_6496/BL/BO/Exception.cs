@@ -6,6 +6,10 @@
         public NagtiveNumberException(string message) : base(message)
         {
         }
+        public NagtiveNumberException(Exception innerException, string? message = "") : base(message, innerException)
+        {
+
+        }
 
     }
 
@@ -14,6 +18,10 @@
     {
         public EmptyString(string? message) : base(message)
         {
+        }
+        public EmptyString(Exception innerException, string? message = "") : base(message, innerException)
+        {
+
         }
     }
 
