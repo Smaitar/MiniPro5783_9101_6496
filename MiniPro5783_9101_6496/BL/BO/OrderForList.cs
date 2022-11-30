@@ -7,7 +7,7 @@ namespace BO
         public string CustomerName { get; set; }//CustomerName
         public int AmountOfItem { get; set; }
         public BO.OrderStatus status { get; set; }
-        public double  TotalPrice { get; set; }
+        public double TotalPrice { get; set; }
 
         public override string ToString()
         {

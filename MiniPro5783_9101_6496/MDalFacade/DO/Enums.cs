@@ -2,5 +2,5 @@
 
 namespace DO;
 
- public enum Category {ring,bracelet, necklace,earring,sets};
+public enum Category { ring, bracelet, necklace, earring, sets };
 

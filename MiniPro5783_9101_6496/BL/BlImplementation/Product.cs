@@ -1,17 +1,6 @@
-﻿using BlApi;
-using BO;
+﻿using BO;
 using Dal;
 using DalApi;
-using DO;
-using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Reflection.Emit;
-using System.Runtime.Serialization;
-using System.Security.Cryptography;
-using System.Security.Principal;
-using Unipluss.Sign.Common.Rest.URLs;
 //using MDalFacade.DalApi;
 
 namespace BlImplementation
@@ -41,7 +30,7 @@ namespace BlImplementation
         {
             //Returns strange information for admin screen
             if (id < 0)
-                throw new System.Exception();
+                throw new NagtiveNumberException("negative number of id");
 
             // We try to get the value from the data layer and if not we throw an exception
             DO.Product product;
@@ -49,18 +38,19 @@ namespace BlImplementation
             {
                 product = dal.Product.GetByID(id);
             }
-            catch(DO.NotExist ex)
+            catch (DO.NotExist ex)
             {
                 throw new BO.NotExist(ex);
             }
 
-            // Returns the product details according to the ID received
-            return  new BO.Product(){ 
-            ID = product.ID,
-            Name=product.Name,
-            Category=(BO.Category)product.Category,
-            InStock=product.InStock,
-            Price=product.Price
+
+            return new BO.Product()
+            {
+                ID = product.ID,
+                Name = product.Name,
+                Category = (BO.Category)product.Category,
+                InStock = product.InStock,
+                Price = product.Price
             };
 
         }
@@ -69,13 +59,13 @@ namespace BlImplementation
         {
             //Returns product details for a buyer screen - from the catalog
             if (id < 0)
-                throw new System.Exception();
-            DO.Product product;// We try to get the value from the data layer and if not we throw an exception
+                throw new NagtiveNumberException("negative number of id");
+            DO.Product product;
             try
             {
                 product = dal.Product.GetByID(id);
             }
-            catch(BO.NotExist ex)   
+            catch (BO.NotExist ex)
             {
                 throw new BO.NotExist(ex);
             }
@@ -88,42 +78,22 @@ namespace BlImplementation
                 Price = product.Price,
                 Category = (BO.Category)product.Category,
                 InStock = product.InStock,
-                Amount=cart.Items.Count,//update the amount of the items in the cart
+                Amount = cart.Items.Count,
             };
             return item;
         }
 
         public void Add(BO.Product product)
         {
-            //add new product into data layer
-            // Correctness check for identity number, name, and email,and price
-                        if (product.ID < 0) 
-                    throw new NagtiveNumberException("negative number of id");
-                if(product.Name == "")
-                    throw new EmptyString("empty name");
-                if (   product.InStock < 1)
-                    throw new NagtiveNumberException("negative number of amount in stock");
-                if (product.Price < 0)
-                    throw new NagtiveNumberException("negative number of price");
-                DO.Product product1 = new DO.Product()//creat a new product from data layer
-                {
-                    ID = product.ID,
-                    Name = product.Name,
-                    InStock = product.InStock,
-                    Price = product.Price,
-                    Category = (DO.Category)product.Category,
 
-                };
-                dal.Product.Add(product1);
-                // After we have created an item and put appropriate values ​​in it, add the product
-
-
-        }
-
-        public void Update(BO.Product product)
-        {
-            if (product.ID < 0 || product.Name == "" || product.InStock < 1 || product.Price < 0)
-                throw new System.Exception();
+            if (product.ID < 0)
+                throw new NagtiveNumberException("negative number of id");
+            if (product.Name == "")
+                throw new EmptyString("empty name");
+            if (product.InStock < 1)
+                throw new NagtiveNumberException("negative number of amount in stock");
+            if (product.Price < 0)
+                throw new NagtiveNumberException("negative number of price");
             DO.Product product1 = new DO.Product()
             {
                 ID = product.ID,
@@ -133,7 +103,38 @@ namespace BlImplementation
                 Category = (DO.Category)product.Category,
 
             };
-            dal.Product.Update(product1);
+            dal.Product.Add(product1);
+
+
+        }
+
+        public void Update(BO.Product product)
+        {
+            if (product.ID < 0 )
+                throw new NagtiveNumberException("Nagtive Number Of ID");
+            if (product.Name == "")
+                throw new EmptyString(" Empty Name");
+            if(product.InStock < 1)
+                throw new NagtiveNumberException("Nagtive Number Of Amount In Stock");
+            if (product.Price < 0)
+                throw new NagtiveNumberException("Nagtive Number Of Price");
+            DO.Product product1 = new DO.Product()
+            {
+                ID = product.ID,
+                Name = product.Name,
+                InStock = product.InStock,
+                Price = product.Price,
+                Category = (DO.Category)product.Category,
+
+            };
+            try
+            {
+                dal.Product.Update(product1);
+            }
+            catch (DO.NotExist ex)
+            {
+                throw new BO.NotExist(ex);
+            }
         }
 
         //delete product from the list
@@ -143,13 +144,18 @@ namespace BlImplementation
             foreach (DO.OrderItem o in OIDal)//search the object in the list which have the same id
                 if (o.ProductID == id)
                     throw new BO.AlredyExist("cant delete the product is already exists");
-            dal.Product.Delete(id);
-            //the delete will be from the data layer
-
+            try
+            {
+                dal.Product.Delete(id);
+            }
+            catch (DO.AlredyExist ex)    
+            {
+                throw new BO.AlredyExist(ex);
+            }
         }
 
 
     }
 
-  
+
 }

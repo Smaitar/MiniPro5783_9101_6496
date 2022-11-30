@@ -1,24 +1,19 @@
-﻿using AutoMapper.QueryableExtensions.Impl;
-using BlApi;
-using BO;
+﻿using BlApi;
 using Dal;
 using DalApi;
-using DO;
+using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
-using System.Transactions;
+using System.Reflection;
 
 namespace BlImplementation
 {
-    internal class Cart:ICart
+    internal class Cart : ICart
     {
-       
+
         IDal dal = new DalList();
 
         public BO.Cart AddProduct(BO.Cart cart, int id)
         {
-            int index = cart.Items.FindIndex(x => x.ProductID == id);
-
             DO.Product product;
             
             try
@@ -31,31 +26,49 @@ namespace BlImplementation
             }
 
             if (product.InStock < 1)
-                throw new NagtiveNumberException("not exist in stock");
+                throw new BO.NagtiveNumberException("not exist in stock");
 
-            DO.OrderItem dalOrderItem = new DO.OrderItem();
-            List<DO.OrderItem> OIDal = dal.OrderItem.GetAll().ToList();
-
-            if (index!= -1) // כרגע לא קיים מוצר כזה בסל
+            int index;
+            try
             {
+                 index = cart.Items.FindIndex(x => x.ProductID == id);
+            }
+            catch (DO.NotExist ex)
+            {
+                throw new BO.NotExist(ex);
+            }
+
+            if (index == -1)// כרגע לא קיים מוצר כזה בסל
+            {
+                if (cart.Items is null)
+                    cart.Items = new List<BO.OrderItem>();
                 BO.OrderItem boOrderItem = new BO.OrderItem();
                 boOrderItem.ProductID = id;
-                boOrderItem.OrderID = cart.Items[0].OrderID;
+                boOrderItem.ProductName = dal.Product.GetByID(id).Name;
                 boOrderItem.Price = product.Price;
                 boOrderItem.TotalPrice = product.Price;
                 boOrderItem.Amount = 1;
-                cart.Items.Add(boOrderItem);
+
+                
+                try
+                {
+                    cart.Items.Add(boOrderItem);
+                }
+                catch (DO.AlredyExist ex)
+                {
+                    throw new BO.AlredyExist(ex);
+                }
+
                 cart.TotalPrice += product.Price;// סיום  חישובים לוגים
                 return cart;
+
             }
+
             // קיים מוצר כזה בסל וצריך לעדכן את הכמות
 
             cart.Items[index].Amount++;
             cart.Items[index].Price += product.Price;
             cart.TotalPrice += product.Price;
-
-            dalOrderItem = OIDal.Find(x => x.OrderID == cart.Items[0].OrderID && x.ProductID == id);
-            dalOrderItem.Amount++;
 
             return cart;
         }
@@ -76,14 +89,19 @@ namespace BlImplementation
                 return cart;
 
             DO.Product product = new DO.Product();
-            product = dal.Product.GetByID(id);
+            try { product = dal.Product.GetByID(id); }
+            catch (DO.NotExist ex)
+            {
+                throw new BO.NotExist(ex);
+            }
+            
             int amount1;
 
             if (cart.Items[index].Amount < amount)
             {
-                amount1 = amount-cart.Items[index].Amount;
+                amount1 = amount - cart.Items[index].Amount;
                 cart.Items[index].Amount = amount;
-                cart.Items[index].TotalPrice+= amount1*product.Price;
+                cart.Items[index].TotalPrice += amount1 * product.Price;
                 cart.Items[index].Price += amount1 * product.Price;
                 return cart;
             }
@@ -91,7 +109,11 @@ namespace BlImplementation
             if (amount == 0)
             {
                 cart.TotalPrice = cart.TotalPrice - cart.Items[index].Price;
-                cart.Items.RemoveAt(index);
+                try { cart.Items.RemoveAt(index); }
+                catch (DO.NotExist ex)
+                {
+                    throw new BO.NotExist(ex);
+                }
                 return cart;
             }
 
@@ -112,10 +134,19 @@ namespace BlImplementation
         {
             if (cart.Items.Any())
             {
+                if (cart.CustomerName == "")
+                    throw new BO.EmptyString("Empty Customer Name");
+
+                if (cart.CustomerAdress == "")
+                    throw new BO.EmptyString("Empty Customer Adress");
+
+                if (!GetEmail(cart.CustomerEmail))
+                    throw new BO.EmptyString("Empty Customer Email");
+
                 foreach (BO.OrderItem item in cart.Items)
                 {
                     if (item.Amount < 1)
-                        throw new NagtiveNumberException("negative amount in order item");
+                        throw new BO.NagtiveNumberException("negative amount in order item");
                     DO.Product product1;
                     try
                     {
@@ -125,18 +156,9 @@ namespace BlImplementation
                     {
                         throw new BO.NotExist(ex);
                     }
+
                     if (product1.InStock < item.Amount)
-                        throw new NagtiveNumberException("their is not enough amount in stock");
-
-                    if (cart.CustomerName == "")
-                        throw new EmptyString("Empty Customer Name");
-
-                    if (cart.CustomerAdress == "")
-                        throw new EmptyString("Empty Customer Adress");
-
-                    if (GetEmail(cart.CustomerEmail))
-                        throw new EmptyString("Empty Customer Email");
-                   
+                        throw new BO.NagtiveNumberException("their is not enough amount in stock");
                 }
 
                 // אם הכל היה תקין אנחנו נאשר את הסל
@@ -150,10 +172,27 @@ namespace BlImplementation
                     DeliveryDate = null
                 };
 
-                int orderId = dal.Order.Add(order);
+                
+                
+                    int orderId = dal.Order.Add(order);
 
                 foreach (BO.OrderItem item in cart.Items)
                 {
+                    try
+                    {
+                        dal.OrderItem.Add(new DO.OrderItem()
+                        {
+                            ProductID = item.ProductID,
+                            OrderID = orderId,
+                            Price = item.Price,
+                            Amount = item.Amount
+                        });
+                    }
+                    catch (DO.AlredyExist ex)
+                    {
+                        throw new BO.AlredyExist(ex);
+                    }
+
                     dal.OrderItem.Add(new DO.OrderItem()
                     {
                         ProductID = item.ProductID,
@@ -164,8 +203,17 @@ namespace BlImplementation
 
                     DO.Product product = dal.Product.GetByID(item.ProductID);
                     product.InStock -= item.Amount;
-                    dal.Product.Update(product);
-                } 
+                    try
+                    {
+                        dal.Product.Update(product);
+                    }
+                    catch (DO.NotExist ex)
+                    {
+                        throw new BO.NotExist(ex);
+                    }
+                    
+                }
+                ClearItems(cart);
             }
 
             return true;
@@ -174,6 +222,12 @@ namespace BlImplementation
         bool GetEmail(string email)
         {
             return new EmailAddressAttribute().IsValid(email);
+        }
+
+        public void ClearItems(BO.Cart cart)
+        {
+            cart.Items.Clear();
+            cart.TotalPrice = 0;
         }
     }
 }

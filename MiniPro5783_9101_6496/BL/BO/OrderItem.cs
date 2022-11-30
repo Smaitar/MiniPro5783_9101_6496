@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BO
+﻿namespace BO
 {
     public class OrderItem
     {
         public int ID { get; set; }//OrderItem ID
         public int ProductID { get; set; }//ProductID
-        public int OrderID { get; set; }//OrderID
+        public string ProductName { get; set; }//Order Item Name
         public double Price { get; set; }// Price
         public int Amount { get; set; }//Amount
         public double TotalPrice { get; set; }
@@ -21,7 +15,7 @@ namespace BO
            Order Item Details:
            Orders Item ID: {ID}, 
            Product ID: {ProductID},
-    	   OrderID: {OrderID},
+    	   Order Item Name: {ProductName},
     	   Price: {Price},
            Amount: {Amount},
            Total Price: {TotalPrice}.";
