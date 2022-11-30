@@ -14,10 +14,12 @@ namespace BlImplementation
 {
     internal class Order: BlApi.IOrder
     {
+        //We created a data layer variable that we will use for all functions
         IDal dal = new DalList();
         public IEnumerable<BO.OrderForList> GetOrderForListsManager()
         {
-            IEnumerable<DO.Order> orders = dal.Order.GetAll();
+            //Returns the list of orders for an admin screen
+            IEnumerable <DO.Order> orders = dal.Order.GetAll();
 
             return from DO.Product item in orders
                    select new BO.OrderForList()
@@ -32,9 +34,10 @@ namespace BlImplementation
 
         public OrderTracking OrderTracking(int orderId)
         {
+            //Order Status Tracking for Admin Order Management Screen
             DO.Order order;
-            
 
+            // We try to get the value from the data layer and if not we throw an exception
             try
             {
                 order= dal.Order.GetByID(orderId);
@@ -44,6 +47,7 @@ namespace BlImplementation
                 throw new BO.NotExist(ex);
             }
 
+            //return the position-status of the order
             return new OrderTracking
             {
                 ID = order.ID,
@@ -56,6 +60,7 @@ namespace BlImplementation
                 }
             };
         }
+
         public BO.Order OrderDetails(int id)
         {
             if (id < 0)

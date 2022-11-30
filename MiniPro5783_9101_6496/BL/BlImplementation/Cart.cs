@@ -20,7 +20,7 @@ namespace BlImplementation
             int index = cart.Items.FindIndex(x => x.ProductID == id);
 
             DO.Product product;
-
+            
             try
             {
                 product = dal.Product.GetByID(id);//אם מוצר לא קיים תיזרק חריגה
