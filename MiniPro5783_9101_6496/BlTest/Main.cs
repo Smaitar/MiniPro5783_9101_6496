@@ -22,7 +22,7 @@ namespace BlTest
                 Console.WriteLine("To Exit press 0");
 
                 choice = tryParseInt();
-
+                //Sending to help functions according to the selected personalities
                 try
                 {
                     switch (choice)
@@ -44,6 +44,7 @@ namespace BlTest
                     }
                 }
 
+               //catch the throws
                 catch (BO.NagtiveNumberException ex)
                 {
                     Console.WriteLine(ex.Message);
@@ -68,7 +69,7 @@ namespace BlTest
         }
 
         private static int tryParseInt()
-        {
+        {//convert the string to int
             int number;
 
             while (!int.TryParse(Console.ReadLine(), out number))
@@ -79,7 +80,7 @@ namespace BlTest
         }
 
         private static double tryParseDouble()
-        {
+        {//convert to double in cases we will need it like price..
             double number;
 
             while (!double.TryParse(Console.ReadLine(), out number))

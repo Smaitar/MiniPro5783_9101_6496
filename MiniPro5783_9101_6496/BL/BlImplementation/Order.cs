@@ -1,7 +1,9 @@
 ﻿using BO;
 using Dal;
 using DalApi;
+using Microsoft.VisualBasic;
 using System.Data;
+using System.Reflection.Emit;
 
 namespace BlImplementation
 {
@@ -59,18 +61,20 @@ namespace BlImplementation
             };
         }
 
-        public BO.Order OrderDetails(int id)
+        public BO.Order OrderDetails(int id)//Returns the order details for admin screen and buyer screen
         {
+            //A correctness check on the identity number and if it incorrect data throws an exception
             if (id < 0)
                 throw new NagtiveNumberException("negative number of id");
 
+            //Returns the order from the data layer with the appropriate ID number
             DO.Order order;
             try
             {
                 order = dal.Order.GetByID(id);
 
             }
-            catch (DO.NotExist ex)
+            catch (DO.NotExist ex)//If an error occurred while returning the order from the data layer
             {
                 throw new BO.NotExist(ex);
             }
@@ -112,12 +116,14 @@ namespace BlImplementation
 
         private BO.OrderStatus getStatus(DO.Order order)
         {
+            //check the current status of the order and return it 
             return order.DeliveryDate != DateTime.MinValue ? OrderStatus.Supplied : order.ShipDate
                 != DateTime.MinValue ? OrderStatus.Sent : OrderStatus.Confirmation;
         }
 
         public BO.Order UpdateSentOrder(int orderId)
         {
+            //Order Shipping Update Admin Order Management Screen
             try
             {
                 DO.Order order = dal.Order.GetByID(orderId);
@@ -136,10 +142,11 @@ namespace BlImplementation
 
         public BO.Order UpdateSuppliedOrder(int orderId)
         {
+            //Order Delivery Update Admin Order Management screen
             try
             {
+                //Update the details
                 DO.Order order = dal.Order.GetByID(orderId);
-
                 order.DeliveryDate = DateTime.Now;
                 dal.Order.Update(order);
 

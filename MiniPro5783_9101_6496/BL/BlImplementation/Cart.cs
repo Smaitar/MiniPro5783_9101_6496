@@ -11,21 +11,21 @@ namespace BlImplementation
     {
 
         IDal dal = new DalList();
-
+        //Adds a new product
         public BO.Cart AddProduct(BO.Cart cart, int id)
         {
             DO.Product product;
             
             try
             {
-                product = dal.Product.GetByID(id);//אם מוצר לא קיים תיזרק חריגה
+                product = dal.Product.GetByID(id);//if the product doesnt exist
             }
             catch (DO.NotExist ex)
             {
                 throw new BO.NotExist(ex);
             }
 
-            if (product.InStock < 1)
+            if (product.InStock < 1)//A correctness check on the instock in case of incorrect data throws an exception
                 throw new BO.NagtiveNumberException("not exist in stock");
 
             int index;
@@ -38,7 +38,7 @@ namespace BlImplementation
                 throw new BO.NotExist(ex);
             }
 
-            if (index == -1)// כרגע לא קיים מוצר כזה בסל
+            if (index == -1)// the product not exist in the cart now
             {
                 if (cart.Items is null)
                     cart.Items = new List<BO.OrderItem>();
@@ -49,7 +49,7 @@ namespace BlImplementation
                 boOrderItem.TotalPrice = product.Price;
                 boOrderItem.Amount = 1;
 
-                
+                //try to add the order items
                 try
                 {
                     cart.Items.Add(boOrderItem);
@@ -59,12 +59,12 @@ namespace BlImplementation
                     throw new BO.AlredyExist(ex);
                 }
 
-                cart.TotalPrice += product.Price;// סיום  חישובים לוגים
+                cart.TotalPrice += product.Price;
                 return cart;
 
             }
 
-            // קיים מוצר כזה בסל וצריך לעדכן את הכמות
+            // this product exist and we need to change the amount
 
             cart.Items[index].Amount++;
             cart.Items[index].Price += product.Price;
@@ -75,6 +75,8 @@ namespace BlImplementation
 
         public BO.Cart UpdateCart(BO.Cart cart, int id, int amount)
         {
+            //Updating the quantity of a product in the shopping cart for the shopping cart screen
+            
             int index;
             try
             {
@@ -132,8 +134,10 @@ namespace BlImplementation
 
         public bool AprrovedCart(BO.Cart cart)
         {
+            //Confirm basket for order \ placing an order for shopping basket screen or order completion screen
             if (cart.Items.Any())
             {
+                //A correctness check on the CustomerName and the CustomerAdress and the CustomerEmail in case of incorrect data throws an exception
                 if (cart.CustomerName == "")
                     throw new BO.EmptyString("Empty Customer Name");
 
@@ -150,7 +154,7 @@ namespace BlImplementation
                     DO.Product product1;
                     try
                     {
-                        product1 = dal.Product.GetByID(item.ProductID);//אם מוצר לא קיים תיזרק חריגה
+                        product1 = dal.Product.GetByID(item.ProductID);//if the product not exist we throw a 
                     }
                     catch (DO.NotExist ex)
                     {
@@ -161,7 +165,7 @@ namespace BlImplementation
                         throw new BO.NagtiveNumberException("their is not enough amount in stock");
                 }
 
-                // אם הכל היה תקין אנחנו נאשר את הסל
+                // If everything was correct we will confirm the basket
                 DO.Order order = new DO.Order()
                 {
                     CustomerName = cart.CustomerName,
@@ -172,9 +176,9 @@ namespace BlImplementation
                     DeliveryDate = null
                 };
 
-                
-                
-                    int orderId = dal.Order.Add(order);
+
+                // add the order
+                int orderId = dal.Order.Add(order);
 
                 foreach (BO.OrderItem item in cart.Items)
                 {
@@ -224,7 +228,7 @@ namespace BlImplementation
             return new EmailAddressAttribute().IsValid(email);
         }
 
-        public void ClearItems(BO.Cart cart)
+        public void ClearItems(BO.Cart cart) //clear the cart
         {
             cart.Items.Clear();
             cart.TotalPrice = 0;

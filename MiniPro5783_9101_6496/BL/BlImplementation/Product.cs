@@ -1,6 +1,8 @@
 ﻿using BO;
 using Dal;
 using DalApi;
+using System.Reflection.Emit;
+using System.Security.Principal;
 //using MDalFacade.DalApi;
 
 namespace BlImplementation
@@ -83,9 +85,9 @@ namespace BlImplementation
             return item;
         }
 
-        public void Add(BO.Product product)
+        public void Add(BO.Product product)//Adds a new product
         {
-
+            //A correctness check on the name and the identity number and the email in case of incorrect data throws an exception
             if (product.ID < 0)
                 throw new NagtiveNumberException("negative number of id");
             if (product.Name == "")
@@ -94,6 +96,7 @@ namespace BlImplementation
                 throw new NagtiveNumberException("negative number of amount in stock");
             if (product.Price < 0)
                 throw new NagtiveNumberException("negative number of price");
+            //If the entered data is correct, create a product from the data layer and transfer all the details into it, then add to the products
             DO.Product product1 = new DO.Product()
             {
                 ID = product.ID,
@@ -107,9 +110,10 @@ namespace BlImplementation
 
 
         }
-
+        //Updates product amount for shopping cart screen
         public void Update(BO.Product product)
         {
+            //A correctness check on the name and the identity number and the stock and price in case of incorrect data throws an exception
             if (product.ID < 0 )
                 throw new NagtiveNumberException("Nagtive Number Of ID");
             if (product.Name == "")
@@ -148,7 +152,7 @@ namespace BlImplementation
             {
                 dal.Product.Delete(id);
             }
-            catch (DO.AlredyExist ex)    
+            catch (DO.AlredyExist ex)
             {
                 throw new BO.AlredyExist(ex);
             }
