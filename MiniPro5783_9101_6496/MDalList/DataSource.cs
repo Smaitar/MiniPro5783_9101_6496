@@ -28,9 +28,9 @@ internal class DataSource
     internal const int NumProduct = 15;
     private const int NumOrder = 50;
     private const int NumOrderItem = 100;
-    internal static List<OrderItem> orderitemsList = new List<OrderItem>();
-    internal static List<Product> ProductsList = new List<Product>();
-    public static List<Order> OrdersList = new List<Order>();
+    internal static List<OrderItem?> orderitemsList = new List<OrderItem?>();
+    internal static List<Product?> ProductsList = new List<Product?>();
+    public static List<Order?> OrdersList = new List<Order?>();
 
     private static void s_Initialize()
     {
@@ -61,20 +61,19 @@ internal class DataSource
 
     private static void s_InitializOrderItem()
     {
-        Product product = new Product();
 
         for (int i = 0; i < NumOrder; i++)
         {
             OrderItem orderitem = new OrderItem();
-            product = ProductsList[random.Next(ProductsList.Count)];
+            Product? product = ProductsList[random.Next(ProductsList.Count)];
 
             orderitem.ID = random.Next(100000000, 999999999);
-            orderitem.ProductID = product.ID;
+            orderitem.ProductID = product?.ID ?? 0;
             if (i < 50)
-                orderitem.OrderID = OrdersList[i].ID;
+                orderitem.OrderID = OrdersList[i]?.ID ?? 0;
             else
-                orderitem.OrderID = OrdersList[random.Next(OrdersList.Count)].ID;
-            orderitem.Price = product.Price;
+                orderitem.OrderID = OrdersList[random.Next(OrdersList.Count)]?.ID ??0;
+            orderitem.Price = product?.Price ?? 0;
             orderitem.Amount = random.Next(1, 10);
             orderitemsList.Add(orderitem);
         }

@@ -1,4 +1,4 @@
-﻿//using System;
+﻿using System;
 //namespace Targil0
 //{
 //    partial class Program
@@ -18,3 +18,6 @@
 //        }
 //    }
 //}
+
+
+static void Main(String[] args) { }

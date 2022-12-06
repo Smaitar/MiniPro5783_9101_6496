@@ -6,7 +6,7 @@
 
         public OrderStatus Status { get; set; }
 
-        public List<(DateTime?, OrderStatus)> OrderTrackings { get; set; }
+        public List<(DateTime?, OrderStatus)>? OrderTrackings { get; set; }
 
         public override string ToString()
         {

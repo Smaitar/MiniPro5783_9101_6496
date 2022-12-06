@@ -41,7 +41,7 @@ namespace BlImplementation
             if (index == -1)// the product not exist in the cart now
             {
                 if (cart.Items is null)
-                    cart.Items = new List<BO.OrderItem>();
+                    cart.Items = new List<BO.OrderItem>()!;
                 BO.OrderItem boOrderItem = new BO.OrderItem();
                 boOrderItem.ProductID = id;
                 boOrderItem.ProductName = dal.Product.GetByID(id).Name;
@@ -66,8 +66,8 @@ namespace BlImplementation
 
             // this product exist and we need to change the amount
 
-            cart.Items[index].Amount++;
-            cart.Items[index].Price += product.Price;
+            cart.Items[index]!.Amount++;
+            cart.Items[index]!.Price += product.Price;
             cart.TotalPrice += product.Price;
 
             return cart;
@@ -87,7 +87,7 @@ namespace BlImplementation
                 throw new BO.NotExist(ex);
             }
 
-            if (cart.Items[index].Amount == amount)
+            if (cart.Items[index]!.Amount == amount)
                 return cart;
 
             DO.Product product = new DO.Product();
@@ -99,18 +99,18 @@ namespace BlImplementation
             
             int amount1;
 
-            if (cart.Items[index].Amount < amount)
+            if (cart.Items[index]!.Amount < amount)
             {
-                amount1 = amount - cart.Items[index].Amount;
-                cart.Items[index].Amount = amount;
-                cart.Items[index].TotalPrice += amount1 * product.Price;
-                cart.Items[index].Price += amount1 * product.Price;
+                amount1 = amount - cart.Items[index]!.Amount;
+                cart.Items[index]!.Amount = amount;
+                cart.Items[index]!.TotalPrice += amount1 * product.Price;
+                cart.Items[index]!.Price += amount1 * product.Price;
                 return cart;
             }
 
             if (amount == 0)
             {
-                cart.TotalPrice = cart.TotalPrice - cart.Items[index].Price;
+                cart.TotalPrice = cart.TotalPrice - cart.Items[index]!.Price;
                 try { cart.Items.RemoveAt(index); }
                 catch (DO.NotExist ex)
                 {
@@ -119,12 +119,12 @@ namespace BlImplementation
                 return cart;
             }
 
-            if (cart.Items[index].Amount > amount)
+            if (cart.Items[index]!.Amount > amount)
             {
-                amount1 = cart.Items[index].Amount - amount;
-                cart.Items[index].Amount = amount;
-                cart.Items[index].TotalPrice -= amount1 * product.Price;
-                cart.Items[index].Price -= amount1 * product.Price;
+                amount1 = cart.Items[index]!.Amount - amount;
+                cart.Items[index]!.Amount = amount;
+                cart.Items[index]!.TotalPrice -= amount1 * product.Price;
+                cart.Items[index]!.Price -= amount1 * product.Price;
                 return cart;
             }
 
@@ -144,12 +144,12 @@ namespace BlImplementation
                 if (cart.CustomerAdress == "")
                     throw new BO.EmptyString("Empty Customer Adress");
 
-                if (!GetEmail(cart.CustomerEmail))
+                if (!GetEmail(cart.CustomerEmail!))
                     throw new BO.EmptyString("Empty Customer Email");
 
                 foreach (BO.OrderItem item in cart.Items)
                 {
-                    if (item.Amount < 1)
+                    if (item!.Amount < 1)
                         throw new BO.NagtiveNumberException("negative amount in order item");
                     DO.Product product1;
                     try
@@ -168,9 +168,9 @@ namespace BlImplementation
                 // If everything was correct we will confirm the basket
                 DO.Order order = new DO.Order()
                 {
-                    CustomerName = cart.CustomerName,
-                    CustomerAdress = cart.CustomerAdress,
-                    CustomerEmail = cart.CustomerEmail,
+                    CustomerName = cart.CustomerName!,
+                    CustomerAdress = cart.CustomerAdress!,
+                    CustomerEmail = cart.CustomerEmail!,
                     OrderDate = DateTime.Now,
                     ShipDate = null,
                     DeliveryDate = null
@@ -180,13 +180,13 @@ namespace BlImplementation
                 // add the order
                 int orderId = dal.Order.Add(order);
 
-                foreach (BO.OrderItem item in cart.Items)
+                foreach (BO.OrderItem ?item in cart.Items)
                 {
                     try
                     {
                         dal.OrderItem.Add(new DO.OrderItem()
                         {
-                            ProductID = item.ProductID,
+                            ProductID = item!.ProductID,
                             OrderID = orderId,
                             Price = item.Price,
                             Amount = item.Amount

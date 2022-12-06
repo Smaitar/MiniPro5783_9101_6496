@@ -11,19 +11,19 @@ namespace BlImplementation
     {
         //We created a data layer variable that we will use for all functions
         IDal dal = new DalList();
-        public IEnumerable<BO.OrderForList> GetOrderForListsManager()
+        public IEnumerable<BO.OrderForList?> GetOrderForListsManager()
         {
             //Returns the list of orders for an admin screen
-            IEnumerable <DO.Order> orders = dal.Order.GetAll();
+            IEnumerable <DO.Order?> orders = dal.Order.GetAll();
 
             return from DO.Order item in orders
                    select new BO.OrderForList()
                    {
                        ID = item.ID,
                        CustomerName = item.CustomerName,
-                       AmountOfItem = dal.OrderItem.GetAll().Where(x => x.OrderID == item.ID).Count(),
+                       AmountOfItem = dal.OrderItem.GetAll().Where(x => x?.OrderID == item.ID).Count(),
                        status = GetStatus(item),
-                       TotalPrice = dal.OrderItem.GetAll().Where(x => x.OrderID == item.ID).Sum(x => x.Amount * x.Price)
+                       TotalPrice = dal.OrderItem.GetAll().Where(x => x?.OrderID == item.ID).Sum(x => x?.Amount * x?.Price  ?? 0)
                    };
         }
 
@@ -79,28 +79,28 @@ namespace BlImplementation
                 throw new BO.NotExist(ex);
             }
 
-            IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetAll().Where(orderItem => orderItem.OrderID == id);
+            IEnumerable<DO.OrderItem?> orderItems = dal.OrderItem.GetAll().Where(orderItem => orderItem?.OrderID  == id );
 
             return new BO.Order()
             {
                 ID = order.ID,
 
                 CustomerName = order.CustomerName,
-                DeliveryDate = order.DeliveryDate.Value,
-                OrderDate = order.OrderDate.Value,
+                DeliveryDate = order.DeliveryDate!.Value,
+                OrderDate = order.OrderDate!.Value,
                 CustomerAdress = order.CustomerAdress,
-                ShipDate = order.ShipDate.Value,
+                ShipDate = order.ShipDate!.Value,
                 PaymentDate = order.OrderDate.Value,
                 CustomerEmail = order.CustomerEmail,
                 Status = getStatus(order),
                 Items = orderItems.Select(orderItem => new BO.OrderItem
                 {
-                    ProductName = dal.Product.GetByID(orderItem.ProductID).Name,
-                    Amount = orderItem.Amount,
-                    Price = orderItem.Price,
-                    ProductID = orderItem.ProductID,
-                    TotalPrice = orderItem.Price * orderItem.Amount,
-                }).ToList()
+                    ProductName = dal.Product.GetByID(orderItem?.ProductID ?? 0).Name,
+                    Amount = orderItem?.Amount ?? 0,
+                    Price = orderItem?.Price ?? 0,
+                    ProductID = orderItem?.ProductID ?? 0,
+                    TotalPrice = orderItem?.Price * orderItem?.Amount ?? 0,
+                }).ToList()!
             };
         }
 

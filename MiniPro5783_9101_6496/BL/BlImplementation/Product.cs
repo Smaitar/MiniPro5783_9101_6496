@@ -12,10 +12,10 @@ namespace BlImplementation
         //We created a data layer variable that we will use for all functions
         IDal dal = new DalList();
 
-        public IEnumerable<BO.ProductForList> GetList()
+        public IEnumerable<BO.ProductForList?> GetList()
         {
             //we created a collection to return if for an admin screen and for a buyer's catalog screen
-            IEnumerable<DO.Product> DOProduct = dal.Product.GetAll();
+            IEnumerable<DO.Product?> DOProduct = dal.Product.GetAll();
 
             //Update the data from DO to new IEnumerable in BO and return it
             return from DO.Product item in DOProduct

@@ -2,10 +2,10 @@
 {
     public class Cart
     {
-        public string CustomerName { get; set; }//CustomerName
-        public string CustomerEmail { get; set; }//CustomerEmail
-        public string CustomerAdress { get; set; }//CustomerAdress
-        public List<OrderItem> Items { get; set; }
+        public string? CustomerName { get; set; }//CustomerName
+        public string? CustomerEmail { get; set; }//CustomerEmail
+        public string? CustomerAdress { get; set; }//CustomerAdress
+        public List<OrderItem?> Items { get; set; }
         public double TotalPrice { get; set; }
 
         public override string ToString()
