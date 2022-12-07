@@ -1,4 +1,5 @@
-﻿using BO;
+﻿using BlApi;
+using BO;
 using Dal;
 using DalApi;
 using System.Reflection.Emit;
@@ -12,20 +13,21 @@ namespace BlImplementation
         //We created a data layer variable that we will use for all functions
         IDal dal = new DalList();
 
-        public IEnumerable<BO.ProductForList?> GetList()
+        public IEnumerable<BO.ProductForList?> GetList(Func<ProductForList, bool> func = null)
         {
             //we created a collection to return if for an admin screen and for a buyer's catalog screen
             IEnumerable<DO.Product?> DOProduct = dal.Product.GetAll();
 
             //Update the data from DO to new IEnumerable in BO and return it
-            return from DO.Product item in DOProduct
-                   select new BO.ProductForList()
-                   {
-                       ID = item.ID,
-                       Name = item.Name,
-                       Category = (BO.Category)item.Category,
-                       Price = item.Price,
-                   };
+            IEnumerable<BO.ProductForList> dList = from DO.Product item in DOProduct
+                                                   select new BO.ProductForList()
+                                                   {
+                                                       ID = item.ID,
+                                                       Name = item.Name,
+                                                       Category = (BO.Category)item.Category,
+                                                       Price = item.Price,
+                                                   };
+            return func is null ? dList : dList.Where(func);
         }
 
         public BO.Product GetProductManeger(int id)
@@ -36,7 +38,7 @@ namespace BlImplementation
 
             // We try to get the value from the data layer and if not we throw an exception
             DO.Product product;
-                        try
+            try
             {
                 product = dal.Product.GetByID(id);
             }
@@ -114,11 +116,11 @@ namespace BlImplementation
         public void Update(BO.Product product)
         {
             //A correctness check on the name and the identity number and the stock and price in case of incorrect data throws an exception
-            if (product.ID < 0 )
+            if (product.ID < 0)
                 throw new NagtiveNumberException("Nagtive Number Of ID");
             if (product.Name == "")
                 throw new EmptyString(" Empty Name");
-            if(product.InStock < 1)
+            if (product.InStock < 1)
                 throw new NagtiveNumberException("Nagtive Number Of Amount In Stock");
             if (product.Price < 0)
                 throw new NagtiveNumberException("Nagtive Number Of Price");
@@ -157,7 +159,30 @@ namespace BlImplementation
                 throw new BO.AlredyExist(ex);
             }
         }
+        public BO.Product GetById(int id)
+        {
+            if (id < 0)
+                throw new NagtiveNumberException("negative number of id");
+            DO.Product product;
+            try
+            {
+                product = dal.Product.GetByID(id);
+            }
+            catch (BO.NotExist ex)
+            {
+                throw new BO.NotExist(ex);
+            }
+            BO.Product item = new BO.Product()
+            {
+                ID = product.ID,
+                Name = product.Name,
+                Price = product.Price,
+                Category = (BO.Category)product.Category,
+                InStock = product.InStock,
+            };
+            return item;
 
+        }
 
     }
 

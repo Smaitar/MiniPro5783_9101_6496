@@ -41,7 +41,7 @@ internal class DalProduct : IProduct
         for (int i = 0; i < DataSource.ProductsList.Count; i++)
         {
             if (DataSource.ProductsList[i]?.ID == ordUpdate.ID)
-            {. 
+            { 
                 DataSource.ProductsList.Remove(DataSource.ProductsList[i]);
                 DataSource.ProductsList.Add(ordUpdate);
             }
