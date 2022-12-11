@@ -38,7 +38,7 @@ namespace PL
             {
                 MessageBox.Show(ex.Message);
             }
-            if (product != null)
+            if (product != null)//If the product exists - print it.
             {
                 IDtxt.Text = product.ID.ToString();
                 IDtxt.IsEnabled = false;
@@ -54,13 +54,13 @@ namespace PL
         public ProductFunctions()
         {
             InitializeComponent();
-
             Categorybox.ItemsSource = Enum.GetValues(typeof(Category));
             Upbtn.Visibility = Visibility.Collapsed;
             addbtn.Visibility = Visibility.Visible;
 
         }
 
+        //creat a new product with the new detail and add it to the product list
         private void Addbtn_Click(object sender, RoutedEventArgs e)
         {
             BO.Product product = new BO.Product();
@@ -69,9 +69,7 @@ namespace PL
             product.Price = double.Parse(Pricetxt.Text);
             product.InStock = int.Parse(InStocktxt.Text);
             product.Category = (Category)Categorybox.SelectedItem;
-
-
-            try
+            try//if the add failed
             {
                 bl.Product.Add(product);
             }
@@ -81,7 +79,7 @@ namespace PL
             }
             this.Close();
         }
-
+        //update the item selcted
         private void Upbtn_Click(object sender, RoutedEventArgs e)
         {
             Product product = new Product()
@@ -93,7 +91,7 @@ namespace PL
                 Category = (Category)Categorybox.SelectedItem,
             };
 
-            try
+            try//if the add failed
             {
                 bl.Product.Update(product);
             }
@@ -105,20 +103,19 @@ namespace PL
         }
 
         private void idtx(object sender, KeyEventArgs e)
-        {
+        {//A function that receives a product ID from the user
             TextBox text = sender as TextBox;
+
 
             if (text == null) return;
 
+
             if (e == null) return;
+
 
             char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
 
-
-
             if (Char.IsControl(c)) return;
-
-
 
             if (Char.IsDigit(c))
 
@@ -134,7 +131,7 @@ namespace PL
         }
 
         private void ins(object sender, KeyEventArgs e)
-        {
+        {//A function that receives a product ID from the user
             TextBox text = sender as TextBox;
 
             if (text == null) return;
@@ -156,38 +153,25 @@ namespace PL
                     return;
 
             e.Handled = true;
-
-
-
             return;
         }
 
         private void price(object sender, KeyEventArgs e)
-        {
+        {//A function that receives a product ID from the user
             TextBox text = sender as TextBox;
 
-            if (text == null) return;
+            if (text == null) return; 
 
             if (e == null) return;
 
             char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
 
-
-
             if (Char.IsControl(c)) return;
 
-
-
             if (Char.IsDigit(c))
-
-                if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))
-
+                if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))          
                     return;
-
             e.Handled = true;
-
-
-
             return;
         }
     }
