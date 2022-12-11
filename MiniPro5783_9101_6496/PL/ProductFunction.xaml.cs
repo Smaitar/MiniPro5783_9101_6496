@@ -29,8 +29,15 @@ namespace PL
         {
 
             InitializeComponent();
-            Product product = bl.Product.GetById(id);
-
+            Product product = new Product();
+            try
+            {
+                product = bl.Product.GetById(id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             if (product != null)
             {
                 IDtxt.Text = product.ID.ToString();
@@ -63,14 +70,14 @@ namespace PL
             product.InStock = int.Parse(InStocktxt.Text);
             product.Category = (Category)Categorybox.SelectedItem;
 
-            
+
             try
             {
                 bl.Product.Add(product);
             }
-            catch (DO.AlredyExist ex)
+            catch (Exception ex)
             {
-                throw new BO.AlredyExist(ex);
+                MessageBox.Show(ex.Message);
             }
             this.Close();
         }
@@ -90,12 +97,98 @@ namespace PL
             {
                 bl.Product.Update(product);
             }
-            catch (DO.NotExist ex)
+            catch (Exception ex)
             {
-                throw new BO.NotExist(ex);
+                MessageBox.Show(ex.Message);
             }
             this.Close();
         }
 
+        private void idtx(object sender, KeyEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+
+            if (text == null) return;
+
+            if (e == null) return;
+
+            char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
+
+
+
+            if (Char.IsControl(c)) return;
+
+
+
+            if (Char.IsDigit(c))
+
+                if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))
+
+                    return;
+
+            e.Handled = true;
+
+
+
+            return;
+        }
+
+        private void ins(object sender, KeyEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+
+            if (text == null) return;
+
+            if (e == null) return;
+
+            char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
+
+
+
+            if (Char.IsControl(c)) return;
+
+
+
+            if (Char.IsDigit(c))
+
+                if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))
+
+                    return;
+
+            e.Handled = true;
+
+
+
+            return;
+        }
+
+        private void price(object sender, KeyEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+
+            if (text == null) return;
+
+            if (e == null) return;
+
+            char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
+
+
+
+            if (Char.IsControl(c)) return;
+
+
+
+            if (Char.IsDigit(c))
+
+                if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))
+
+                    return;
+
+            e.Handled = true;
+
+
+
+            return;
+        }
     }
 }
