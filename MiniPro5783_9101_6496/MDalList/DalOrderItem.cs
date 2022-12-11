@@ -2,6 +2,8 @@
 
 using DalApi;
 using DO;
+using System;
+
 namespace Dal;
 
 
@@ -51,11 +53,11 @@ internal class DalOrderItem : IOrderItem
         }
     }
 
-    public IEnumerable<OrderItem?> GetAll()//get all the object in the list
+    public IEnumerable<OrderItem?> GetAll(Func <OrderItem?,bool> func = null)//get all the object in the list
     {
         List<OrderItem?> list = new List<OrderItem?>();
         DataSource.orderitemsList.ForEach(i => list.Add(i));
-        return list;
+        return func is null ? list : list.Where(func);
     }
 
     public OrderItem GetByID(int idcheck)//get an Id ant return its object

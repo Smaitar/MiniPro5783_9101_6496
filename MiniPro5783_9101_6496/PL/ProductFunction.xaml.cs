@@ -22,10 +22,10 @@ namespace PL
     /// <summary>
     /// Interaction logic for Window2.xaml
     /// </summary>
-    public partial class Window2 : Window
+    public partial class ProductFunctions : Window
     {
         IBL bl = new Bl();
-        public Window2(int id)
+        public ProductFunctions(int id)
         {
 
             InitializeComponent();
@@ -44,7 +44,7 @@ namespace PL
                 addbtn.Visibility = Visibility.Collapsed;
             }
         }
-        public Window2()
+        public ProductFunctions()
         {
             InitializeComponent();
 

@@ -48,11 +48,11 @@ internal class DalOrder : IOrder
         }
     }
 
-    public IEnumerable<Order?> GetAll()//get all the object in the list
+    public IEnumerable<Order?> GetAll(Func<Order?, bool> func = null)//get all the object in the list
     {
         List<Order?> list = new List<Order?>();
         DataSource.OrdersList.ForEach(i => list.Add(i));
-        return list;
+        return func is null ? list : list.Where(func);
     }
 
     public Order GetByID(int idcheck)//get an Id ant return its object

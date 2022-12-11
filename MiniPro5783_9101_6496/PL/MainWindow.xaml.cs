@@ -11,43 +11,26 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BlApi;
-using BlImplementation;
-using BO;
-
 
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for MainWindow1.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        IBL bl;
         public MainWindow()
         {
             InitializeComponent();
-            bl = new Bl();
-            list.ItemsSource = bl.Product.GetList();
-            AttributeSelector.ItemsSource = Enum.GetValues(typeof(Category));
         }
 
-        private void selection(object sender, SelectionChangedEventArgs e)
+        private void manager(object sender, RoutedEventArgs e)
         {
-            Category category = (Category)AttributeSelector.SelectedItem;
-
-            list.ItemsSource = bl.Product.GetList(x => x!.Category == category);
+            new MainProduct().ShowDialog();  
         }
 
-        private void update(object sender, MouseButtonEventArgs e)
+        private void client(object sender, RoutedEventArgs e)
         {
-         ProductForList product = (ProductForList)list.SelectedItem;
-            new Window2(product.ID).Show();
-        }
-
-        private void Add_Click(object sender, RoutedEventArgs e)
-        {
-            new Window2().Show();
 
         }
     }

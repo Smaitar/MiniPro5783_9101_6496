@@ -2,6 +2,8 @@
 
 using DalApi;
 using DO;
+using System;
+
 namespace Dal;
 
 
@@ -48,16 +50,16 @@ internal class DalProduct : IProduct
         }
     }
 
-    public IEnumerable<Product?> GetAll()//get all the object in the list
+    public IEnumerable<Product?> GetAll(Func<Product?,bool> func = null)//get all the object in the list
     {
         List<Product?> list = new List<Product?>();
         DataSource.ProductsList.ForEach(i => list.Add(i));
-        return list;
+        return func is null ? list : list.Where(func);
     }
 
     public Product GetByID(int idcheck)//get an Id ant return its object
     {
-        object p = DataSource.ProductsList.Find(i => i?.ID == idcheck);
+        object p = DataSource.ProductsList.Find(i => i?.ID == idcheck)!;
 
         return p != null ? (Product)p : throw new NotExist("not found");
     }
