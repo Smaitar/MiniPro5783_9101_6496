@@ -10,7 +10,7 @@ namespace BlImplementation
     internal class Order : BlApi.IOrder
     {
         //We created a data layer variable that we will use for all functions
-        IDal dal = new DalList();
+        DalApi.IDal? dal = DalApi.Factory.Get();
         public IEnumerable<BO.OrderForList?> GetOrderForListsManager()
         {
             //Returns the list of orders for an admin screen

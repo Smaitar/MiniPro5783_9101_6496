@@ -7,7 +7,7 @@ using DalApi;
 internal class Program
 {
     //define three kind of objects
-    static private IDal dal = new DalList();
+    static private DalApi.IDal? dal = DalApi.Factory.Get();
 
     public static void Main(string[] args)
     {

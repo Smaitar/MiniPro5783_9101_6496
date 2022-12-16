@@ -2,10 +2,10 @@
 
 namespace BlImplementation
 {
-    public class Bl : IBL
+    internal class Bl : IBL
     {
-        public ICart Cart => new Cart();
-        public IOrder Order => new Order();
-        public IProduct Product => new Product();
+        public ICart Cart { get;} = new Cart();
+        public IOrder Order { get; } = new Order();
+        public IProduct Product { get; } = new Product();
     }
 }

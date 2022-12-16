@@ -11,10 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BlApi;
-using BlImplementation;
 using BO;
-
+using BlApi;
 
 namespace PL
 {
@@ -23,11 +21,12 @@ namespace PL
     /// </summary>
     public partial class MainProduct : Window
     {
-        IBL bl;
+        //IBL bl;
+        BlApi.IBL? bl = Factory.Get();
         public MainProduct()
         {
             InitializeComponent();
-            bl = new Bl();
+
             list.ItemsSource = bl.Product.GetList();
             AttributeSelector.ItemsSource = Enum.GetValues(typeof(Category));
         }
@@ -44,13 +43,13 @@ namespace PL
         private void update(object sender, MouseButtonEventArgs e)
         {
          ProductForList product = (ProductForList)list.SelectedItem;
-            new ProductFunctions(product.ID).Show();
+            new ProductFunctions(product.ID, bl).Show();
         }
 
         //if the user made a Click to add
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            new ProductFunctions().Show();
+            new ProductFunctions(bl).Show();
 
         }
     }

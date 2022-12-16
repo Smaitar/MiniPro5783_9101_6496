@@ -24,11 +24,13 @@ namespace PL
     /// </summary>
     public partial class ProductFunctions : Window
     {
-        IBL bl = new Bl();
-        public ProductFunctions(int id)
+        IBL bl;
+
+        public ProductFunctions(int id, IBL bl)
         {
 
             InitializeComponent();
+            this.bl = bl;
             Product product = new Product();
             try
             {
@@ -51,13 +53,14 @@ namespace PL
                 addbtn.Visibility = Visibility.Collapsed;
             }
         }
-        public ProductFunctions()
+
+        public ProductFunctions(IBL bl)
         {
             InitializeComponent();
             Categorybox.ItemsSource = Enum.GetValues(typeof(Category));
             Upbtn.Visibility = Visibility.Collapsed;
             addbtn.Visibility = Visibility.Visible;
-
+            this.bl = bl;
         }
 
         //creat a new product with the new detail and add it to the product list

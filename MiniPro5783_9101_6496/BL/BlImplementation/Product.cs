@@ -11,7 +11,7 @@ namespace BlImplementation
     internal class Product : BlApi.IProduct
     {
         //We created a data layer variable that we will use for all functions
-        IDal dal = new DalList();
+        DalApi.IDal? dal = DalApi.Factory.Get();
 
         public IEnumerable<BO.ProductForList?> GetList(Func<ProductForList, bool> func = null)
         {
