@@ -19,7 +19,7 @@ internal class DalProduct : IProduct
         return (ord.ID);
     }
 
-    public int Delete(int IdDelete)
+    public void Delete(int IdDelete)
     {
         //delete a object acoording to its ID
         if (!DataSource.ProductsList.Exists(i => i?.ID == IdDelete))
@@ -32,7 +32,7 @@ internal class DalProduct : IProduct
                 break;
             }
         }
-        return 0;
+        //return 0;
     }
 
     public void Update(Product ordUpdate)
