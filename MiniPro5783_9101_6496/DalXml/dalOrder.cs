@@ -47,7 +47,7 @@ internal class dalOrder : IOrder
     {
         //Read config file
         XElement configRoot = XElement.Load(configPath);
-
+        
         int nextSeqNum = Convert.ToInt32(configRoot.Element("orderSeq").Value);
         nextSeqNum++;
         Or.ID = nextSeqNum;
