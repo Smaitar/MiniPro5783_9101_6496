@@ -13,9 +13,9 @@ internal class DataSource
     internal static class Config
     {
         //a run number 
-        internal static int orderitemID = 1000000;
+        internal static int orderitemID = 0;
         internal static int productID = 1000000;
-        internal static int orderID = 1000000;
+        internal static int orderID = 0;
 
         public static int ProductID => productID++;
         public static int OrderitemID => orderitemID++;
@@ -37,6 +37,11 @@ internal class DataSource
         s_InitializOrder();
         s_InitializProduct();
         s_InitializOrderItem();
+        DalApi.IDal dalXml = new Dal.DalXml();
+        XmlTools.SaveListToXMLSerializer(OrdersList, @"..\orders.xml");
+        XmlTools.SaveListToXMLSerializer(ProductsList, @"..\products.xml");
+        XmlTools.SaveListToXMLSerializer(orderitemsList, @"..\ordersItems.xml");
+
     }
     private static void s_InitializOrder()
     {
@@ -67,12 +72,12 @@ internal class DataSource
             OrderItem orderitem = new OrderItem();
             Product? product = ProductsList[random.Next(ProductsList.Count)];
 
-            orderitem.ID = random.Next(100000000, 999999999);
+            orderitem.ID = Config.OrderitemID;
             orderitem.ProductID = product?.ID ?? 0;
             if (i < 50)
                 orderitem.OrderID = OrdersList[i]?.ID ?? 0;
             else
-                orderitem.OrderID = OrdersList[random.Next(OrdersList.Count)]?.ID ??0;
+                orderitem.OrderID = OrdersList[random.Next(OrdersList.Count)]?.ID ?? 0;
             orderitem.Price = product?.Price ?? 0;
             orderitem.Amount = random.Next(1, 10);
             orderitemsList.Add(orderitem);

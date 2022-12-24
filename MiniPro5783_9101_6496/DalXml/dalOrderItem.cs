@@ -10,7 +10,9 @@ using System.Xml.Linq;
 namespace Dal;
 internal class dalOrderItem : IOrderItem
 {
-    string path = XmlTools.dir + "ordersItems.xml";
+    string path = @"..\ordersItems.xml";
+    string configPath = @"..\config.xml";
+
     XElement ordersItemsRoot;
 
     public dalOrderItem()
@@ -38,14 +40,29 @@ internal class dalOrderItem : IOrderItem
 
     public int Add(OrderItem Or)
     {
-        List<OrderItem> prodLst = XmlTools.LoadListFromXMLSerializer<OrderItem>(path);
+        XElement configRoot = XElement.Load(configPath);
+        var v = configRoot.Element("orderItemSeq");
+        int nextSeqNum = Convert.ToInt32(configRoot.Element("orderItemSeq")!.Value);
+        nextSeqNum++;
+        Or.ID = nextSeqNum;
+        //update config file
+        configRoot.Element("orderItemSeq")!.SetValue(nextSeqNum);
+        configRoot.Save(configPath);
 
-        if (prodLst.Exists(x => x.ID == Or.ID))
+        List<OrderItem> orderItemList = XmlTools.LoadListFromXMLSerializer<OrderItem>(path);
+
+        if (orderItemList.Exists(x => x.ID == Or.ID))
             throw new NotExist("OrderItem");
 
-        prodLst.Add(Or);
+        XElement Id = new XElement("Id", Or.ID);
+        XElement productID = new XElement("productID", Or.ProductID);
+        XElement orderID = new XElement("orderID", Or.OrderID);
+        XElement price = new XElement("price", Or.Price);
+        XElement amount = new XElement("amount", Or.Amount);
 
-        XmlTools.SaveListToXMLSerializer(prodLst, path);
+
+        ordersItemsRoot.Add(new XElement("OrderItem", Id, productID, orderID, price, amount));
+        ordersItemsRoot.Save(path);
 
         return Or.ID;
     }
@@ -64,8 +81,10 @@ internal class dalOrderItem : IOrderItem
 
     public OrderItem GetByCondition(Func<OrderItem?, bool>? cond)
     {
-        
-        throw new NotImplementedException();
+
+        return (from item in XmlTools.LoadListFromXMLSerializer<OrderItem>(path)
+                where cond(item)
+                select item).FirstOrDefault();
     }
 
     public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool>? cond = null)
@@ -80,7 +99,7 @@ internal class dalOrderItem : IOrderItem
 
     public OrderItem GetByID(int id)
     {
-        List<Product> prodLst = XmlTools.LoadListFromXMLSerializer<Product>(path);
+        List<OrderItem> prodLst = XmlTools.LoadListFromXMLSerializer<OrderItem>(path);
 
         if (prodLst.Exists(x => x.ID == id))
             throw new NotExist("OrderItem");

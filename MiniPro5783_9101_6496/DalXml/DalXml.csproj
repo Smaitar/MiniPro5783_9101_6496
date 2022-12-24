@@ -17,8 +17,4 @@
     <ProjectReference Include="..\MDalFacade\DalFacade.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="xml\" />
-  </ItemGroup>
-
 </Project>

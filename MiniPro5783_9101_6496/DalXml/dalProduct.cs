@@ -15,20 +15,53 @@ namespace Dal;
 //short implementation with XMLTools functions
 internal class dalProduct : IProduct
 {
-    string path = "products.xml";
+    string path = @"..\products.xml";
+    string configPath = @"..\config.xml";
 
-    public int Add(Product Or)
+    XElement productRoot;
+
+    public dalProduct()
     {
-        List<Product> prodLst = XmlTools.LoadListFromXMLSerializer<Product>(path);
+        LoadData();
+    }
 
-        if (prodLst.Exists(x => x.ID == Or.ID))
-            throw new NotExist("Product");
+    private void LoadData()
+    {
+        try
+        {
+            if (File.Exists(path))
+                productRoot = XElement.Load(path);
+            else
+            {
+                productRoot = new XElement("products");
+                productRoot.Save(path);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("product File upload problem" + ex.Message);
+        }
+    }
 
-        prodLst.Add(Or);
+    public int Add(Product product)
+    {
 
-        XmlTools.SaveListToXMLSerializer(prodLst, path);
+        List<Product> ordrList = XmlTools.LoadListFromXMLSerializer<Product>(path);
 
-        return Or.ID;
+        if (ordrList.Exists(x => x.ID == product.ID))
+            throw new NotExist("product");
+
+        XElement Id = new XElement("ID", product.ID);
+        XElement name = new XElement("Name", product.Name);
+        XElement category = new XElement("Category", product.Category);
+        XElement inStock = new XElement("InStock", product.InStock);
+        XElement price = new XElement("Price", product.Price);
+
+
+        productRoot.Add(new XElement("Product", Id, name, category, price, inStock));
+        productRoot.Save(path);
+
+        return product.ID;
     }
 
     public void Delete(int id)
@@ -51,7 +84,7 @@ internal class dalProduct : IProduct
 
     public IEnumerable<Product?> GetAll(Func<Product?, bool>? cond = null)
     {
-        List<DO.Product?> prodList = XmlTools.LoadListFromXMLSerializer<DO.Product?>(path);
+        List<Product?> prodList = XmlTools.LoadListFromXMLSerializer<Product?>(path);
 
         if (cond == null)
             return prodList.AsEnumerable().OrderByDescending(p => p?.ID);

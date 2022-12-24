@@ -14,8 +14,8 @@ namespace Dal;
 
 internal class dalOrder : IOrder
 {
-    string path = "orders.xml";
-    string configPath = "config.xml";
+    string path = @"..\orders.xml";
+    string configPath = @"..\config.xml";
 
 
     XElement ordersRoot;
@@ -39,7 +39,7 @@ internal class dalOrder : IOrder
         }
         catch (Exception ex)
         {
-            throw new Exception("product File upload problem" + ex.Message);
+            throw new Exception("order File upload problem" + ex.Message);
         }
     }
 
@@ -47,12 +47,12 @@ internal class dalOrder : IOrder
     {
         //Read config file
         XElement configRoot = XElement.Load(configPath);
-        
-        int nextSeqNum = Convert.ToInt32(configRoot.Element("orderSeq").Value);
+        var v = configRoot.Element("orderSeq");
+        int nextSeqNum = Convert.ToInt32(configRoot.Element("orderSeq")!.Value);
         nextSeqNum++;
         Or.ID = nextSeqNum;
         //update config file
-        configRoot.Element("orderSeq").SetValue(nextSeqNum);
+        configRoot.Element("orderSeq")!.SetValue(nextSeqNum);
         configRoot.Save(configPath);
 
         XElement Id = new XElement("Id", Or.ID);
@@ -62,7 +62,7 @@ internal class dalOrder : IOrder
         XElement OrderDate = new XElement("OrderDate", Or.OrderDate);
         XElement ShipDate = new XElement("ShipDate", Or.ShipDate);
         XElement DeliveryDate = new XElement("DeliveryDate", Or.DeliveryDate);
-        
+
 
         ordersRoot.Add(new XElement("Order", Id, CustomerName, CustomerEmail, CustomerAdress, OrderDate, ShipDate, DeliveryDate));
         ordersRoot.Save(path);
@@ -73,27 +73,54 @@ internal class dalOrder : IOrder
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        List<Order> ordeLst = XmlTools.LoadListFromXMLSerializer<Order>(path);
+        int index = ordeLst.FindIndex(x => x.ID == id);
+        if (index == -1)
+            throw new NotExist("Order");
+
+        ordeLst.RemoveAt(index);
+
+        XmlTools.SaveListToXMLSerializer(ordeLst, path);
     }
 
     public Order GetByCondition(Func<Order?, bool>? cond)
     {
-        throw new NotImplementedException();
+        return (from item in XmlTools.LoadListFromXMLSerializer<Order>(path)
+                where cond(item)
+                select item).FirstOrDefault();
     }
 
     public IEnumerable<Order?> GetAll(Func<Order?, bool>? cond = null)
     {
-        throw new NotImplementedException();
+        List<DO.Order?> orderList = XmlTools.LoadListFromXMLSerializer<DO.Order?>(path);
+
+        if (cond == null)
+            return orderList.AsEnumerable().OrderByDescending(p => p?.ID);
+
+        return orderList.Where(cond).OrderByDescending(p => p?.ID);
     }
 
     public Order GetByID(int id)
     {
-        throw new NotImplementedException();
+        List<Order> prodLst = XmlTools.LoadListFromXMLSerializer<Order>(path);
+
+        if (prodLst.Exists(x => x.ID == id))
+            throw new NotExist("OrderItem");
+
+        return (from item in XmlTools.LoadListFromXMLSerializer<Order>(path)
+                where item.ID == id
+                select item).FirstOrDefault();
     }
 
     public void Update(Order Or)
     {
-        throw new NotImplementedException();
+        var newList = XmlTools.LoadListFromXMLSerializer<Order>(path);
+        int index = newList.FindIndex(x => x.ID == Or.ID);
+        if (index == -1)
+            throw new NotExist("the OrderItem is't exsit\n");
+
+        newList.Insert(index, Or);
+        XmlTools.SaveListToXMLSerializer(newList, path);
     }
 }
 
