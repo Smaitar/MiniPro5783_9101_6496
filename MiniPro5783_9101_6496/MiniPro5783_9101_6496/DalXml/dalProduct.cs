@@ -15,54 +15,20 @@ namespace Dal;
 //short implementation with XMLTools functions
 internal class dalProduct : IProduct
 {
-    string path = @"products.xml";
-    string configPath = @"..\config.xml";
-    string dir = @"..\bin\xml\";
+    string path = "products.xml";
 
-    XElement productRoot;
-
-    public dalProduct()
+    public int Add(Product Or)
     {
-        LoadData();
-    }
+        List<Product> prodLst = XmlTools.LoadListFromXMLSerializer<Product>(path);
 
-    private void LoadData()
-    {
-        try
-        {
-            if (File.Exists(dir + path))
-                productRoot = XElement.Load(dir + path);
-            else
-            {
-                productRoot = new XElement("products");
-                productRoot.Save(dir + path);
-            }
-        }
-        catch (Exception ex)
-        {
-            throw new Exception("product File upload problem" + ex.Message);
-        }
-    }
+        if (prodLst.Exists(x => x.ID == Or.ID))
+            throw new NotExist("Product");
 
-    public int Add(Product product)
-    {
+        prodLst.Add(Or);
 
-        List<Product> ordrList = XmlTools.LoadListFromXMLSerializer<Product>(path);
+        XmlTools.SaveListToXMLSerializer(prodLst, path);
 
-        if (ordrList.Exists(x => x.ID == product.ID))
-            throw new NotExist("product");
-
-        XElement Id = new XElement("ID", product.ID);
-        XElement name = new XElement("Name", product.Name);
-        XElement category = new XElement("Category", product.Category);
-        XElement inStock = new XElement("InStock", product.InStock);
-        XElement price = new XElement("Price", product.Price);
-        XElement newProduct = new XElement("Product", Id, name, category, price, inStock);
-
-        productRoot.Add(newProduct);
-        productRoot.Save(dir + path);
-
-        return product.ID;
+        return Or.ID;
     }
 
     public void Delete(int id)
@@ -101,15 +67,15 @@ internal class dalProduct : IProduct
                 select item).FirstOrDefault();
     }
 
-    public void Update(Product Pr)
+    public void Update(Product Or)
     {
 
         var newList = XmlTools.LoadListFromXMLSerializer<Product>(path);
-        int index = newList.FindIndex(x => x.ID == Pr.ID);
+        int index = newList.FindIndex(x => x.ID == Or.ID);
         if (index == -1)
             throw new NotExist("the order is't exsit\n");
 
-        newList[index] = Pr ;
+        newList.Insert(index, Or);
         XmlTools.SaveListToXMLSerializer(newList, path);  
     }
 }
