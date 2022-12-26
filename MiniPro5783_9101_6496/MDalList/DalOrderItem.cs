@@ -20,7 +20,7 @@ internal class DalOrderItem : IOrderItem
         return ordItem.OrderID;
     }
 
-    public int Delete(int IdDelete)
+    public void Delete(int IdDelete)
     {
         //delete a object acoording to its ID
         if (!DataSource.orderitemsList.Exists(i => i?.ID == IdDelete))
@@ -33,7 +33,7 @@ internal class DalOrderItem : IOrderItem
                 break;
             }
         }
-        return 0;
+        //return 0;
     }
 
     public void Update(OrderItem ordUpdate)

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -10,14 +10,10 @@
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
     <RootNamespace>Dal</RootNamespace>
+
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Unipluss.Sign.Client" Version="1.0.2876" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\DalXml\DalXml.csproj" />
     <ProjectReference Include="..\MDalFacade\DalFacade.csproj" />
   </ItemGroup>
 
