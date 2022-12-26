@@ -15,8 +15,8 @@ namespace Dal;
 //short implementation with XMLTools functions
 internal class dalProduct : IProduct
 {
-    string path = @"..\bin\xml\products.xml";
-    string configPath = @"..\bin\xml\config.xml";
+    string path = @"..\xml\products.xml";
+    string configPath = @"..\xml\config.xml";
    // string dir = @"..\bin\xml\";
 
   //  XElement productRoot;

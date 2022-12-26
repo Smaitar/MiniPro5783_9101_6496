@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+﻿<?xml version="1.0" encoding="utf-8"?><ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<Product>
 		<ID>614721</ID>
 		<Name>product0</Name>
@@ -105,4 +104,60 @@
 		<InStock>108</InStock>
 		<Price>100</Price>
 	</Product>
+	<Product>
+		<ID>1234567</ID>
+		<Name>מיכלוש</Name>
+		<Category>ring</Category>
+		<InStock>1</InStock>
+		<Price>1</Price>
+	</Product>
+	<Product>
+		<ID>123456</ID>
+		<Name>מיכלוש</Name>
+		<Category>necklace</Category>
+		<InStock>1</InStock>
+		<Price>1</Price>
+	</Product>
+	<Product>
+		<ID>0</ID>
+		<Name>שששש</Name>
+		<Category>earring</Category>
+		<InStock>25</InStock>
+		<Price>343</Price>
+	</Product>
+	<Product>
+		<ID>1234567</ID>
+		<Name>מיכלוש</Name>
+		<Category>ring</Category>
+		<InStock>1</InStock>
+		<Price>1</Price>
+	</Product>
+	<Product>
+		<ID>123456</ID>
+		<Name>מיכלוש</Name>
+		<Category>necklace</Category>
+		<InStock>1</InStock>
+		<Price>1</Price>
+	</Product>
+	<Product>
+		<ID>77777</ID>
+		<Name>miki</Name>
+		<Category>sets</Category>
+		<InStock>30</InStock>
+		<Price>22</Price>
+	</Product>
+<Product>
+	<ID>1234567</ID>
+	<Name>מיכלוש</Name>
+	<Category>ring</Category>
+	<InStock>1</InStock>
+	<Price>1</Price>
+</Product>
+<Product>
+	<ID>123456</ID>
+	<Name>מיכלוש</Name>
+	<Category>necklace</Category>
+	<InStock>1</InStock>
+	<Price>1</Price>
+</Product>
 </ArrayOfProduct>

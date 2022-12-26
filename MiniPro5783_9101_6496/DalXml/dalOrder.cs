@@ -14,8 +14,8 @@ namespace Dal;
 
 internal class dalOrder : IOrder
 {
-    string path = @"orders.xml";
-    string configPath = @"..\config.xml";
+    string path = @"..\xml\orders.xml";
+    string configPath = @"..\xml\config.xml";
     //string dir = @"..\bin\xml\";
 
 
