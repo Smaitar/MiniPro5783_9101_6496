@@ -14,10 +14,10 @@ internal class DataSource
     {
         //a run number 
         internal static int orderitemID = 0;
-        internal static int productID = 1000000;
+        //internal static int productID = 1000000;
         internal static int orderID = 0;
 
-        public static int ProductID => productID++;
+        //public static int ProductID => productID++;
         public static int OrderitemID => orderitemID++;
         public static int OrderID => orderID++;
     }

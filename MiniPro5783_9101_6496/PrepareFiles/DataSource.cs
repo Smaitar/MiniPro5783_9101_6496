@@ -1,26 +1,22 @@
 ﻿
-using DalXml;
 using DO;
-using System.Data.SqlTypes;
-
 namespace Dal;
 
-internal class DataSource
+public class DataSource
 {
 
     static DataSource()
     {
         s_Initialize();
     }
-    private static DalApi.IDal dalXml = new DalXml.DalXml();
 
     internal static class Config
     {
         //a run number 
-        internal static int orderitemID = 1000000;
-        internal static int productID = 1000000;
-        internal static int orderID = 1000000;
-        public static int ProductID => productID++;
+        internal static int orderitemID = 0;
+        internal static int orderID = 0;
+
+        //public static int ProductID => productID++;
         public static int OrderitemID => orderitemID++;
         public static int OrderID => orderID++;
     }
@@ -31,8 +27,8 @@ internal class DataSource
     internal const int NumProduct = 15;
     private const int NumOrder = 50;
     private const int NumOrderItem = 100;
-    internal static List<OrderItem?> orderitemsList = new List<OrderItem?>();
-    internal static List<Product?> ProductsList = new List<Product?>();
+    public static List<OrderItem?> orderitemsList = new List<OrderItem?>();
+    public static List<Product?> ProductsList = new List<Product?>();
     public static List<Order?> OrdersList = new List<Order?>();
 
     private static void s_Initialize()
@@ -40,8 +36,9 @@ internal class DataSource
         s_InitializOrder();
         s_InitializProduct();
         s_InitializOrderItem();
-      
-       
+        //DalApi.IDal dalXml = new Dal.DalXml();
+
+
     }
     private static void s_InitializOrder()
     {
@@ -62,8 +59,6 @@ internal class DataSource
             OrdersList.Add(order);
         }
 
-        foreach (Order item in OrdersList)
-            dalXml.Order.Add(item);
     }
 
     private static void s_InitializOrderItem()
@@ -74,7 +69,7 @@ internal class DataSource
             OrderItem orderitem = new OrderItem();
             Product? product = ProductsList[random.Next(ProductsList.Count)];
 
-            orderitem.ID = random.Next(100000000, 999999999);
+            orderitem.ID = Config.OrderitemID;
             orderitem.ProductID = product?.ID ?? 0;
             if (i < 50)
                 orderitem.OrderID = OrdersList[i]?.ID ?? 0;
@@ -84,8 +79,6 @@ internal class DataSource
             orderitem.Amount = random.Next(1, 10);
             orderitemsList.Add(orderitem);
         }
-        foreach (OrderItem item in orderitemsList)
-            dalXml.OrderItem.Add(item);
     }
 
     private static void s_InitializProduct()
@@ -103,8 +96,5 @@ internal class DataSource
             }
             ProductsList.Add(stu);
         }
-
-        foreach (Product item in ProductsList)
-            dalXml.Product.Add(item);
     }
 }

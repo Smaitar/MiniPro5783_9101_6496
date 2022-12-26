@@ -16,45 +16,49 @@ internal class dalOrder : IOrder
 {
     string path = @"orders.xml";
     string configPath = @"..\config.xml";
-    string dir = @"..\bin\xml\";
+    //string dir = @"..\bin\xml\";
 
 
     XElement ordersRoot;
 
     public dalOrder()
     {
-        LoadData();
+        //LoadData();
     }
 
     private void LoadData()
     {
-        try
-        {
-            if (File.Exists(dir + path))
-                ordersRoot = XElement.Load(dir + path);
-            else
-            {
-                ordersRoot = new XElement("orders");
-                ordersRoot.Save(dir + path);
-            }
-        }
-        catch (Exception ex)
-        {
-            throw new Exception("order File upload problem" + ex.Message);
-        }
+        //try
+        //{
+            if (!File.Exists(path))
+                throw new Exception("order File upload problem");
+            //    else
+            //    {
+            //        ordersRoot = new XElement("orders");
+            //        ordersRoot.Save( path);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+
+            //}
+        //}
     }
 
     public int Add(Order Or)
     {
+
         //Read config file
         XElement configRoot = XElement.Load(configPath);
         var v = configRoot.Element("orderSeq");
         int nextSeqNum = Convert.ToInt32(configRoot.Element("orderSeq")!.Value);
         nextSeqNum++;
+
         Or.ID = nextSeqNum;
         //update config file
         configRoot.Element("orderSeq")!.SetValue(nextSeqNum);
         configRoot.Save(configPath);
+
 
         XElement Id = new XElement("Id", Or.ID);
         XElement CustomerName = new XElement("CustomerName", Or.CustomerName);
@@ -67,6 +71,7 @@ internal class dalOrder : IOrder
 
         ordersRoot.Add(new XElement("Order", Id, CustomerName, CustomerEmail, CustomerAdress, OrderDate, ShipDate, DeliveryDate));
         ordersRoot.Save(path);
+
 
         return Or.ID;
 
@@ -115,13 +120,17 @@ internal class dalOrder : IOrder
 
     public void Update(Order Or)
     {
-        var newList = XmlTools.LoadListFromXMLSerializer<Order>(path);
-        int index = newList.FindIndex(x => x.ID == Or.ID);
-        if (index == -1)
-            throw new NotExist("the OrderItem is't exsit\n");
+        //var newList = XmlTools.LoadListFromXMLSerializer<Order>(path);
+        //int index = newList.FindIndex(x => x.ID == Or.ID);
+        //if (index == -1)
+        //    throw new NotExist("the OrderItem is't exsit\n");
 
-        newList[index] = Or;
-        XmlTools.SaveListToXMLSerializer(newList, path);
+
+        //newList[index] = Or;
+        //XmlTools.SaveListToXMLSerializer(newList, path);
+
+        Delete(Or.ID);
+        Add(Or);
     }
 }
 

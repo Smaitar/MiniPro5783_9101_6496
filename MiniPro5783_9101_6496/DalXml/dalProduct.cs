@@ -15,52 +15,59 @@ namespace Dal;
 //short implementation with XMLTools functions
 internal class dalProduct : IProduct
 {
-    string path = @"products.xml";
-    string configPath = @"..\config.xml";
-    string dir = @"..\bin\xml\";
+    string path = @"..\bin\xml\products.xml";
+    string configPath = @"..\bin\xml\config.xml";
+   // string dir = @"..\bin\xml\";
 
-    XElement productRoot;
+  //  XElement productRoot;
 
     public dalProduct()
     {
-        LoadData();
+        //LoadData();
     }
 
     private void LoadData()
     {
-        try
-        {
-            if (File.Exists(dir + path))
-                productRoot = XElement.Load(dir + path);
-            else
-            {
-                productRoot = new XElement("products");
-                productRoot.Save(dir + path);
-            }
-        }
-        catch (Exception ex)
-        {
-            throw new Exception("product File upload problem" + ex.Message);
-        }
+            if (!File.Exists(path))
+                throw new Exception("product File upload problem");
+
+            
+        /* try
+         {
+             if (File.Exists(path))
+                 productRoot = XElement.Load(path);
+             else
+             {
+                 productRoot = new XElement("products");
+                 productRoot.Save(path);
+             }
+         }
+         catch (Exception ex)
+         {
+             throw new Exception("product File upload problem" + ex.Message);
+         }*/
     }
 
     public int Add(Product product)
     {
-
         List<Product> ordrList = XmlTools.LoadListFromXMLSerializer<Product>(path);
 
         if (ordrList.Exists(x => x.ID == product.ID))
-            throw new NotExist("product");
+            throw new AlredyExist("product");
 
-        XElement Id = new XElement("ID", product.ID);
-        XElement name = new XElement("Name", product.Name);
-        XElement category = new XElement("Category", product.Category);
-        XElement inStock = new XElement("InStock", product.InStock);
-        XElement price = new XElement("Price", product.Price);
-        XElement newProduct = new XElement("Product", Id, name, category, price, inStock);
 
-        productRoot.Add(newProduct);
-        productRoot.Save(dir + path);
+        /* XElement Id = new XElement("ID", product.ID);
+         XElement name = new XElement("Name", product.Name);
+         XElement category = new XElement("Category", product.Category);
+         XElement inStock = new XElement("InStock", product.InStock);
+         XElement price = new XElement("Price", product.Price);
+         XElement newProduct = new XElement("Product", Id, name, category, price, inStock);
+
+         productRoot.Add(newProduct);
+         productRoot.Save( path);*/
+
+        ordrList.Add(product);
+        XmlTools.SaveListToXMLSerializer(ordrList, path);
 
         return product.ID;
     }
@@ -90,7 +97,7 @@ internal class dalProduct : IProduct
         if (cond == null)
             return prodList.AsEnumerable().OrderByDescending(p => p?.ID);
 
-        return prodList.Where(cond).OrderByDescending(p => p?.ID);
+        return prodList.AsEnumerable<Product?>().Where(cond).OrderByDescending(p => p?.ID);
 
     }
 
@@ -103,14 +110,16 @@ internal class dalProduct : IProduct
 
     public void Update(Product Pr)
     {
+        Delete(Pr.ID);
+        Add(Pr);
 
-        var newList = XmlTools.LoadListFromXMLSerializer<Product>(path);
-        int index = newList.FindIndex(x => x.ID == Pr.ID);
-        if (index == -1)
-            throw new NotExist("the order is't exsit\n");
-
-        newList[index] = Pr ;
-        XmlTools.SaveListToXMLSerializer(newList, path);  
+        //var newList = XmlTools.LoadListFromXMLSerializer<Product?>(path);
+        //Product? index = newList.FirstOrDefault(x => x?.ID == Pr.ID);
+        //if (index == null)
+        //    throw new NotExist("the order is't exsit\n");
+        //newList.Remove(index);
+        //newList.Add(Pr);
+        //XmlTools.SaveListToXMLSerializer(newList, path);  
     }
 }
 

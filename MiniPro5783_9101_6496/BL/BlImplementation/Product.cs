@@ -15,19 +15,21 @@ namespace BlImplementation
 
         public IEnumerable<BO.ProductForList?> GetList(Func<ProductForList, bool> func = null)
         {
-            //we created a collection to return if for an admin screen and for a buyer's catalog screen
             IEnumerable<DO.Product?> DOProduct = dal.Product.GetAll();
-
-            //Update the data from DO to new IEnumerable in BO and return it
-            IEnumerable<BO.ProductForList> dList = from DO.Product item in DOProduct
-                                                   select new BO.ProductForList()
-                                                   {
-                                                       ID = item.ID,
-                                                       Name = item.Name,
-                                                       Category = (BO.Category)item.Category,
-                                                       Price = item.Price,
-                                                   };
-            return func is null ? dList : dList.Where(func);
+          
+            
+                //we created a collection to return if for an admin screen and for a buyer's catalog screen
+                //Update the data from DO to new IEnumerable in BO and return it
+                IEnumerable<BO.ProductForList> dList = from DO.Product item in DOProduct
+                                                       select new BO.ProductForList()
+                                                       {
+                                                           ID = item.ID,
+                                                           Name = item.Name,
+                                                           Category = (BO.Category)item.Category,
+                                                           Price = item.Price,
+                                                       };
+                return func is null ? dList : dList.Where(func);
+            
         }
 
         public BO.Product GetProductManeger(int id)

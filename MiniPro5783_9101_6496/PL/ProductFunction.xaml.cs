@@ -102,7 +102,7 @@ namespace PL
             {
                 MessageBox.Show(ex.Message);
             }
-            this.Close();
+            Close();
         }
 
         private void idtx(object sender, KeyEventArgs e)

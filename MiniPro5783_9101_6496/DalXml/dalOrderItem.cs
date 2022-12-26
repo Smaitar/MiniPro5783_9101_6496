@@ -12,31 +12,32 @@ internal class dalOrderItem : IOrderItem
 {
     string path = @"ordersItems.xml";
     string configPath = @"..\config.xml";
-    string dir = @"..\bin\xml\";
+    //string dir = @"..\bin\xml\";
 
     XElement ordersItemsRoot;
 
     public dalOrderItem()
     {
-        LoadData();
+        //LoadData();
     }
 
     private void LoadData()
     {
-        try
-        {
-            if (File.Exists(dir + path))
-                ordersItemsRoot = XElement.Load(dir + path);
-            else
-            {
-                ordersItemsRoot = new XElement("ordersItems");
-                ordersItemsRoot.Save(dir + path);
-            }
-        }
-        catch (Exception ex)
-        {
-            throw new Exception("product File upload problem" + ex.Message);
-        }
+        //try
+        //{
+            if (!File.Exists( path))
+            throw new Exception("product File upload problem");
+               // ordersItemsRoot = XElement.Load(path);
+               //else
+               //{
+               //    ordersItemsRoot = new XElement("ordersItems");
+               //    ordersItemsRoot.Save( path);
+               // }
+               //}
+        //catch (Exception ex)
+        //{
+           
+        //}
     }
 
     public int Add(OrderItem Or)
@@ -50,21 +51,14 @@ internal class dalOrderItem : IOrderItem
         configRoot.Element("orderItemSeq")!.SetValue(nextSeqNum);
         configRoot.Save(configPath);
 
+
         List<OrderItem> orderItemList = XmlTools.LoadListFromXMLSerializer<OrderItem>(path);
 
         if (orderItemList.Exists(x => x.ID == Or.ID))
             throw new NotExist("OrderItem");
 
-        XElement Id = new XElement("Id", Or.ID);
-        XElement productID = new XElement("productID", Or.ProductID);
-        XElement orderID = new XElement("orderID", Or.OrderID);
-        XElement price = new XElement("price", Or.Price);
-        XElement amount = new XElement("amount", Or.Amount);
-
-
-        ordersItemsRoot.Add(new XElement("OrderItem", Id, productID, orderID, price, amount));
-        ordersItemsRoot.Save(dir + path);
-
+        orderItemList.Add(Or);
+        XmlTools.SaveListToXMLSerializer(orderItemList, path);
         return Or.ID;
     }
 
@@ -112,12 +106,14 @@ internal class dalOrderItem : IOrderItem
 
     public void Update(OrderItem Or)
     {
-        var newList = XmlTools.LoadListFromXMLSerializer<OrderItem>(path);
-        int index = newList.FindIndex(x => x.ID == Or.ID);
-        if (index == -1)
-            throw new NotExist("the OrderItem is't exsit\n");
+        //var newList = XmlTools.LoadListFromXMLSerializer<OrderItem>(path);
+        //int index = newList.FindIndex(x => x.ID == Or.ID);
+        //if (index == -1)
+        //    throw new NotExist("the OrderItem is't exsit\n");
 
-        newList[index] = Or;
-        XmlTools.SaveListToXMLSerializer(newList, path);
+        //newList[index] = Or;
+        //XmlTools.SaveListToXMLSerializer(newList, path);
+        Delete(Or.ID);
+        Add(Or);
     }
 }
