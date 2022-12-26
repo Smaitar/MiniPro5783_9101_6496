@@ -14,7 +14,7 @@ internal class dalOrderItem : IOrderItem
     string configPath = @"..\xml\config.xml";
     //string dir = @"..\bin\xml\";
 
-    XElement ordersItemsRoot;
+    //XElement ordersItemsRoot;
 
     public dalOrderItem()
     {
