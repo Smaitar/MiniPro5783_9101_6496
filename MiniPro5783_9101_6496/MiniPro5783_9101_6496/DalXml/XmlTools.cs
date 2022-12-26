@@ -1,5 +1,4 @@
-﻿using DO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +9,7 @@ namespace Dal;
 public class XmlTools
 {
 
-    public static string dir = @"..\bin\xml\";
+    public static string dir = @"xml\";
     static XmlTools()
     {
         if (!Directory.Exists(dir))
@@ -23,7 +22,7 @@ public class XmlTools
     {
         try
         {
-            FileStream file = new FileStream(dir + filePath, FileMode.OpenOrCreate);
+            FileStream file = new FileStream(dir + filePath, FileMode.Create);
             XmlSerializer x = new XmlSerializer(list.GetType());
             x.Serialize(file, list);
             file.Close();
@@ -43,7 +42,7 @@ public class XmlTools
                 List<T> list;
                 XmlSerializer x = new XmlSerializer(typeof(List<T>));
                 FileStream file = new FileStream(dir + filePath, FileMode.Open);
-                list = (List<T>)x.Deserialize(file);
+                list = (List<T>)x.Deserialize(file)!;
                 file.Close();
                 return list;
             }

@@ -14,8 +14,9 @@ namespace Dal;
 
 internal class dalOrder : IOrder
 {
-    string path = @"..\orders.xml";
+    string path = @"orders.xml";
     string configPath = @"..\config.xml";
+    string dir = @"..\bin\xml\";
 
 
     XElement ordersRoot;
@@ -29,12 +30,12 @@ internal class dalOrder : IOrder
     {
         try
         {
-            if (File.Exists(path))
-                ordersRoot = XElement.Load(path);
+            if (File.Exists(dir + path))
+                ordersRoot = XElement.Load(dir + path);
             else
             {
                 ordersRoot = new XElement("orders");
-                ordersRoot.Save(path);
+                ordersRoot.Save(dir + path);
             }
         }
         catch (Exception ex)
