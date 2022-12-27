@@ -37,10 +37,9 @@ internal class DataSource
         s_InitializOrder();
         s_InitializProduct();
         s_InitializOrderItem();
-        DalApi.IDal dalXml = new Dal.DalXml();
-        XmlTools.SaveListToXMLSerializer(OrdersList, @"..\orders.xml");
-        XmlTools.SaveListToXMLSerializer(ProductsList, @"..\products.xml");
-        XmlTools.SaveListToXMLSerializer(orderitemsList, @"..\ordersItems.xml");
+        //XmlTools.SaveListToXMLSerializer(OrdersList, @"..\xml\orders.xml");
+        //XmlTools.SaveListToXMLSerializer(ProductsList, @"..\xml\products.xml");
+        //XmlTools.SaveListToXMLSerializer(orderitemsList, @"..\xml\ordersItems.xml");
 
     }
     private static void s_InitializOrder()
