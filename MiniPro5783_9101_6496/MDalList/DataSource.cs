@@ -1,7 +1,6 @@
 ﻿
 using DO;
 namespace Dal;
-//hiiiiii
 internal class DataSource
 {
 

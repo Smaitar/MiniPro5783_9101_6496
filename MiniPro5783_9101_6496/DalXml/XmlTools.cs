@@ -23,7 +23,7 @@ public class XmlTools
     {
         try
         {
-            FileStream file = new FileStream(filePath, FileMode.OpenOrCreate);
+            FileStream file = new FileStream(filePath, FileMode.Create);
             XmlSerializer x = new XmlSerializer(list.GetType());
             x.Serialize(file, list);
             file.Close();
