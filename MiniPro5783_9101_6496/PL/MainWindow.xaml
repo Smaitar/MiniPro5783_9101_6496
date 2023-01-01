@@ -7,7 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow1" Height="650" Width="800">
     <Grid>
-        <Button x:Name="Manager" Click="manager" Content="manager" HorizontalAlignment="Left" Margin="201,100,0,0" VerticalAlignment="Top" Height="40" Width="80"/>
-        <Button x:Name="Cliente" Click="client" Content="client" HorizontalAlignment="Left" Margin="201,164,0,0" VerticalAlignment="Top" Height="40" Width="80" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="197*"/>
+            <RowDefinition Height="437*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="Manager" Click="manager" Content="manager" HorizontalAlignment="Left" Margin="190,79,0,0" VerticalAlignment="Top" Height="72" Width="111" Grid.Row="1"/>
+        <Button x:Name="Cliente" Click="client" Content="client" HorizontalAlignment="Left" Margin="460,79,0,0" VerticalAlignment="Top" Height="72" Width="113" Grid.Row="1" />
+        <Label Content="Welcom to dreams come true!!" Margin="53,77,53,10" Foreground="#FFFF1B00" FontSize="48"/>
+        <MediaElement Height="100" Width="100"/>
+        <MediaElement Height="100" Width="100"/>
+
     </Grid>
 </Window>
