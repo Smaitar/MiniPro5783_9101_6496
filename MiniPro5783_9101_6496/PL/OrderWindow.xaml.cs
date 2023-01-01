@@ -15,23 +15,13 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for MainWindow1.xaml
+    /// Interaction logic for OrderWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class OrderWindow : Window
     {
-        public MainWindow()
+        public OrderWindow()
         {
             InitializeComponent();
-        }
-
-        private void manager(object sender, RoutedEventArgs e)
-        {
-            new ManagerWindow().ShowDialog();  
-        }
-
-        private void client(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

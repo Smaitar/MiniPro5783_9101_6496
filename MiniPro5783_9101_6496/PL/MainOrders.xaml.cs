@@ -11,27 +11,21 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
+using BlApi;
 
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for MainWindow1.xaml
+    /// Interaction logic for MainOrders.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainOrders : Window
     {
-        public MainWindow()
+        BlApi.IBL? bl = Factory.Get();
+        public MainOrders()
         {
             InitializeComponent();
-        }
-
-        private void manager(object sender, RoutedEventArgs e)
-        {
-            new ManagerWindow().ShowDialog();  
-        }
-
-        private void client(object sender, RoutedEventArgs e)
-        {
-
+            OrderListView.ItemsSource=bl.Order.GetOrderForListsManager();
         }
     }
 }
