@@ -18,7 +18,7 @@
                 <RowDefinition Height="560*"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <ComboBox Name="AttributeSelector" SelectionChanged="selection" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Column="1" />
+            <ComboBox Name="AttributeSelector" SelectionChanged="selection" Margin="0,0,0,545" Grid.RowSpan="2" />
             <ListView x:Name="list" Grid.Row="1" MouseDoubleClick="update"/>
             <Button x:Name="Addbtn" Content="Add Product" HorizontalAlignment="Left" Margin="400,0,0,0" VerticalAlignment="Center" Click="Add_Click" Grid.Row="2"/>
         </Grid>

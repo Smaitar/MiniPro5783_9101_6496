@@ -7,15 +7,19 @@
         mc:Ignorable="d"
         Title="MainWindow1" Height="650" Width="800">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/עדכנני.jpg"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="197*"/>
             <RowDefinition Height="437*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="Manager" Click="manager" Content="manager" HorizontalAlignment="Left" Margin="190,79,0,0" VerticalAlignment="Top" Height="72" Width="111" Grid.Row="1"/>
-        <Button x:Name="Cliente" Click="client" Content="client" HorizontalAlignment="Left" Margin="460,79,0,0" VerticalAlignment="Top" Height="72" Width="113" Grid.Row="1" />
-        <Label Content="Welcom to dreams come true!!" Margin="53,77,53,10" Foreground="#FFFF1B00" FontSize="48"/>
+        <Button x:Name="Manager" Click="manager" Content="manager" HorizontalAlignment="Left" Margin="79,122,0,0" VerticalAlignment="Top" Height="72" Width="171" Grid.Row="1" FontSize="36" Foreground="#FFF8F2F2" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}"/>
+        <Button x:Name="Cliente" Click="client" Content="client" HorizontalAlignment="Left" Margin="566,122,0,0" VerticalAlignment="Top" Height="72" Width="113" Grid.Row="1" Background="{x:Null}" FontStyle="Italic" FontSize="36" Foreground="#FFFAF7F9" BorderBrush="{x:Null}" />
+        <Label Content="Welcom to dreams come true!!" Margin="53,77,53,10" Foreground="#FFF5F1F0" FontSize="48" FontStyle="Italic"/>
         <MediaElement Height="100" Width="100"/>
         <MediaElement Height="100" Width="100"/>
+        <Button Content="Track" HorizontalAlignment="Center" Margin="0,125,0,0" Grid.Row="1" VerticalAlignment="Top" Height="69" Width="104" Click="Button_Click" Background="{x:Null}" FontSize="36" Foreground="#FFF4EFEF" FontStyle="Italic" BorderBrush="{x:Null}"/>
 
     </Grid>
 </Window>

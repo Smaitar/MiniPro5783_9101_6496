@@ -31,10 +31,10 @@ namespace PL
 
             InitializeComponent();
             this.bl = bl;
-            Product product = new Product();
+           Product product = new Product();
             try
             {
-                product = bl.Product.GetById(id);
+                ProdctCurrent = bl.Product.GetById(id);
             }
             catch (Exception ex)
             {
@@ -53,6 +53,18 @@ namespace PL
                 addbtn.Visibility = Visibility.Collapsed;
             }
         }
+
+        public BO.Product? ProdctCurrent
+        {
+            get { return (BO.Product?)GetValue(MyPropertyProperty); }
+            set { SetValue(MyPropertyProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MyPropertyProperty =
+            DependencyProperty.Register("ProdctCurrent", typeof(BO.Product), typeof(Window), new PropertyMetadata(0));
+
+
 
         public ProductFunctions(IBL bl)
         {

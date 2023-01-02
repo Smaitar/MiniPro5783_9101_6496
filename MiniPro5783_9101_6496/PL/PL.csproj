@@ -10,11 +10,13 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="images %281%29.jpg" />
     <None Remove="images.jpg" />
+    <None Remove="עדכנני.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +26,7 @@
   <ItemGroup>
     <Resource Include="images (1).jpg" />
     <Resource Include="images.jpg" />
+    <Resource Include="עדכנני.jpg" />
   </ItemGroup>
 
 </Project>
