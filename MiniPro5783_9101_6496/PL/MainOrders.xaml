@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainOrders" Height="450" Width="800">
     <Grid>
-        <ListView x:Name="OrderListView" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListView x:Name="OrderListView" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="OrderListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

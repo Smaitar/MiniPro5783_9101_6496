@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="OrderWindow" Height="450" Width="800">
-    <Grid Margin="64,115,0,140" HorizontalAlignment="Left" Width="374">
+        Title="OrderWindow" Height="598" Width="909">
+    <Grid Margin="64,115,0,58" HorizontalAlignment="Left" Width="374">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="183*"/>
+            <ColumnDefinition Width="191*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>
@@ -18,21 +18,46 @@
             <RowDefinition Height="30*"/>
             <RowDefinition Height="30*"/>
             <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row ="0" Grid.Column="0" Content="ID"/>
-        <Label Grid.Row ="1" Grid.Column="0" Content="Customer Name"/>
-        <Label Grid.Row ="2" Grid.Column="0" Content="Customer Email"/>
-        <Label Grid.Row ="3" Grid.Column="0" Content="Order Date"/>
-        <Label Grid.Row ="4" Grid.Column="0" Content="Ship Date"/>
-        <Label Grid.Row ="5" Grid.Column="0" Content="Delivery Date"/>
+        <Label Grid.Row ="0" Grid.Column="0" Content="ID:"/>
+        <Label Grid.Column="0" Content="Customer Name:" Margin="0,45,0,45" Grid.RowSpan="3"/>
+        <Label Grid.Row ="2" Grid.Column="0" Content="Customer Email:"/>
+        <Label Grid.Row ="2" Grid.Column="0" Content="Order Date:" Margin="0,45,0,45" Grid.RowSpan="3"/>
+        <Label Grid.Row ="4" Grid.Column="0" Content="Ship Date:"/>
+        <Label Grid.Row ="4" Grid.Column="0" Content="Delivery Date:" Margin="0,45,0,45" Grid.RowSpan="3"/>
+        <Label Grid.Row ="6" Grid.Column="0" Content="Customer Adress:"/>
+        <Label Grid.Row ="6" Grid.Column="0" Content="Status:" Margin="0,45,0,45" Grid.RowSpan="3"/>
+        <Label Grid.Row ="8" Grid.Column="0" Content="Total Price:"/>
         <TextBlock Grid.Row ="0" Grid.Column="1" />
-        <TextBlock Grid.Row ="1" Grid.Column="1" />
+        <TextBlock Grid.Column="1" Margin="0,45,0,45" Grid.RowSpan="3" />
         <TextBlock Grid.Row ="2" Grid.Column="1" />
-        <TextBlock Grid.Row ="3" Grid.Column="1" />
+        <TextBlock Grid.Row ="2" Grid.Column="1" Margin="0,45,0,45" Grid.RowSpan="3" />
         <TextBlock Grid.Row ="4" Grid.Column="1" />
-        <TextBlock Grid.Row ="5" Grid.Column="1" />
+        <TextBlock Grid.Row ="4" Grid.Column="1" Margin="0,45,0,45" Grid.RowSpan="3" />
+        <TextBlock Grid.Row ="6" Grid.Column="1" />
+        <TextBlock Grid.Row ="6" Grid.Column="1" Margin="0,45,0,45" Grid.RowSpan="3" />
+        <TextBlock Grid.Row ="8" Grid.Column="1" />
         <DatePicker Grid.Row ="4" Grid.Column="1" />
-        <DatePicker Grid.Row ="5" Grid.Column="1" />
+        <DatePicker Grid.Row ="4" Grid.Column="1" Margin="0,45,0,45" Grid.RowSpan="3" />
+        <Grid Grid.Column="1" Margin="201,-25,-427,22" RenderTransformOrigin="0.974,0.261" Grid.RowSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70*"/>
+                <ColumnDefinition Width="69*"/>
+            </Grid.ColumnDefinitions>
+            <ListView d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </Grid>
+        <Button Grid.Column="1" Content="Update" HorizontalAlignment="Left" Margin="227,11,0,0" Grid.Row="4" VerticalAlignment="Top" Width="101" Click="Button_Click"/>
+        <Button x:Name="Update" Grid.Column="1" HorizontalAlignment="Left" Margin="226,0,0,0" Grid.Row="5" VerticalAlignment="Center" Visibility="Visible" Width="102" Height="22" Click="Update_Click" Content="Update"/>
     </Grid>
 
 </Window>

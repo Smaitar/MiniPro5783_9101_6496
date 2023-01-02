@@ -27,5 +27,10 @@ namespace PL
             InitializeComponent();
             OrderListView.ItemsSource=bl.Order.GetOrderForListsManager();
         }
+
+        private void OrderListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            new OrderWindow().ShowDialog();
+        }
     }
 }
