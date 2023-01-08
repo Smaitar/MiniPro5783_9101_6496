@@ -30,7 +30,15 @@ namespace PL
 
         private void OrderListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            new OrderWindow().ShowDialog();
+            BO.OrderForList? orderForList= OrderListView.SelectedItem as BO.OrderForList;
+            if (orderForList!=null)
+            {
+                OrderWindow orderWindow= new OrderWindow(orderForList.ID);
+                orderWindow.ShowDialog();
+                OrderListView.ItemsSource=bl?.Order.GetOrderForListsManager().ToList();
+
+            }
+            
         }
     }
 }

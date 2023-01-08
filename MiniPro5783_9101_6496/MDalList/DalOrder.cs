@@ -63,7 +63,7 @@ internal class DalOrder : IOrder
         if (index == -1)
             throw new NotExist("not found");
 
-        return DataSource.OrdersList[index] ?? throw new NotExist("fffddfhou");
+        return DataSource.OrdersList[index] ?? throw new NotExist("Not Exist");
 
     }
 }

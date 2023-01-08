@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
+using BlApi;
 
 namespace PL
 {
@@ -19,19 +21,39 @@ namespace PL
     /// </summary>
     public partial class OrderWindow : Window
     {
-        public OrderWindow()
+        BlApi.IBL? bl = Factory.Get();
+
+
+        public BO.Order? order
+        {
+            get { return (BO.Order?)GetValue(orderProperty); }
+            set { SetValue(orderProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for order.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty orderProperty =
+            DependencyProperty.Register("order", typeof(BO.Order), typeof(Window), new PropertyMetadata(null));
+
+
+        public OrderWindow(int id)
         {
             InitializeComponent();
-        }
+            try
+            {
+                order = bl.Order.OrderDetails(id);
+            }
+            catch (BO.NotExist ex)
+            {
+                //throw an error message box
+                string messageBoxText = ex.Message.ToString();
+                string caption = "error";
+                MessageBoxImage icon = MessageBoxImage.Error;
+                MessageBoxResult result;
+                result = MessageBox.Show(messageBoxText, caption, MessageBoxButton.OK, icon, MessageBoxResult.OK);
 
-        private void Update_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
+            }
+           
         }
     }
 }
