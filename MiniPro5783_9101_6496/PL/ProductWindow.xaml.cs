@@ -34,7 +34,7 @@ namespace PL
            Product product = new Product();
             try
             {
-                ProdctCurrent = bl.Product.GetById(id);
+               product  = bl.Product.GetById(id);
             }
             catch (Exception ex)
             {
@@ -54,15 +54,15 @@ namespace PL
             }
         }
 
-        public BO.Product? ProdctCurrent
-        {
-            get { return (BO.Product?)GetValue(MyPropertyProperty); }
-            set { SetValue(MyPropertyProperty, value); }
-        }
+        //public BO.Product? ProdctCurrent
+        //{
+        //    get { return (BO.Product?)GetValue(MyPropertyProperty); }
+        //    set { SetValue(MyPropertyProperty, value); }
+        //}
 
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MyPropertyProperty =
-            DependencyProperty.Register("ProdctCurrent", typeof(BO.Product), typeof(Window), new PropertyMetadata(0));
+        //// Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        //public static readonly DependencyProperty MyPropertyProperty =
+        //    DependencyProperty.Register(nameof (ProdctCurrent), typeof(BO.Product), typeof(Window), new PropertyMetadata(0));
 
 
 

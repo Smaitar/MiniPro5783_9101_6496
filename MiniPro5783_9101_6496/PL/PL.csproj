@@ -15,8 +15,11 @@
 
   <ItemGroup>
     <None Remove="images %281%29.jpg" />
+    <None Remove="images %282%29.jpg" />
     <None Remove="images.jpg" />
-    <None Remove="עדכנני.jpg" />
+    <None Remove="wos272-67_04032021102024.jpg" />
+    <None Remove="הורדה.png" />
+    <None Remove="עגיליםם.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,8 +28,11 @@
 
   <ItemGroup>
     <Resource Include="images (1).jpg" />
+    <Resource Include="images (2).jpg" />
     <Resource Include="images.jpg" />
-    <Resource Include="עדכנני.jpg" />
+    <Resource Include="wos272-67_04032021102024.jpg" />
+    <Resource Include="הורדה.png" />
+    <Resource Include="עגיליםם.png" />
   </ItemGroup>
 
 </Project>

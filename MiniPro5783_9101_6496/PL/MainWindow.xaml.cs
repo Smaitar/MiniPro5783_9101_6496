@@ -1,6 +1,8 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,17 +28,40 @@ namespace PL
 
         private void manager(object sender, RoutedEventArgs e)
         {
-            new ManagerWindow().ShowDialog();  
+            new ManagerWindow().ShowDialog();
         }
 
         private void client(object sender, RoutedEventArgs e)
         {
+            new ClientWindow().ShowDialog();
+        }
 
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+   
+            //new OrderTrackingWindow(id).ShowDialog();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            idText.Visibility = Visibility.Visible;
+            button.Visibility = Visibility.Visible;
+            buttonCehck.Visibility = Visibility.Visible;  
+        }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void buttonCehck_Click(object sender, RoutedEventArgs e)
+        {
+            int id = int.Parse(idText.Text);
         }
     }
 }
