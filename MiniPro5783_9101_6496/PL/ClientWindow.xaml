@@ -18,27 +18,22 @@
                 <TextBlock Text ="Items" Margin="10" FontSize="22" FontWeight="Medium"/>
                 <StackPanel Margin="20 0">
                     <ItemsControl x:Name="ListOfProduct" ItemsSource="{Binding Product}"/>
-                        <ItemsControl.ItemTemplate>
-                           <DataTamlate>
-                            <Border Margin="10" Width="110" Height="160" Background="#FFF3EFEF">
-                                <StackPanel>
-                                    <Border Width="100" Height="100" CornerRadius="5" Margin="5">
-                                        <Border.Background>
-                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                <GradientStop Color="Black"/>
-                                                <GradientStop Color="#FFB05537" Offset="1"/>
-                                            </LinearGradientBrush>
-                                        </Border.Background>
-                                        <Image Source="/עגיליםם.png"/>
-                                    </Border>
-                                    <TextBlock Margin="5" Text="gold earrings" FontSize="14" FontFamily="Franclin Gothic Medium" />
-                                    <TextBlock Margin="5 0" Text="200" FontSize="14" />
-                                </StackPanel>
+                    <Border Margin="10" Width="110" Height="160" Background="#FFF3EFEF">
+                        <StackPanel>
+                            <Border Width="100" Height="100" CornerRadius="5" Margin="5">
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="Black"/>
+                                        <GradientStop Color="#FFB05537" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Image Source="/עגיליםם.png"/>
                             </Border>
-                          </DataTamlate>
-                          
-                        </ItemsControl.ItemTemplate>
-                   
+                            <TextBlock Margin="5" Text="gold earrings" FontSize="14" FontFamily="Franclin Gothic Medium" />
+                            <TextBlock Margin="5 0" Text="200" FontSize="14" />
+                        </StackPanel>
+                    </Border>
+
                 </StackPanel>
             </StackPanel>
         </ScrollContentPresenter>
