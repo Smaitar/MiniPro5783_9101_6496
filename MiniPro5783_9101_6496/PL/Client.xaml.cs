@@ -15,26 +15,16 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for ManagerWindow.xaml
+    /// Interaction logic for Client.xaml
     /// </summary>
-    public partial class ManagerWindow : Window
+    public partial class Client : Window
     {
-        public ManagerWindow()
+        public Client()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            new MainProduct().ShowDialog();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            new MainOrders().ShowDialog();
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void ListViewItem_Selected(object sender, RoutedEventArgs e)
         {
 
         }

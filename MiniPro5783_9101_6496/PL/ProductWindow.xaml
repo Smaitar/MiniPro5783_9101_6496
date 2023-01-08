@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
+        DataContext="{Binding ProdctCurrent,RelativeSource={ RelativeSource Self}}"
         Title="Window2" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -13,7 +14,9 @@
             <ColumnDefinition Width="699*"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="IDlbl" Content="ID:" HorizontalAlignment="Left" Margin="76,47,0,0" VerticalAlignment="Top"/>
+        
         <Label x:Name="Categorylbl" Content="Category:" HorizontalAlignment="Left" Margin="67,104,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        
         <Label Content="Name:" HorizontalAlignment="Left" Margin="80,155,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.283,0.442" Grid.ColumnSpan="2">
             <Label.RenderTransform>
                 <TransformGroup>
@@ -25,7 +28,9 @@
             </Label.RenderTransform>
         </Label>
         <Label x:Name="Pricelbl" Content="Price:" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="78,213,0,0"/>
+        
         <Label x:Name="In_Stocklbl" Content="In Stock" HorizontalAlignment="Left" Margin="76,252,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        
         <TextBox x:Name="IDtxt" PreviewKeyDown="idtx" Text="" Grid.Column="1" HorizontalAlignment="Left" Margin="76,47,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="Nametxt" Grid.Column="1" HorizontalAlignment="Left" Margin="76,166,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="Categorybox" Grid.Column="1" HorizontalAlignment="Left" Margin="76,106,0,0" VerticalAlignment="Top" Width="120"/>
@@ -35,4 +40,5 @@
         <Button x:Name="addbtn" Grid.Column="1" Content="Add" HorizontalAlignment="Left" Margin="136,332,0,0" VerticalAlignment="Top" Click="Addbtn_Click"/>
 
     </Grid>
+    
 </Window>
