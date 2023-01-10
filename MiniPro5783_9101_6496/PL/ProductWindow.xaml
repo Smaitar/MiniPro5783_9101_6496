@@ -6,7 +6,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        DataContext="{Binding ProdctCurrent,RelativeSource={ RelativeSource Self}}"
         Title="Window2" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -37,7 +36,7 @@
         <TextBox x:Name="Pricetxt" Grid.Column="1" PreviewKeyDown="price" HorizontalAlignment="Left" Margin="76,217,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.427,-1.54"/>
         <TextBox x:Name="InStocktxt" PreviewKeyDown="ins" Grid.Column="1" HorizontalAlignment="Left" Margin="76,265,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
         <Button x:Name="Upbtn" Grid.Column="1" Content="Update" HorizontalAlignment="Left" Margin="136,332,0,0" VerticalAlignment="Top" Click="Upbtn_Click"/>
-        <Button x:Name="addbtn" Grid.Column="1" Content="Add" HorizontalAlignment="Left" Margin="136,332,0,0" VerticalAlignment="Top" Click="Addbtn_Click"/>
+        <Button x:Name="addbtn" Grid.Column="1" Content="Add" HorizontalAlignment="Left" Margin="84,332,0,0" VerticalAlignment="Top" Click="Addbtn_Click" RenderTransformOrigin="-2.01,0.353"/>
 
     </Grid>
     

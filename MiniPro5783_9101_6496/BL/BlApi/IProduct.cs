@@ -12,5 +12,7 @@ namespace BlApi
         void Delete(int id);
 
         Product GetById(int id);
+    
+        public IEnumerable<BO.ProductItem> GetListToClient(BO.Cart NewCart);
     }
 }

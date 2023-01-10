@@ -11,21 +11,30 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BlApi;
+using BO;
+using DalApi;
 
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for Client.xaml
+    /// Interaction logic for ConfirnWindow.xaml
     /// </summary>
-    public partial class Client : Window
+    public partial class ConfirnWindow : Window
     {
-        public Client()
+        BlApi.IBL? bl = BlApi.Factory.Get();
+        static BO.Cart cart;
+        public ConfirnWindow(BO.Cart cart1)
         {
             InitializeComponent();
+
+            cart1 = cart;
         }
 
-        private void ListViewItem_Selected(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if(bl.Cart.AprrovedCart(cart))
+                MessageBox.Show("The order confirmed");
 
         }
     }

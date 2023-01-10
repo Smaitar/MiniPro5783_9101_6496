@@ -8,41 +8,32 @@
         mc:Ignorable="d"
         Title="MainWindow1" Height="650" Width="800">
     <Grid>
-        <Grid.Background>
-            <ImageBrush TileMode="None" Stretch="Fill"/>
-        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="197*"/>
             <RowDefinition Height="437*"/>
         </Grid.RowDefinitions>
-        <Image HorizontalAlignment="Left" Height="608" VerticalAlignment="Top" Width="776" Source="/wos272-67_04032021102024.jpg" Grid.RowSpan="2" Margin="0,104,0,0" RenderTransformOrigin="0.5,0.5">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="0.128"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Image.RenderTransform>
-        </Image>
 
-        <Image HorizontalAlignment="Left" Height="530" Margin="495,104,0,0" VerticalAlignment="Top" Width="456" Source="/הורדה.png" Grid.RowSpan="2"/>
-
-        <Button x:Name="Manager" Click="manager" Content="manager" HorizontalAlignment="Left" Margin="79,122,0,0" VerticalAlignment="Top" Height="72" Width="171" Grid.Row="1" FontSize="36" Foreground="#FFF8F2F2" FontStyle="Italic" Background="{x:Null}" BorderBrush="#FF7E2424"/>
-        <Button x:Name="Cliente" Click="client" Content="client" HorizontalAlignment="Left" Margin="566,122,0,0" VerticalAlignment="Top" Height="72" Width="113" Grid.Row="1" Background="{x:Null}" FontStyle="Italic" FontSize="36" Foreground="#FFFAF7F9" BorderBrush="#FF801C1C" />
-        <MediaElement Height="100" Width="100"/>
-        <MediaElement Height="100" Width="100"/>
-        <Button x:Name="TrackButton" Content="Track" HorizontalAlignment="Center" Margin="0,125,0,0" Grid.Row="1" VerticalAlignment="Top" Height="69" Width="104" Click="Button_Click" Background="{x:Null}" FontSize="36" Foreground="#FFF4EFEF" FontStyle="Italic">
+        <Button x:Name="Manager" Click="manager" Content="manager" HorizontalAlignment="Left" Margin="284,164,0,0" VerticalAlignment="Top" Height="72" Width="172" FontSize="36" Foreground="#FFA22222" FontStyle="Italic" Background="{x:Null}" BorderBrush="#FF7E2424" Grid.RowSpan="2" FontWeight="Bold"/>
+        <Button x:Name="Cliente" Click="client" Content="client" Margin="284,207,344,0" VerticalAlignment="Top" Height="72" Grid.Row="1" Background="{x:Null}" FontStyle="Italic" FontSize="36" Foreground="#FFFAF7F9" BorderBrush="#FF801C1C" />
+        <Button x:Name="TrackButton" Content="Track" Margin="284,86,0,0" Grid.Row="1" Height="69" Width="172" Click="Button_Click" Background="{x:Null}" FontSize="36" Foreground="#FF8B1818" FontStyle="Italic" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.448,0.029" FontWeight="Bold">
             <Button.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>
-                    <GradientStop Color="#FFCD1F1F" Offset="1"/>
+                    <GradientStop Color="#FF6D1818" Offset="1"/>
                 </LinearGradientBrush>
             </Button.BorderBrush>
         </Button>
         <TextBox x:Name="idText" HorizontalAlignment="Left" Margin="348,324,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility ="Hidden" TextChanged="TextBox_TextChanged"/>
         <Label x:Name="button"  Content="ID" HorizontalAlignment="Left" Margin="284,324,0,0" Grid.Row="1" VerticalAlignment="Top" Width="33"  Visibility ="Hidden" Background="#FFF0EDED" Height="27"/>
         <Button x:Name="buttonCehck" Content="Check" HorizontalAlignment="Left" Margin="473,333,0,0" Grid.Row="1" VerticalAlignment="Top" Click="buttonCehck_Click"  Visibility="Hidden"/>
+        <Image HorizontalAlignment="Left" Height="436" Grid.RowSpan="2" VerticalAlignment="Top" Width="358" Source="/הורדה.jpg" RenderTransformOrigin="0.5,0.5" Stretch="UniformToFill" StretchDirection="UpOnly" Margin="461,85,0,0" Opacity="0.55">
+            <Image.OpacityMask>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF9C4B4B" Offset="1"/>
+                </LinearGradientBrush>
+            </Image.OpacityMask>
+        </Image>
 
     </Grid>
 </Window>

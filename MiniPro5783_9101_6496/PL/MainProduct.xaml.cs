@@ -23,12 +23,19 @@ namespace PL
     {
         //IBL bl;
         BlApi.IBL? bl = Factory.Get();
+        static Cart cart;
         public MainProduct()
         {
             InitializeComponent();
 
             list.ItemsSource = bl.Product.GetList();
             AttributeSelector.ItemsSource = Enum.GetValues(typeof(Category));
+        }
+
+        public MainProduct(BO.Cart cartu)
+        {
+              cart = new BO.Cart();
+              cart = cartu;
         }
 
         //search yhr item selected

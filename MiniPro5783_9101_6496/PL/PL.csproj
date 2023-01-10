@@ -14,12 +14,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="images %281%29.jpg" />
-    <None Remove="images %282%29.jpg" />
-    <None Remove="images.jpg" />
-    <None Remove="wos272-67_04032021102024.jpg" />
-    <None Remove="הורדה.png" />
-    <None Remove="עגיליםם.png" />
+    <None Remove="הורדה %281%29.jpg" />
+    <None Remove="הורדה.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,12 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="images (1).jpg" />
-    <Resource Include="images (2).jpg" />
-    <Resource Include="images.jpg" />
-    <Resource Include="wos272-67_04032021102024.jpg" />
-    <Resource Include="הורדה.png" />
-    <Resource Include="עגיליםם.png" />
+    <Resource Include="הורדה (1).jpg" />
+    <Resource Include="הורדה.jpg" />
   </ItemGroup>
 
 </Project>

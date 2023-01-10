@@ -49,10 +49,10 @@ namespace PL
             buttonCehck.Visibility = Visibility.Visible;  
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
+        //private void buttonCehck(object sender, RoutedEventArgs e)
+        //{
+        //    new OrderTrack().Show();
+        //}
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
@@ -61,7 +61,8 @@ namespace PL
 
         private void buttonCehck_Click(object sender, RoutedEventArgs e)
         {
-            int id = int.Parse(idText.Text);
+            //int id = int.Parse(idText.Text);
+            new OrderTrack().Show();
         }
     }
 }

@@ -7,41 +7,21 @@
         mc:Ignorable="d"
         Title="ClientWindow" Height="450" Width="800">
     <Grid>
-        <ScrollContentPresenter>
-            <ScrollContentPresenter.OpacityMask>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black"/>
-                    <GradientStop Color="#FFF3ECEC" Offset="1"/>
-                </LinearGradientBrush>
-            </ScrollContentPresenter.OpacityMask>
-            <StackPanel Grid.Column="1" Grid.Row="1" Background="#FFFAEFEF">
-                <TextBlock Text ="Items" Margin="10" FontSize="22" FontWeight="Medium"/>
-                <StackPanel Margin="20 0">
-                    <ItemsControl x:Name="ListOfProduct" ItemsSource="{Binding Product}"/>
-                        <ItemsControl.ItemTemplate>
-                           <DataTamlate>
-                            <Border Margin="10" Width="110" Height="160" Background="#FFF3EFEF">
-                                <StackPanel>
-                                    <Border Width="100" Height="100" CornerRadius="5" Margin="5">
-                                        <Border.Background>
-                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                <GradientStop Color="Black"/>
-                                                <GradientStop Color="#FFB05537" Offset="1"/>
-                                            </LinearGradientBrush>
-                                        </Border.Background>
-                                        <Image Source="/עגיליםם.png"/>
-                                    </Border>
-                                    <TextBlock Margin="5" Text="gold earrings" FontSize="14" FontFamily="Franclin Gothic Medium" />
-                                    <TextBlock Margin="5 0" Text="200" FontSize="14" />
-                                </StackPanel>
-                            </Border>
-                          </DataTamlate>
-                          
-                        </ItemsControl.ItemTemplate>
-                   
-                </StackPanel>
-            </StackPanel>
-        </ScrollContentPresenter>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="454*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="169*"/>
+        </Grid.RowDefinitions>
+        <Grid Name="Grid" Grid.RowSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="560*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <ComboBox Name="AttributeSelector" SelectionChanged="selection" Margin="0,0,0,545" Grid.RowSpan="2" />
+            <ListView x:Name="list" Grid.Row="1" SelectionChanged="list_SelectionChanged"/>
+            <Button Content="Cart" HorizontalAlignment="Left" Margin="315,0,0,10" Grid.Row="2" VerticalAlignment="Bottom" Click="Button_Click"/>
 
+        </Grid>
     </Grid>
 </Window>

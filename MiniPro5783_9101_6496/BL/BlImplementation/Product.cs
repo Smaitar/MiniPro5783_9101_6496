@@ -13,7 +13,7 @@ namespace BlImplementation
         //We created a data layer variable that we will use for all functions
         DalApi.IDal? dal = DalApi.Factory.Get();
 
-        public IEnumerable<BO.ProductForList?> GetList(Func<ProductForList, bool> func = null)
+        public IEnumerable<BO.ProductForList> GetList(Func<ProductForList, bool> func = null)
         {
             IEnumerable<DO.Product?> DOProduct = dal.Product.GetAll();
           
@@ -30,6 +30,24 @@ namespace BlImplementation
                                                        };
                 return func is null ? dList : dList.Where(func);
             
+        }
+
+        public IEnumerable<BO.ProductItem> GetListToClient(BO.Cart NewCart)
+        {
+            IEnumerable<DO.Product?> DOProduct = dal.Product.GetAll();
+            IEnumerable<BO.ProductItem> productItems = from item in DOProduct
+                                                       select new BO.ProductItem()
+                                                       {
+                                                           ID = item?.ID ?? 0,
+                                                           Name = item?.Name,
+                                                           Category = (BO.Category)item?.Category,
+                                                           Price = item?.Price ?? 0,
+                                                           InStock = item?.InStock > 0 ? true : false,
+                                                           Amount = (from orderItem in NewCart.Items
+                                                                     where orderItem.ID == item?.ID
+                                                                     select orderItem.Amount).FirstOrDefault(0) //אם עושה שגיאת ריצה להפוך את זה ללינקיו
+                                                       };
+            return productItems;
         }
 
         public BO.Product GetProductManeger(int id)
@@ -56,7 +74,7 @@ namespace BlImplementation
                 Name = product.Name,
                 Category = (BO.Category)product.Category,
                 InStock = product.InStock,
-                Price = product.Price
+                Price = product.Price,
             };
 
         }
@@ -83,7 +101,7 @@ namespace BlImplementation
                 Name = product.Name,
                 Price = product.Price,
                 Category = (BO.Category)product.Category,
-                InStock = product.InStock,
+                InStock =product.InStock > 0 ? true : false,
                 Amount = cart.Items.Count,
             };
             return item;
