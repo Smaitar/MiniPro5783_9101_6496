@@ -14,41 +14,32 @@ internal class dalOrderItem : IOrderItem
     string configPath = @"..\xml\config.xml";
     //string dir = @"..\bin\xml\";
 
-    //XElement ordersItemsRoot;
+    XElement ordersItemsRoot;
 
     public dalOrderItem()
     {
-        //LoadData();
+        LoadData();
     }
 
     private void LoadData()
     {
-        //try
-        //{
-            if (!File.Exists( path))
-            throw new Exception("product File upload problem");
-               // ordersItemsRoot = XElement.Load(path);
-               //else
-               //{
-               //    ordersItemsRoot = new XElement("ordersItems");
-               //    ordersItemsRoot.Save( path);
-               // }
-               //}
-        //catch (Exception ex)
-        //{
-           
-        //}
+        if (!File.Exists(path))
+            throw new Exception("order item File upload problem");
+        else
+        {
+            ordersItemsRoot = XElement.Load(path);
+        }
     }
 
     public int Add(OrderItem Or)
     {
         XElement configRoot = XElement.Load(configPath);
-        var v = configRoot.Element("orderItemSeq");
-        int nextSeqNum = Convert.ToInt32(configRoot.Element("orderItemSeq")!.Value);
+        var v = configRoot.Element("orderitemSeq");
+        int nextSeqNum = Convert.ToInt32(configRoot.Element("orderitemSeq")!.Value);
         nextSeqNum++;
         Or.ID = nextSeqNum;
         //update config file
-        configRoot.Element("orderItemSeq")!.SetValue(nextSeqNum);
+        configRoot.Element("orderitemSeq")!.SetValue(nextSeqNum);
         configRoot.Save(configPath);
 
 

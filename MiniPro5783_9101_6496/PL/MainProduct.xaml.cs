@@ -49,7 +49,7 @@ namespace PL
         //if the user chose to update it comes here and send to the update window
         private void update(object sender, MouseButtonEventArgs e)
         {
-         ProductForList product = (ProductForList)list.SelectedItem;
+            ProductForList product = (ProductForList)list.SelectedItem;
             new ProductFunctions(product.ID, bl).Show();
         }
 

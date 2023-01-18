@@ -5,8 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="OrderTrack" Height="450" Width="800">
+        DataContext="{Binding RelativeSource={RelativeSource self}}"
+        Title="OrderTruck" Height="450" Width="800">
+
     <Grid>
-        
+        <Image HorizontalAlignment="Center" Height="434" VerticalAlignment="Center" Width="800" Source="/הורדה (1).jpg" Stretch="Fill" StretchDirection="UpOnly"/>
+        <Label Content="ID" HorizontalAlignment="Left" Margin="23,121,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="18" RenderTransformOrigin="0.518,1.504"/>
+        <TextBox Text="{Binding orderTracking.ID}" Width="108" HorizontalAlignment="Left" Margin="68,118,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.14,1.171" FontWeight="Bold" Height="37">
+            <TextBox.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FFDE1919" Offset="1"/>
+                </LinearGradientBrush>
+            </TextBox.Foreground>
+        </TextBox>
+
+        <Label HorizontalAlignment="Left" Margin="74,151,0,0" VerticalAlignment="Top"/>
+
+        <Label Content="Status" HorizontalAlignment="Left" Margin="0,167,0,0" VerticalAlignment="Top" Background="{x:Null}" FontWeight="Bold" FontSize="18" RenderTransformOrigin="-3.685,3.743"/>
+        <Label Content="Date" HorizontalAlignment="Left" Margin="6,217,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18"/>
+
+
+        <Label Content="{Binding OrderTracking.StatusList[0].Item2}" Width="100" HorizontalAlignment="Left" Margin="150,350,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding OrderTracking.StatusList[1].Item2}" Width="100" HorizontalAlignment="Center" Margin="-10,350,0,0" VerticalAlignment="Top"/>
+        <Image HorizontalAlignment="Left" Height="422" Margin="430,2,0,0" VerticalAlignment="Top" Width="370" Source="/10479909_768888769823320_3250356821886916962_o.jpg" Stretch="Fill"/>
+        <Image HorizontalAlignment="Center" Height="90" Margin="0,344,0,0" VerticalAlignment="Top" Width="800" Source="/black-backdrop.jpg" Stretch="Fill"/>
+        <Label Content="{Binding orderTracking.StatusList[0].Item2}" Width="108" HorizontalAlignment="Left" Margin="67,168,0,0" VerticalAlignment="Top" Background="#FFF9F7F7" Height="33"/>
+        <Label Content="{Binding orderTracking.StatusList[1].Item2}" HorizontalAlignment="Left" Margin="188,167,0,0" VerticalAlignment="Top" Height="33" Width="112" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" RenderTransformOrigin="0.25,0.516"/>
+        <Label Content="{Binding orderTracking.StatusList[1].Item1}"  HorizontalAlignment="Left" Margin="188,217,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.317,-2.733" Height="33" Width="112" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+        <Label Content="{Binding orderTracking.StatusList[2].Item2}" HorizontalAlignment="Left" Margin="313,167,0,0" VerticalAlignment="Top" Height="33" Width="112" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" RenderTransformOrigin="1,0.516"/>
+        <Label Content="{Binding orderTracking.StatusList[2].Item1}" HorizontalAlignment="Left" Margin="313,217,0,0" VerticalAlignment="Top" Height="33" Width="112" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+        <Label Content="{Binding orderTracking.StatusList[0].Item1}" HorizontalAlignment="Left" Margin="68,217,0,0" VerticalAlignment="Top" Height="33" Width="107">
+            <Label.Background>
+                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowColorKey}}"/>
+            </Label.Background>
+        </Label>
     </Grid>
 </Window>

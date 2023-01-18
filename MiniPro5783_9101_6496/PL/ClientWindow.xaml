@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource self}}"
         Title="ClientWindow" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -19,7 +20,73 @@
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
             <ComboBox Name="AttributeSelector" SelectionChanged="selection" Margin="0,0,0,545" Grid.RowSpan="2" />
-            <ListView x:Name="list" Grid.Row="1" SelectionChanged="list_SelectionChanged"/>
+            <ListView Grid.Row="1" Grid.Column="0" FontFamily="Arial" FontSize="13" Grid.ColumnSpan="7" FontWeight="Bold"
+                       ItemsSource="{Binding ProductsList}" MouseDoubleClick="list_SelectionChanged">
+                <ListView.View>
+                    <GridView>
+                         
+                        <GridViewColumn DisplayMemberBinding="{Binding ID}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader>ID</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+
+                        <GridViewColumn DisplayMemberBinding="{Binding Name}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader>Name</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+
+                        <GridViewColumn DisplayMemberBinding="{Binding Category}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader>Category</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+
+                        <GridViewColumn DisplayMemberBinding="{Binding Price}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader>Price</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+
+                        <GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                   
+                                    <!--<Button Content="Add" MouseDoubleClick="AddToCart" Tag="{Binding}"/>-->
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+
+
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Expander IsExpanded="True">
+                                                <Expander.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        
+                                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueMidBrush}" FontSize="18" VerticalAlignment="Bottom" />
+                                                        <TextBlock Text="{Binding ItemCount}" FontSize="16" Foreground="{DynamicResource PrimaryHueLightBrush}" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                        <TextBlock Text=" item(s)" FontSize="12" Foreground="{DynamicResource PrimaryHueLightBrush}" FontStyle="Italic" VerticalAlignment="Bottom"  />
+                                                    </StackPanel>
+                                                </Expander.Header>
+                                                <ItemsPresenter />
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle> 
+                </ListView.GroupStyle>
+            </ListView>
             <Button Content="Cart" HorizontalAlignment="Left" Margin="315,0,0,10" Grid.Row="2" VerticalAlignment="Bottom" Click="Button_Click"/>
 
         </Grid>

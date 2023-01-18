@@ -60,7 +60,7 @@ namespace PL
         private void Update(object sender, RoutedEventArgs e)
         {
             OrderItem orderItem = (OrderItem)((Button)sender).Tag;
-            Cart = bl.Cart.UpdateCart(Cart, orderItem.ID, orderItem.Amount);
+            Cart = bl.Cart.UpdateCart(Cart, orderItem.ProductID, orderItem.Amount);
         }
     }
 }

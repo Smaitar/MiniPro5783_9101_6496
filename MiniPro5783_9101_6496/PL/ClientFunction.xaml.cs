@@ -22,9 +22,9 @@ namespace PL
     /// </summary>
     public partial class ClientFunction : Window
     {
-        BlApi.IBL? bl = BlApi.Factory.Get();
-        static BO.Cart cart;
-        DependencyProperty ProductItemDep = DependencyProperty.Register(nameof(productItem), typeof(ProductItem), typeof(ClientFunction));
+        public static readonly BlApi.IBL? bl = BlApi.Factory.Get();
+        public  BO.Cart cart;
+        static  DependencyProperty ProductItemDep = DependencyProperty.Register(nameof(productItem), typeof(ProductItem), typeof(ClientFunction));
         BO.ProductItem productItem { get => (BO.ProductItem)GetValue(ProductItemDep); set => SetValue(ProductItemDep, value); }
         // BO.ProductItem productItem { get; set; }
 
@@ -53,30 +53,31 @@ namespace PL
 
 
 
-        public ClientFunction(BO.ProductItem ProductItem)
+        public ClientFunction(BO.ProductItem ProductItem, Cart c)
         {
             InitializeComponent();
-            productItem = new BO.ProductItem();
             productItem = ProductItem;
-            cart = new BO.Cart();
-            cart.Items = new List<OrderItem?>();
-
+            cart = c;
         }
 
+        //public ClientFunction(int id)
+        //{
+        //    InitializeComponent();
+        //    BO.ProductItem dep = new BO.ProductItem();
+
+        //}
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var selected = (ProductItem)((ListView)sender).SelectedItem;
-            //.new Cart(selected).ShowDialog();
+            //new Cart(selected).ShowDialog();
         }
 
         private void AddProduct_Click(object sender, RoutedEventArgs e)
         {
-            if(!cart.Items.Exists(x=> x.ID==productItem.ID))
+            if(!cart.Items.Exists(x=> x!.ID==productItem.ID))
                 cart = bl.Cart.AddProduct(cart, productItem.ID);
             if (int.Parse(amountOfProducts.Text) > 1)
                 cart = bl.Cart.UpdateCart(cart, productItem.ID, int.Parse(amountOfProducts.Text));
-
-            new MainProduct(cart).Show();
             this.Close();
         }
 

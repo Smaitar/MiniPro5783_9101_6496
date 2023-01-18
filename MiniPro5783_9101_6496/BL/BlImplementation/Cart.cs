@@ -48,7 +48,6 @@ internal class Cart : ICart
             boOrderItem.Price = product.Price;
             boOrderItem.TotalPrice = product.Price;
             boOrderItem.Amount = 1;
-
             //try to add the order items
             try
             {
