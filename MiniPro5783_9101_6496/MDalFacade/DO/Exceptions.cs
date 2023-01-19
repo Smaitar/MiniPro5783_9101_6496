@@ -1,12 +1,12 @@
-﻿namespace DO
+﻿using System.Runtime.Serialization;
+
+namespace DO
 {
     [Serializable]
     public class NotExist : Exception
     {
-        public NotExist(string? message) : base(message)
-        {
+        public NotExist(string? message) : base(message){}
 
-        }
     }
 
     [Serializable]

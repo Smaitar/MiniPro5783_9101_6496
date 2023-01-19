@@ -63,9 +63,8 @@ namespace PL
 
         private void buttonCehck_Click(object sender, RoutedEventArgs e)
         {
-
             int id = int.Parse(idText.Text);
-            new OrderTrack(id).Show();
+            new OrderTrack(id).Show(); 
         }
     }
 }

@@ -46,14 +46,23 @@ namespace PL
         public OrderTrack()
         {
             InitializeComponent();
-            orderTracking = new OrderTracking { StatusList = new List<Tuple<DateTime?, OrderStatus?>>() };
+            try
+            {
+                orderTracking = new OrderTracking { StatusList = new List<Tuple<DateTime?, OrderStatus?>>() };
+            }
+            catch (Exception ex) { MessageBox.Show(ex.ToString()); }
         }
 
         public OrderTrack(int id)
         {
             InitializeComponent();
-            orderTracking = new OrderTracking { StatusList = new List<Tuple<DateTime?, OrderStatus?>>() };
-            orderTracking = bl.Order.OrderTracking(id);
+            try
+            {
+                orderTracking = new OrderTracking { StatusList = new List<Tuple<DateTime?, OrderStatus?>>() };
+                orderTracking = bl.Order.OrderTracking(id);
+            }
+            catch (Exception ex) { MessageBox.Show(ex.ToString()); }
+
         }
 
         private void Search(object sender, RoutedEventArgs e)

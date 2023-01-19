@@ -28,7 +28,6 @@
 
         <Label Content="{Binding OrderTracking.StatusList[0].Item2}" Width="100" HorizontalAlignment="Left" Margin="150,350,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding OrderTracking.StatusList[1].Item2}" Width="100" HorizontalAlignment="Center" Margin="-10,350,0,0" VerticalAlignment="Top"/>
-        <Image HorizontalAlignment="Left" Height="422" Margin="430,2,0,0" VerticalAlignment="Top" Width="370" Source="/10479909_768888769823320_3250356821886916962_o.jpg" Stretch="Fill"/>
         <Image HorizontalAlignment="Center" Height="90" Margin="0,344,0,0" VerticalAlignment="Top" Width="800" Source="/black-backdrop.jpg" Stretch="Fill"/>
         <Label Content="{Binding orderTracking.StatusList[0].Item2}" Width="108" HorizontalAlignment="Left" Margin="67,168,0,0" VerticalAlignment="Top" Background="#FFF9F7F7" Height="33"/>
         <Label Content="{Binding orderTracking.StatusList[1].Item2}" HorizontalAlignment="Left" Margin="188,167,0,0" VerticalAlignment="Top" Height="33" Width="112" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" RenderTransformOrigin="0.25,0.516"/>
@@ -40,5 +39,6 @@
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowColorKey}}"/>
             </Label.Background>
         </Label>
+        <Image Margin="250,-29,250,311" Source="/10479909_768888769823320_3250356821886916962_o.jpg"/>
     </Grid>
 </Window>
