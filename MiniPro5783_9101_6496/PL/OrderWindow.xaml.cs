@@ -24,6 +24,18 @@ namespace PL
         BlApi.IBL? bl = Factory.Get();
 
 
+
+        public List<BO.OrderItem?> orderItem
+        {
+            get { return (List<BO.OrderItem?>)GetValue(orderItemProperty); }
+            set { SetValue(orderItemProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for orderItem.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty orderItemProperty =
+            DependencyProperty.Register("orderItem", typeof(List<BO.OrderItem?>), typeof(Window), new PropertyMetadata(null));
+
+
         public BO.Order? order
         {
             get { return (BO.Order?)GetValue(orderProperty); }
@@ -38,22 +50,62 @@ namespace PL
         public OrderWindow(int id)
         {
             InitializeComponent();
-            try
-            {
+
+            orderItem = new List<BO.OrderItem?>();
+           try
+           {
                 order = bl.Order.OrderDetails(id);
-            }
+           }
+                
+       
             catch (BO.NotExist ex)
             {
-                //throw an error message box
+                //MessageBox.Show(ex.Message);
+               //A throw an error message box
                 string messageBoxText = ex.Message.ToString();
                 string caption = "error";
                 MessageBoxImage icon = MessageBoxImage.Error;
                 MessageBoxResult result;
                 result = MessageBox.Show(messageBoxText, caption, MessageBoxButton.OK, icon, MessageBoxResult.OK);
-
-
-            }
-           
+           }
+         orderItem=order.Items.ToList();
+            
         }
+
+        private void update2_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                order = bl.Order.UpdateSuppliedOrder(order.ID);
+            }
+            catch(BO.NotExist ex)
+            {
+                string messageBoxText = ex.Message.ToString();
+                string caption = "error";
+                MessageBoxImage icon = MessageBoxImage.Error;
+                MessageBoxResult result;
+                result = MessageBox.Show(messageBoxText, caption, MessageBoxButton.OK, icon, MessageBoxResult.OK);
+            }
+            this.Close();
+        }
+
+        private void update1_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                order = bl.Order.UpdateSentOrder(order.ID);
+            }
+            catch (BO.NotExist ex)
+            {
+                string messageBoxText = ex.Message.ToString();
+                string caption = "error";
+                MessageBoxImage icon = MessageBoxImage.Error;
+                MessageBoxResult result;
+                result = MessageBox.Show(messageBoxText, caption, MessageBoxButton.OK, icon, MessageBoxResult.OK);
+            }
+            this.Close();
+        }
+
+       
     }
 }

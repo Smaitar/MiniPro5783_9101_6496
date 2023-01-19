@@ -30,15 +30,29 @@ namespace PL
 
         private void OrderListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            BO.OrderForList? orderForList= OrderListView.SelectedItem as BO.OrderForList;
-            if (orderForList!=null)
+            //BO.OrderForList? orderForList= OrderListView.SelectedItem as BO.OrderForList;
+            //if (orderForList!=null)
+            //{
+            //    OrderWindow orderWindow= new OrderWindow(orderForList.ID);
+            //    orderWindow.ShowDialog();
+            //    //OrderListView.ItemsSource=bl?.Order.GetOrderForListsManager().ToList();
+
+            //}
+            
+        }
+
+        private void OrderListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BO.OrderForList? orderForList = OrderListView.SelectedItem as BO.OrderForList;
+            if (orderForList != null)
             {
-                OrderWindow orderWindow= new OrderWindow(orderForList.ID);
+                OrderWindow orderWindow = new OrderWindow(orderForList.ID);
                 orderWindow.ShowDialog();
                 OrderListView.ItemsSource=bl?.Order.GetOrderForListsManager().ToList();
 
             }
-            
+
+
         }
     }
 }

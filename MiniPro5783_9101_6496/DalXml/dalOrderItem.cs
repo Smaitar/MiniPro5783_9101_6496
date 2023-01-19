@@ -10,7 +10,7 @@ using System.Xml.Linq;
 namespace Dal;
 internal class dalOrderItem : IOrderItem
 {
-    string path = @"..\xml\orderItems.xml";
+    string path = @"..\xml\ordersItems.xml";
     string configPath = @"..\xml\config.xml";
     //string dir = @"..\bin\xml\";
 
@@ -87,7 +87,7 @@ internal class dalOrderItem : IOrderItem
         List<DO.OrderItem?> prodList = XmlTools.LoadListFromXMLSerializer<DO.OrderItem?>(path);
 
         if (cond == null)
-            return prodList.AsEnumerable().OrderByDescending(p => p?.ID);
+            return prodList.OrderByDescending(p => p?.ID);
 
         return prodList.Where(cond).OrderByDescending(p => p?.ID);
     }

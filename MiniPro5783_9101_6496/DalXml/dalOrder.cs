@@ -72,7 +72,15 @@ internal class dalOrder : IOrder
         ordersRoot.Add(new XElement("Order", Id, CustomerName, CustomerEmail, CustomerAdress, OrderDate, ShipDate, DeliveryDate));
         ordersRoot.Save(path);
 
-
+        //new XElement("Or",
+        //                           new XElement("Id", Or.ID),
+        //new XElement("CustomerName", Or.CustomerName),
+        //new XElement("CustomerAdress", Or.CustomerAdress),
+        //new XElement("OrderDate", Or.OrderDate),
+        //new XElement("ShipDate", Or.ShipDate),
+        //new XElement("DeliveryDate", Or.DeliveryDate)
+        //                           );
+        //ordersRoot.Add(Or);
         return Or.ID;
 
     }
@@ -110,7 +118,7 @@ internal class dalOrder : IOrder
     {
         List<Order> prodLst = XmlTools.LoadListFromXMLSerializer<Order>(path);
 
-        if (prodLst.Exists(x => x.ID == id))
+        if (!prodLst.Exists(x => x.ID == id))
             throw new NotExist("OrderItem");
 
         return (from item in XmlTools.LoadListFromXMLSerializer<Order>(path)

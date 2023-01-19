@@ -80,8 +80,7 @@ namespace BlImplementation
             }
 
             IEnumerable<DO.OrderItem?> orderItems = dal.OrderItem.GetAll().Where(orderItem => orderItem?.OrderID  == id );
-
-            return new BO.Order()
+            BO.Order boOrder = new BO.Order()
             {
                 ID = order.ID,
 
@@ -95,6 +94,7 @@ namespace BlImplementation
                 Status = getStatus(order),
                 Items = orderItems.Select(orderItem => new BO.OrderItem
                 {
+                    ID= dal.OrderItem.GetByID(orderItem?.ProductID ?? 0).ID,
                     ProductName = dal.Product.GetByID(orderItem?.ProductID ?? 0).Name,
                     Amount = orderItem?.Amount ?? 0,
                     Price = orderItem?.Price ?? 0,
@@ -102,6 +102,9 @@ namespace BlImplementation
                     TotalPrice = orderItem?.Price * orderItem?.Amount ?? 0,
                 }).ToList()!
             };
+            boOrder.TotalPrice = boOrder.Items.Sum(item => item.TotalPrice);
+            return boOrder;
+            
         }
 
         public BO.OrderForList OrderInList(DO.Order order)
@@ -133,10 +136,10 @@ namespace BlImplementation
 
                 return OrderDetails(orderId);
             }
-            catch (Exception)
+            catch (DO.NotExist ex)
             {
 
-                throw;
+                throw new BO.NotExist(ex);
             }
         }
 
@@ -152,10 +155,10 @@ namespace BlImplementation
 
                 return OrderDetails(orderId);
             }
-            catch (Exception)
+            catch (DO.NotExist ex)
             {
 
-                throw;
+                throw new BO.NotExist(ex);
             }
         }
 

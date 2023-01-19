@@ -25,7 +25,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Label Grid.Column="0" Content="Customer Adress:" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-        <TextBlock x:Name="customerAdressTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="0" Text="{Binding CustomerAddress}" VerticalAlignment="Center"/>
+        <TextBlock x:Name="customerAdressTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="0" Text="{Binding CustomerAdress}" VerticalAlignment="Center"/>
         <Label Grid.Column="0" Content="Customer Email:" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
         <TextBlock x:Name="customerEmailTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="1" Text="{Binding CustomerEmail}" VerticalAlignment="Center"/>
         <Label Grid.Column="0" Content="Customer Name:" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
@@ -97,6 +97,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button x:Name="update1" Grid.Column="1" Content="Update" HorizontalAlignment="Left" Margin="178,4,0,0" Grid.RowSpan="2" Grid.Row="6" VerticalAlignment="Top" Height="28" Width="106"/>
+        <Button x:Name="update2" Grid.Column="1" Content="Update" HorizontalAlignment="Left" Margin="178,0,0,0" Grid.Row="3" Visibility="Visible" VerticalAlignment="Top" Height="25" Width="106" Click="update2_Click"/>
     </Grid>
 
 </Window>
