@@ -50,8 +50,10 @@ namespace PL
 
         private void Delete(object sender, RoutedEventArgs e)
         {
+
             OrderItem orderItem = (OrderItem)((Button)sender).Tag;
-            Cart.Items.Remove(orderItem);
+            bl.Cart.UpdateCart(Cart, orderItem.ProductID,0);
+            //Cart.Items.Remove(orderItem);
             Cart temp = Cart;
             Cart = null;
             Cart = temp;

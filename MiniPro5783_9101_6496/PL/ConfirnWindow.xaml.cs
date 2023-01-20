@@ -42,9 +42,23 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (bl.Cart.AprrovedCart(Cart))
-                new LastWindow().Show();
-
+            try
+            {
+                if (bl.Cart.AprrovedCart(Cart))
+                    new LastWindow().Show();
+            }
+            catch(EmptyStringEmail exception )
+            {
+                MessageBox.Show("Invalid email address");
+            }
+            catch (EmptyStringAddress exception)
+            {
+                MessageBox.Show("Invalid address");
+            }
+            catch (EmptyStringName exception)
+            {
+                MessageBox.Show("Invalid name");
+            }
         }
     }
 }

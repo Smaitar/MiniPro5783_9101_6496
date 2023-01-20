@@ -113,7 +113,7 @@ namespace BlImplementation
             if (product.ID < 0)
                 throw new NagtiveNumberException("negative number of id");
             if (product.Name == "")
-                throw new EmptyString("empty name");
+                throw new EmptyStringName("empty name");
             if (product.InStock < 1)
                 throw new NagtiveNumberException("negative number of amount in stock");
             if (product.Price < 0)
@@ -139,7 +139,7 @@ namespace BlImplementation
             if (product.ID < 0)
                 throw new NagtiveNumberException("Nagtive Number Of ID");
             if (product.Name == "")
-                throw new EmptyString(" Empty Name");
+                throw new EmptyStringName(" Empty Name");
             if (product.InStock < 1)
                 throw new NagtiveNumberException("Nagtive Number Of Amount In Stock");
             if (product.Price < 0)

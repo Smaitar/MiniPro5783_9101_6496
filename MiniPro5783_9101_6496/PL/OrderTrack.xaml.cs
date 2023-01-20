@@ -74,7 +74,7 @@ namespace PL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Not found");
             }
         }
     }

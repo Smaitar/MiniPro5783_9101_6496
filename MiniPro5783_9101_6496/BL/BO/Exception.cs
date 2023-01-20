@@ -14,12 +14,34 @@
     }
 
     [Serializable]
-    public class EmptyString : Exception
+    public class EmptyStringName : Exception
     {
-        public EmptyString(string? message) : base(message)
+        public EmptyStringName(string? message) : base(message)
         {
         }
-        public EmptyString(Exception innerException, string? message = "") : base(message, innerException)
+        public EmptyStringName(Exception innerException, string? message = "") : base(message, innerException)
+        {
+
+        }
+    }
+
+    public class EmptyStringAddress : Exception
+    {
+        public EmptyStringAddress(string? message) : base(message)
+        {
+        }
+        public EmptyStringAddress(Exception innerException, string? message = "") : base(message, innerException)
+        {
+
+        }
+    }
+
+    public class EmptyStringEmail : Exception
+    {
+        public EmptyStringEmail(string? message) : base(message)
+        {
+        }
+        public EmptyStringEmail(Exception innerException, string? message = "") : base(message, innerException)
         {
 
         }

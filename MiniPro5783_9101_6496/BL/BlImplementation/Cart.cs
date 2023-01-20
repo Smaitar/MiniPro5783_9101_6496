@@ -9,7 +9,6 @@ namespace BlImplementation;
 
 internal class Cart : ICart
 {
-
     DalApi.IDal? dal = DalApi.Factory.Get();
     //Adds a new product
     public BO.Cart AddProduct(BO.Cart cart, int id)
@@ -97,19 +96,20 @@ internal class Cart : ICart
         }
         
         int amount1;
-
         if (cart.Items[index]!.Amount < amount)
         {
             amount1 = amount - cart.Items[index]!.Amount;
             cart.Items[index]!.Amount = amount;
             cart.Items[index]!.TotalPrice += amount1 * product.Price;
             cart.Items[index]!.Price += amount1 * product.Price;
+            cart.TotalPrice += amount * product.Price-100;/////////////
             return cart;
         }
 
         if (amount == 0)
         {
-            cart.TotalPrice = cart.TotalPrice - cart.Items[index]!.Price;
+
+            cart.TotalPrice -=cart.Items[index]!.TotalPrice;//instead of price
             try { cart.Items.RemoveAt(index); }
             catch (DO.NotExist ex)
             {
@@ -126,7 +126,6 @@ internal class Cart : ICart
             cart.Items[index]!.Price -= amount1 * product.Price;
             return cart;
         }
-
         return cart;
     }
 
@@ -137,14 +136,14 @@ internal class Cart : ICart
         if (cart.Items.Any())
         {
             //A correctness check on the CustomerName and the CustomerAdress and the CustomerEmail in case of incorrect data throws an exception
-            if (cart.CustomerName == "")
-                throw new BO.EmptyString("Empty Customer Name");
+            if (cart.CustomerName == ""||cart.CustomerName==null)
+                throw new BO.EmptyStringName("Empty Customer Name");
 
-            if (cart.CustomerAdress == "")
-                throw new BO.EmptyString("Empty Customer Adress");
+            if (cart.CustomerAdress == ""||cart.CustomerAdress==null)
+                throw new BO.EmptyStringAddress("Empty Customer Adress");
 
-            if (!GetEmail(cart.CustomerEmail!))
-                throw new BO.EmptyString("Empty Customer Email");
+            if (!new EmailAddressAttribute().IsValid(cart.CustomerEmail))
+                throw new BO.EmptyStringEmail("Empty Customer Email");
 
             foreach (BO.OrderItem item in cart.Items)
             {
@@ -220,11 +219,6 @@ internal class Cart : ICart
         }
 
         return true;
-    }
-
-    bool GetEmail(string email)
-    {
-        return new EmailAddressAttribute().IsValid(email);
     }
 
     public void ClearItems(BO.Cart cart) //clear the cart
