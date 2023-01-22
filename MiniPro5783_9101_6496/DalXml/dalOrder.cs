@@ -23,26 +23,17 @@ internal class dalOrder : IOrder
 
     public dalOrder()
     {
-        //LoadData();
+        LoadData();
     }
 
     private void LoadData()
     {
-        //try
-        //{
-            if (!File.Exists(path))
-                throw new Exception("order File upload problem");
-            //    else
-            //    {
-            //        ordersRoot = new XElement("orders");
-            //        ordersRoot.Save( path);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-
-            //}
-        //}
+        if (!File.Exists(path))
+            throw new Exception("order File upload problem");
+        else
+        {
+            ordersRoot = XElement.Load(path);
+        }
     }
 
     public int Add(Order Or)
@@ -67,23 +58,85 @@ internal class dalOrder : IOrder
         XElement OrderDate = new XElement("OrderDate", Or.OrderDate);
         XElement ShipDate = new XElement("ShipDate", Or.ShipDate);
         XElement DeliveryDate = new XElement("DeliveryDate", Or.DeliveryDate);
+        XElement Order = new XElement("Order", Id, CustomerName, CustomerEmail, CustomerAdress, OrderDate, ShipDate, DeliveryDate);
 
-
-        ordersRoot.Add(new XElement("Order", Id, CustomerName, CustomerEmail, CustomerAdress, OrderDate, ShipDate, DeliveryDate));
+        ordersRoot.Add(Order);
         ordersRoot.Save(path);
 
-        //new XElement("Or",
-        //                           new XElement("Id", Or.ID),
-        //new XElement("CustomerName", Or.CustomerName),
-        //new XElement("CustomerAdress", Or.CustomerAdress),
-        //new XElement("OrderDate", Or.OrderDate),
-        //new XElement("ShipDate", Or.ShipDate),
-        //new XElement("DeliveryDate", Or.DeliveryDate)
-        //                           );
-        //ordersRoot.Add(Or);
+
         return Or.ID;
 
     }
+    //string path = @"..\xml\orders.xml";
+    //string configPath = @"..\xml\config.xml";
+    ////string dir = @"..\bin\xml\";
+
+
+    //XElement ordersRoot;
+
+    //public dalOrder()
+    //{
+    //    LoadData();
+    //}
+
+    //private void LoadData()
+    //{
+    //    //try
+    //    //{
+    //    //if (!File.Exists(path))
+    //    //    throw new Exception("order File upload problem");
+    //    // else
+    //    //    {
+    //    //        ordersRoot = new XElement("orders");
+    //    //        ordersRoot.Save( path);
+    //    //    }
+    //    //}
+    //    //catch (Exception ex)
+    //    //{
+
+    //    //}
+    //    //}
+
+    //    if (!File.Exists(path))
+    //        throw new Exception("order File upload problem");
+    //    else
+    //    {
+    //        ordersRoot = new XElement("orders");
+    //        ordersRoot.Save(path);
+    //    }
+    //}
+
+    //    public int Add(Order Or)
+    //{
+
+    //    //Read config file
+    //    XElement configRoot = XElement.Load(configPath);
+    //    var v = configRoot.Element("orderSeq");
+    //    int nextSeqNum = Convert.ToInt32(configRoot.Element("orderSeq")!.Value);
+    //    nextSeqNum++;
+
+    //    Or.ID = nextSeqNum;
+    //    //update config file
+    //    configRoot.Element("orderSeq")!.SetValue(nextSeqNum);
+    //    configRoot.Save(configPath);
+
+
+    //    XElement Id = new XElement("Id", Or.ID);
+    //    XElement CustomerName = new XElement("CustomerName", Or.CustomerName);
+    //    XElement CustomerEmail = new XElement("CustomerEmail", Or.CustomerEmail);
+    //    XElement CustomerAdress = new XElement("CustomerAdress", Or.CustomerAdress);
+    //    XElement OrderDate = new XElement("OrderDate", Or.OrderDate);
+    //    XElement ShipDate = new XElement("ShipDate", Or.ShipDate);
+    //    XElement DeliveryDate = new XElement("DeliveryDate", Or.DeliveryDate);
+
+
+    //    ordersRoot.Add(new XElement("Order", Id, CustomerName, CustomerEmail, CustomerAdress, OrderDate, ShipDate, DeliveryDate));
+    //    ordersRoot.Save(path);
+
+
+    //    return Or.ID;
+
+    //}
 
     public void Delete(int id)
     {
@@ -119,7 +172,7 @@ internal class dalOrder : IOrder
         List<Order> prodLst = XmlTools.LoadListFromXMLSerializer<Order>(path);
 
         if (!prodLst.Exists(x => x.ID == id))
-            throw new NotExist("OrderItem");
+            throw new NotExist("Order");
 
         return (from item in XmlTools.LoadListFromXMLSerializer<Order>(path)
                 where item.ID == id

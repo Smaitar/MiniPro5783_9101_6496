@@ -17,35 +17,23 @@ internal class dalProduct : IProduct
 {
     string path = @"..\xml\products.xml";
     string configPath = @"..\xml\config.xml";
-   // string dir = @"..\bin\xml\";
+    // string dir = @"..\bin\xml\";
 
-  //  XElement productRoot;
+    XElement productRoot;
 
     public dalProduct()
     {
-        //LoadData();
+        LoadData();
     }
 
     private void LoadData()
     {
-            if (!File.Exists(path))
-                throw new Exception("product File upload problem");
-
-            
-        /* try
-         {
-             if (File.Exists(path))
-                 productRoot = XElement.Load(path);
-             else
-             {
-                 productRoot = new XElement("products");
-                 productRoot.Save(path);
-             }
-         }
-         catch (Exception ex)
-         {
-             throw new Exception("product File upload problem" + ex.Message);
-         }*/
+        if (!File.Exists(path))
+            throw new Exception("Product File upload problem");
+        else
+        {
+            productRoot = XElement.Load(path);
+        }
     }
 
     public int Add(Product product)
@@ -56,21 +44,77 @@ internal class dalProduct : IProduct
             throw new AlredyExist("product");
 
 
-        /* XElement Id = new XElement("ID", product.ID);
-         XElement name = new XElement("Name", product.Name);
-         XElement category = new XElement("Category", product.Category);
-         XElement inStock = new XElement("InStock", product.InStock);
-         XElement price = new XElement("Price", product.Price);
-         XElement newProduct = new XElement("Product", Id, name, category, price, inStock);
+        XElement Id = new XElement("ID", product.ID);
+        XElement name = new XElement("Name", product.Name);
+        XElement category = new XElement("Category", product.Category);
+        XElement inStock = new XElement("InStock", product.InStock);
+        XElement price = new XElement("Price", product.Price);
+        XElement newProduct = new XElement("Product", Id, name, category, price, inStock);
 
-         productRoot.Add(newProduct);
-         productRoot.Save( path);*/
+        productRoot.Add(newProduct);
+        productRoot.Save(path);
 
         ordrList.Add(product);
         XmlTools.SaveListToXMLSerializer(ordrList, path);
 
         return product.ID;
     }
+    //  string path = @"..\xml\products.xml";
+    //  string configPath = @"..\xml\config.xml";
+    // // string dir = @"..\bin\xml\";
+
+    ////  XElement productRoot;
+
+    //  public dalProduct()
+    //  {
+    //      //LoadData();
+    //  }
+
+    //  private void LoadData()
+    //  {
+    //          if (!File.Exists(path))
+    //              throw new Exception("product File upload problem");
+
+
+    //      /* try
+    //       {
+    //           if (File.Exists(path))
+    //               productRoot = XElement.Load(path);
+    //           else
+    //           {
+    //               productRoot = new XElement("products");
+    //               productRoot.Save(path);
+    //           }
+    //       }
+    //       catch (Exception ex)
+    //       {
+    //           throw new Exception("product File upload problem" + ex.Message);
+    //       }*/
+    //  }
+
+    //  public int Add(Product product)
+    //  {
+    //      List<Product> ordrList = XmlTools.LoadListFromXMLSerializer<Product>(path);
+
+    //      if (ordrList.Exists(x => x.ID == product.ID))
+    //          throw new AlredyExist("product");
+
+
+    //      /* XElement Id = new XElement("ID", product.ID);
+    //       XElement name = new XElement("Name", product.Name);
+    //       XElement category = new XElement("Category", product.Category);
+    //       XElement inStock = new XElement("InStock", product.InStock);
+    //       XElement price = new XElement("Price", product.Price);
+    //       XElement newProduct = new XElement("Product", Id, name, category, price, inStock);
+
+    //       productRoot.Add(newProduct);
+    //       productRoot.Save( path);*/
+
+    //      ordrList.Add(product);
+    //      XmlTools.SaveListToXMLSerializer(ordrList, path);
+
+    //      return product.ID;
+    //  }
 
     public void Delete(int id)
     {
