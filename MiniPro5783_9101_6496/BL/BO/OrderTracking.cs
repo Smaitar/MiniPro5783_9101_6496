@@ -6,7 +6,8 @@
 
         public OrderStatus Status { get; set; }
 
-        public List<(DateTime?, OrderStatus)>? OrderTrackings { get; set; }
+        //public List<(DateTime?, OrderStatus)>? OrderTrackings { get; set; }
+        public List<Tuple<DateTime?, OrderStatus?>> StatusList { get; set; }
 
         public override string ToString()
         {
@@ -15,7 +16,7 @@
            Order ID: {ID}, 
            Order Status:{Status},
             string s = null;
-            Items: {string.Join(", \n", OrderTrackings)},";
+            Items: {string.Join(", \n", StatusList)},";
         }
     }
 }

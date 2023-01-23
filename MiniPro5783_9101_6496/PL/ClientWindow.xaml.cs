@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
 using BlApi;
+using System.ComponentModel;
 
 namespace PL
 {
@@ -23,37 +24,80 @@ namespace PL
     {
         BlApi.IBL? bl = Factory.Get();
         static BO.Cart cart;
-        public ClientWindow()
+
+        public IEnumerable<ProductItem> ProductsList
         {
-            InitializeComponent();
-            cart = new BO.Cart();
-            cart.Items = new List<OrderItem?>();
-            list.ItemsSource = bl.Product.GetListToClient(cart);
-            AttributeSelector.ItemsSource = Enum.GetValues(typeof(Category));
+            get { return (IEnumerable<ProductItem>)GetValue(ProductsListProperty); }
+            set { SetValue(ProductsListProperty, value); }
         }
-        //public ClientWindow(BO.Cart cartu)
-        //{
-        //    cart = new BO.Cart();
-        //    cart = cartu;
-        //}
+
+        // Using a DependencyProperty as the backing store for ProductsList.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ProductsListProperty =
+            DependencyProperty.Register("ProductsList", typeof(IEnumerable<ProductItem>), typeof(ClientWindow));
+
+
+        // Using a DependencyProperty as the backing store for Cart.  This enables animation, styling, binding, etc...
+     
+        public ICollectionView CollectionViewProductList { set; get; }
+
+        private string ProductGroupName;
+
+        private PropertyGroupDescription ProductGroupDescription;
+
+
+        public ClientWindow()
+        {           
+            InitializeComponent();
+            cart = new Cart { Items = new List<OrderItem?>() };
+            ProductsList = bl.Product.GetListToClient(cart);
+            ProductGroupName = "Category";
+            CollectionViewProductList = CollectionViewSource.GetDefaultView(ProductsList);
+            ProductGroupDescription = new PropertyGroupDescription(ProductGroupName);
+            CollectionViewProductList.GroupDescriptions.Add(ProductGroupDescription);
+        }
+  
+        public ClientWindow(BO.Cart cartu)
+        {
+           cart = cartu;
+        }
 
         private void selection(object sender, SelectionChangedEventArgs e)
         {
             Category category = (Category)AttributeSelector.SelectedItem;
 
-            list.ItemsSource = bl.Product.GetList(x => x!.Category == category);
+            ProductsList = (IEnumerable<ProductItem>)bl.Product.GetList(x => x!.Category == category);
+            //ProductsList = bl.Product.GetList(x => x!.Category == category);
         }
 
-        private void list_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selected = (ProductItem)((ListView)sender).SelectedItem;
-            new ClientFunction(selected).ShowDialog();
-        }
+        //private void list_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    var selected = (ProductItem)((ListView)sender).SelectedItem;
+        //    new ClientFunction(selected, cart).ShowDialog();
+        //}
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             new CartWindow(cart).ShowDialog();
 
+        }
+
+        private void AddToCart(object sender, MouseButtonEventArgs e)
+        {
+            ProductForList orderForList = (ProductForList)((Button)sender).Tag;
+            bl.Cart.AddProduct(cart, orderForList.ID);
+        }
+
+        //private void list_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    var selected = (ProductItem)((ListView)sender).SelectedItem;
+        //    new ClientFunction(selected, cart).ShowDialog();
+        //}
+
+        private void list_SelectionChanged(object sender, MouseButtonEventArgs e)
+        {
+            var selected = (ProductItem)((ListView)sender).SelectedItem;
+            new ClientFunction(selected,cart).ShowDialog();
+           
         }
     }
 }

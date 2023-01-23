@@ -1,4 +1,5 @@
-﻿using BO;
+﻿
+using BO;
 using Dal;
 using DalApi;
 using Microsoft.VisualBasic;
@@ -32,34 +33,60 @@ namespace BlImplementation
             return order.DeliveryDate != null ? OrderStatus.Supplied : order.ShipDate != null ? OrderStatus.Sent : OrderStatus.Confirmation;
         }
 
-        public OrderTracking OrderTracking(int orderId)
+        public BO.OrderTracking OrderTracking(int ID)
         {
-            //Order Status Tracking for Admin Order Management Screen
-            DO.Order order;
+            BO.Order OrderBo;
 
-            // We try to get the value from the data layer and if not we throw an exception
-            try
+            try /// trying to get the order from the DO and the order datails from the BO 
             {
-                order = dal.Order.GetByID(orderId);
+                OrderBo = OrderDetails(ID);
             }
             catch (DO.NotExist ex)
-            {
-                throw new BO.NotExist(ex);
-            }
+            { throw new BO.NotExist(ex); }
 
-            //return the position-status of the order
-            return new OrderTracking
+            BO.OrderTracking orderTracking = new BO.OrderTracking()
             {
-                ID = order.ID,
-                Status = getStatus(order),
-                OrderTrackings = new List<(DateTime?, OrderStatus)>
+                ID = ID,
+                Status = OrderBo.Status,
+                StatusList = new List<Tuple<DateTime?, BO.OrderStatus?>> /// initialize the touple of dete time and order status
                 {
-                    (order.OrderDate, OrderStatus.Confirmation),
-                    (order.ShipDate, OrderStatus.Sent),
-                    (order.DeliveryDate, OrderStatus.Supplied),
+                    new Tuple<DateTime?, OrderStatus?>(OrderBo.OrderDate, BO.OrderStatus.Confirmation),
+                    new Tuple<DateTime?, OrderStatus?>(OrderBo.ShipDate, BO.OrderStatus.Sent),
+                    new Tuple<DateTime?, OrderStatus?>(OrderBo.DeliveryDate, BO.OrderStatus.Supplied)
                 }
             };
+
+            return orderTracking;
         }
+
+        //public OrderTracking OrderTracking(int orderId)
+        //{
+        //    //Order Status Tracking for Admin Order Management Screen
+        //    DO.Order order;
+
+        //    // We try to get the value from the data layer and if not we throw an exception
+        //    try
+        //    {
+        //        order = dal.Order.GetByID(orderId);
+        //    }
+        //    catch (DO.NotExist ex)
+        //    {
+        //        throw new BO.NotExist(ex);
+        //    }
+
+        //    //return the position-status of the order
+        //    return new StatusList
+        //    {
+        //        ID = order.ID,
+        //        Status = getStatus(order),
+        //        StatusList = new List<(DateTime?, OrderStatus)>
+        //        {
+        //            (order.OrderDate, OrderStatus.Confirmation),
+        //            (order.ShipDate, OrderStatus.Sent),
+        //            (order.DeliveryDate, OrderStatus.Supplied),
+        //        }
+        //    };
+        //}
 
         public BO.Order OrderDetails(int id)//Returns the order details for admin screen and buyer screen
         {

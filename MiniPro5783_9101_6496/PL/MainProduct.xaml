@@ -20,8 +20,11 @@
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
             <ComboBox Name="AttributeSelector" SelectionChanged="selection" Margin="0,0,0,545" Grid.RowSpan="2" />
-            <ListView x:Name="list" Grid.Row="1" MouseDoubleClick="update"/>
+            <ListView x:Name="list" Grid.Row="1" MouseDoubleClick="update">
+            </ListView>
             <Button x:Name="Addbtn" Content="Add Product" HorizontalAlignment="Left" Margin="400,0,0,0" VerticalAlignment="Center" Click="Add_Click" Grid.Row="2"/>
+
+            <!--<Image Source="/46508277_1969039559808229_269587387703623680_n.jpg" Height="618" Width="1082" RenderTransformOrigin="0.666,0.5"/>-->
         </Grid>
 
     </Grid>

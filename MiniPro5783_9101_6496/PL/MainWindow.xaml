@@ -7,33 +7,36 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow1" Height="650" Width="800">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="197*"/>
             <RowDefinition Height="437*"/>
         </Grid.RowDefinitions>
 
-        <Button x:Name="Manager" Click="manager" Content="manager" HorizontalAlignment="Left" Margin="284,164,0,0" VerticalAlignment="Top" Height="72" Width="172" FontSize="36" Foreground="#FFA22222" FontStyle="Italic" Background="{x:Null}" BorderBrush="#FF7E2424" Grid.RowSpan="2" FontWeight="Bold"/>
-        <Button x:Name="Cliente" Click="client" Content="client" Margin="284,207,344,0" VerticalAlignment="Top" Height="72" Grid.Row="1" Background="{x:Null}" FontStyle="Italic" FontSize="36" Foreground="#FFFAF7F9" BorderBrush="#FF801C1C" />
-        <Button x:Name="TrackButton" Content="Track" Margin="284,86,0,0" Grid.Row="1" Height="69" Width="172" Click="Button_Click" Background="{x:Null}" FontSize="36" Foreground="#FF8B1818" FontStyle="Italic" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.448,0.029" FontWeight="Bold">
-            <Button.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black"/>
-                    <GradientStop Color="#FF6D1818" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.BorderBrush>
-        </Button>
-        <TextBox x:Name="idText" HorizontalAlignment="Left" Margin="348,324,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility ="Hidden" TextChanged="TextBox_TextChanged"/>
-        <Label x:Name="button"  Content="ID" HorizontalAlignment="Left" Margin="284,324,0,0" Grid.Row="1" VerticalAlignment="Top" Width="33"  Visibility ="Hidden" Background="#FFF0EDED" Height="27"/>
-        <Button x:Name="buttonCehck" Content="Check" HorizontalAlignment="Left" Margin="473,333,0,0" Grid.Row="1" VerticalAlignment="Top" Click="buttonCehck_Click"  Visibility="Hidden"/>
-        <Image HorizontalAlignment="Left" Height="436" Grid.RowSpan="2" VerticalAlignment="Top" Width="358" Source="/הורדה.jpg" RenderTransformOrigin="0.5,0.5" Stretch="UniformToFill" StretchDirection="UpOnly" Margin="461,85,0,0" Opacity="0.55">
-            <Image.OpacityMask>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black"/>
-                    <GradientStop Color="#FF9C4B4B" Offset="1"/>
-                </LinearGradientBrush>
-            </Image.OpacityMask>
+        <!--<MediaElement HorizontalAlignment="Left" Height="799" VerticalAlignment="Top" Width="874" Source="C:\Users\USER\Downloads\clip.mp4" Grid.RowSpan="2" Margin="8,-82,0,0"/>-->
+
+        <Image HorizontalAlignment="Left" Height="786" Margin="-315,0,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="1118" Source="/129944386_3565016110210558_3334533780815957268_n.jpg"/>
+
+        <Image HorizontalAlignment="Left" Height="879" Margin="-65,222,0,0" VerticalAlignment="Top" Width="3016" Source="/images (2).jpg" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.27"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
         </Image>
+
+        <!--<MediaElement HorizontalAlignment="Left" Height="799" VerticalAlignment="Top" Width="874" Source="C:\Users\USER\Downloads\clip.mp4" Grid.RowSpan="2" Margin="8,-82,0,0"/>-->
+
+        <Button x:Name="Manager" Click="manager" Content="manager" HorizontalAlignment="Left" Margin="555,287,0,0" VerticalAlignment="Top" Height="69" Width="172" FontSize="36" Foreground="#FFA22222" FontStyle="Italic" Background="{x:Null}" BorderBrush="#FF7F1818" FontWeight="Bold" Grid.Row="1" BorderThickness="3,3,3,3"/>
+        <Button x:Name="Client" Click="client" Content="Client" Margin="77,287,551,0" VerticalAlignment="Top" Height="69" Grid.Row="1" Background="{x:Null}" FontStyle="Italic" FontSize="36" Foreground="#FF8B1818" BorderBrush="#FF7F1818" BorderThickness="3,3,3,3" FontWeight="Bold" FontFamily="Segoe UI Variable Display" />
+        <Button x:Name="TrackButton" Content="Track" Margin="0,287,0,0" Height="69" Width="172" Click="Button_Click" Background="{x:Null}" FontSize="36" Foreground="#FF8B1818" FontStyle="Italic" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.448,0.029" FontWeight="Bold" BorderThickness="3,3,3,3" BorderBrush="#FF7F1818" Grid.Row="1"/>
+        <TextBox x:Name="idText" HorizontalAlignment="Center" Visibility="Hidden" Margin="0,380,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged" RenderTransformOrigin="0.517,4.066" Height="36" Background="{x:Null}" BorderBrush="#FF7F1818" BorderThickness="3,3,3,3"/>
+        <Label x:Name="button"  Content="ID" HorizontalAlignment="Left" Margin="269,380,0,0" VerticalAlignment="Top" Width="46"  Visibility ="Hidden" Background="{x:Null}" Height="34" RenderTransformOrigin="0.939,2.52" BorderBrush="#FF7F1818" BorderThickness="3,3,3,3" FontSize="16" FontWeight="Bold" Foreground="#FF7F1818" Grid.Row="1"/>
+        <Button x:Name="buttonCehck" Content="Check" HorizontalAlignment="Left" Margin="488,380,0,0" VerticalAlignment="Top" Click="buttonCehck_Click"  Visibility ="Hidden" RenderTransformOrigin="0.444,1.053" Height="35" Width="67" BorderBrush="#FF7F1818" Background="{x:Null}" BorderThickness="3,3,3,3" FontSize="16" FontWeight="Bold" Foreground="#FF7F1818" Grid.Row="1"/>
 
     </Grid>
 </Window>
