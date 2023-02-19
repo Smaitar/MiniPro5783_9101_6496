@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <BaseOutputPath>$(SolutionDir)\bin\</BaseOutputPath>
+    <OutputPath>$(SolutionDir)\bin\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="10479909_768888769823320_3250356821886916962_o.jpg" />
+    <None Remove="129944386_3565016110210558_3334533780815957268_n.jpg" />
+    <None Remove="46508277_1969039559808229_269587387703623680_n.jpg" />
+    <None Remove="74624049_2533662850012561_7659520241893900288_n.jpg" />
+    <None Remove="91283109_2868451936533649_7740207335762558976_n.png" />
+    <None Remove="91837893_2868441693201340_6077998599289962496_n.jpg" />
+    <None Remove="black-backdrop.jpg" />
+    <None Remove="images %282%29.jpg" />
+    <None Remove="הורדה %281%29.jpg" />
+    <None Remove="הורדה %281%29.png" />
+    <None Remove="הורדה.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BL\BL.csproj" />
+    <ProjectReference Include="..\Simulator\Simulator.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="10479909_768888769823320_3250356821886916962_o.jpg" />
+    <Resource Include="129944386_3565016110210558_3334533780815957268_n.jpg" />
+    <Resource Include="46508277_1969039559808229_269587387703623680_n.jpg" />
+    <Resource Include="74624049_2533662850012561_7659520241893900288_n.jpg" />
+    <Resource Include="91283109_2868451936533649_7740207335762558976_n.png" />
+    <Resource Include="91837893_2868441693201340_6077998599289962496_n.jpg" />
+    <Resource Include="black-backdrop.jpg" />
+    <Resource Include="images (2).jpg" />
+    <Resource Include="הורדה (1).png" />
+  </ItemGroup>
+
+</Project>
